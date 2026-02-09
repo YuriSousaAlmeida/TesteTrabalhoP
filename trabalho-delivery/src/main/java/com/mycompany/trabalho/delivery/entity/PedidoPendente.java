@@ -4,6 +4,8 @@
  */
 package com.mycompany.trabalhofinal.Entity;
 
+import com.mycompany.trabalho.delivery.entity.PedidoCancelado;
+
 /**
  *
  * @author erko
