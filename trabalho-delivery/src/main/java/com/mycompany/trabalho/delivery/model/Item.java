@@ -4,6 +4,6 @@ package com.mycompany.trabalho.delivery.model;
  *
  * @author lucas.lopes
  */
-public interface Produto {
+public interface Item {
     public double getValor();
 }

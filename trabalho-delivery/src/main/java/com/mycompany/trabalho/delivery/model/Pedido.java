@@ -8,16 +8,16 @@ import java.util.List;
  */
 public class Pedido {
     private Cliente cliente;
-    private List<Produto> itens;
+    private List<Item> itens;
     private IPedidoStatus estado;
     private double valorTotal;
 
-    public Pedido(Cliente cliente, List<Produto> itens, IPedidoStatus estado) {
+    public Pedido(Cliente cliente, List<Item> itens, IPedidoStatus estado) {
         this.cliente = cliente;
         this.itens = itens;
         this.estado = estado;
         
-        calcularTotal(); // sobreescreve this.valorTotal
+        calcularTotal(); // sobrescreve this.valorTotal
     }
     
     public void avancarStatus() {
@@ -35,7 +35,7 @@ public class Pedido {
     private void calcularTotal() {
         valorTotal = 0;
         
-        for(Produto item : itens) {
+        for(Item item : itens) {
             valorTotal += item.getValor();
         }
     }
