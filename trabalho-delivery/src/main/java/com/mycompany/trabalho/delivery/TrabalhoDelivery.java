@@ -4,6 +4,9 @@
 
 package com.mycompany.trabalho.delivery;
 
+import com.mycompany.trabalho.delivery.bebida.CocaCola;
+import com.mycompany.trabalho.delivery.bebida.CocaColaTamanhoGrandeStrategy;
+import com.mycompany.trabalho.delivery.bebida.CocaColaTamanhoPequenoStrategy;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.ITamanhoStrategy;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.decorators.*;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.*;
@@ -22,8 +25,14 @@ public static void main(String[] args) {
         minhaPizza = new MussarelaDecorator(minhaPizza);
         minhaPizza = new PresuntoDecorator(minhaPizza);
         minhaPizza = new CogumelosDecorator(minhaPizza);
+        
+        ITamanhoStrategy tamanhoCoca = new CocaColaTamanhoPequenoStrategy();
+        CocaCola coca = new CocaCola(tamanhoCoca);
+        
+        double valorFinal = minhaPizza.getValor() + coca.getValor();
 
         System.out.println("Descrição: " + minhaPizza.toString());
-        System.out.println("Valor Final: " + minhaPizza.getValor());
+        System.out.println("Descrição: " + coca.toString());
+        System.out.println("Valor Final: " + valorFinal);
     }
 }
