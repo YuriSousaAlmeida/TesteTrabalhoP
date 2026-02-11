@@ -4,9 +4,9 @@
 
 package com.mycompany.trabalho.delivery;
 
-import com.mycompany.trabalho.delivery.bebida.CocaCola;
-import com.mycompany.trabalho.delivery.bebida.CocaColaTamanhoGrandeStrategy;
-import com.mycompany.trabalho.delivery.bebida.CocaColaTamanhoPequenoStrategy;
+import com.mycompany.trabalho.delivery.dominio.model.bebida.CocaCola;
+import com.mycompany.trabalho.delivery.dominio.model.bebida.CocaColaTamanhoGrandeStrategy;
+import com.mycompany.trabalho.delivery.dominio.model.bebida.CocaColaTamanhoPequenoStrategy;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.ITamanhoStrategy;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.decorators.*;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.*;

@@ -1,4 +1,4 @@
-package com.mycompany.trabalho.delivery.bebida;
+package com.mycompany.trabalho.delivery.dominio.model.bebida;
 
 import com.mycompany.trabalho.delivery.dominio.model.pedido.ITamanhoStrategy;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.Item;
