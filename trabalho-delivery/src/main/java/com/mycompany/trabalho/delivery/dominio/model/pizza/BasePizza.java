@@ -1,5 +1,7 @@
 package com.mycompany.trabalho.delivery.dominio.model.pizza;
 
+import com.mycompany.trabalho.delivery.dominio.model.pedido.ITamanhoStrategy;
+
 
 /**
  *

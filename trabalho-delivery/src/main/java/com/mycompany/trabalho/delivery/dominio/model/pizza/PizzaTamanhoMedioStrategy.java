@@ -4,11 +4,13 @@
  */
 package com.mycompany.trabalho.delivery.dominio.model.pizza;
 
+import com.mycompany.trabalho.delivery.dominio.model.pedido.ITamanhoStrategy;
+
 /**
  *
  * @author André
  */
-public class TamanhoMedioStrategy implements ITamanhoStrategy{
+public class PizzaTamanhoMedioStrategy implements ITamanhoStrategy{
     
     @Override
     public double calcularValor(double valorBase) {

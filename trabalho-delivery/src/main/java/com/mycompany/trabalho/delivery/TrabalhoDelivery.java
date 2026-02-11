@@ -4,6 +4,7 @@
 
 package com.mycompany.trabalho.delivery;
 
+import com.mycompany.trabalho.delivery.dominio.model.pedido.ITamanhoStrategy;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.decorators.*;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.*;
 
@@ -13,7 +14,7 @@ import com.mycompany.trabalho.delivery.dominio.model.pizza.*;
  */
 public class TrabalhoDelivery {
 public static void main(String[] args) {
-        ITamanhoStrategy tamanho = new TamanhoMedioStrategy();
+        ITamanhoStrategy tamanho = new PizzaTamanhoMedioStrategy();
         Pizza minhaPizza = new BasePizza(tamanho); 
         
         minhaPizza = new CalabresaDecorator(minhaPizza);  
