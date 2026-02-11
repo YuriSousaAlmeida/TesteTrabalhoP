@@ -1,6 +1,6 @@
-package dominio.model.cliente;
+package com.mycompany.trabalho.delivery.dominio.model.cliente;
 
-import dominio.model.shared.Endereco;
+import com.mycompany.trabalho.delivery.dominio.model.shared.Endereco;
 
 /**
  *

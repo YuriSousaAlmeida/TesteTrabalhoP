@@ -1,6 +1,6 @@
-package dominio.model.pizza;
+package com.mycompany.trabalho.delivery.dominio.model.pizza;
 
-import dominio.model.pedido.Item;
+import com.mycompany.trabalho.delivery.dominio.model.pedido.Item;
 
 /**
  *

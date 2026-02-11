@@ -1,20 +1,42 @@
-package dominio.model.pizza;
+package com.mycompany.trabalho.delivery.dominio.model.pizza;
 
-import dominio.model.pizza.Pizza;
 
 /**
  *
  * @author lucas.lopes
  */
 public class BasePizza implements Pizza {
+    
+    
+    //TRECHO FEITO POR LUCAS
+//    @Override
+//    public double getValor() {
+//        // por apenas um tamanho de pizza. se tamanhos novos forem implementados, será em BasePizza
+//        return 40;
+//    }
+//    
+//    @Override
+//    public String toString() {
+//        return "Pizza média";
+//    }
+    
+    //SUGESTAO DE ANDRÉ
+    
+    private final double precoBase = 20.0;
+    private final ITamanhoStrategy tamanho;
+
+   
+    public BasePizza(ITamanhoStrategy tamanho) {
+        this.tamanho = tamanho;
+    }
+
     @Override
     public double getValor() {
-        // por apenas um tamanho de pizza. se tamanhos novos forem implementados, será em BasePizza
-        return 40;
+        return tamanho.calcularValor(precoBase);
     }
     
     @Override
     public String toString() {
-        return "Pizza média";
+        return "Pizza " + tamanho.getDescricao();
     }
 }

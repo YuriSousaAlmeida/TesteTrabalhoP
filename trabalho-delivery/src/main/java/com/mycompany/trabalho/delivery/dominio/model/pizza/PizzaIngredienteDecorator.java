@@ -1,4 +1,4 @@
-package dominio.model.pizza;
+package com.mycompany.trabalho.delivery.dominio.model.pizza;
 
 /**
  *
@@ -10,7 +10,7 @@ public abstract class PizzaIngredienteDecorator implements Pizza {
     public PizzaIngredienteDecorator(Pizza pizza) {
         this.pizza = pizza;
     }
-    
+    @Override
     public double getValor() {
         return pizza.getValor();
     }

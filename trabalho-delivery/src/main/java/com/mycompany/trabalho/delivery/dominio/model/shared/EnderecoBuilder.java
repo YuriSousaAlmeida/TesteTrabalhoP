@@ -1,4 +1,4 @@
-package dominio.model.shared;
+package com.mycompany.trabalho.delivery.dominio.model.shared;
 
 /**
  *

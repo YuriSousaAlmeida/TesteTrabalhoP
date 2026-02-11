@@ -1,4 +1,4 @@
-package dominio.model.pedido;
+package com.mycompany.trabalho.delivery.dominio.model.pedido;
 
 /**
  *

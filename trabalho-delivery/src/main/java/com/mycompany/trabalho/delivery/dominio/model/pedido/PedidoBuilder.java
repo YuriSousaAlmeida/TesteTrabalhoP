@@ -1,7 +1,6 @@
 package com.mycompany.trabalho.delivery.dominio.model.pedido;
 
-import dominio.model.cliente.Cliente;
-import dominio.model.pedido.Item;
+import com.mycompany.trabalho.delivery.dominio.model.cliente.Cliente;
 import java.util.List;
 
 /**

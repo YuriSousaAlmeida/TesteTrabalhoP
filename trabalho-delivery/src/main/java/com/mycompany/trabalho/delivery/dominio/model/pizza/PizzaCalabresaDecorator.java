@@ -1,4 +1,4 @@
-package dominio.model.pizza;
+package com.mycompany.trabalho.delivery.dominio.model.pizza;
 
 /**
  *
