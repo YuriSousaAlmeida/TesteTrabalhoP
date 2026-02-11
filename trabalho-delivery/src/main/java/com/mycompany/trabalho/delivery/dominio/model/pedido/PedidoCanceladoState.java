@@ -2,25 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.trabalho.delivery.entity;
+package com.mycompany.trabalho.delivery.dominio.model.pedido;
 
 /**
  *
  * @author erko
  */
-public class PedidoPendente implements IPedidoStatus {
+public class PedidoCanceladoState implements IPedidoState {
+
     @Override
     public void proximo(Pedido pedido) {
-        pedido.setEstado(new PedidoPreparando());
+        throw new IllegalStateException("Um pedido cancelado não pode avançar de estado.");
     }
 
     @Override
     public void cancelar(Pedido pedido) {
-        pedido.setEstado(new PedidoCancelado());
+        // Já está cancelado
     }
 
     @Override
     public String getDescricao() {
-        return "PENDENTE - Aguardando confirmação do restaurante";
+        return "CANCELADO";
     }
 }
