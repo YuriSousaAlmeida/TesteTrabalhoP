@@ -14,6 +14,7 @@ import com.mycompany.trabalho.delivery.dominio.model.pizza.*;
  */
 public class TrabalhoDelivery {
 public static void main(String[] args) {
+    
         ITamanhoStrategy tamanho = new PizzaTamanhoMedioStrategy();
         Pizza minhaPizza = new BasePizza(tamanho); 
         
