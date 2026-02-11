@@ -1,0 +1,17 @@
+package com.mycompany.trabalho.delivery.model;
+
+/**
+ *
+ * @author lucas.lopes
+ */
+public abstract class PizzaIngredienteDecorator implements Pizza {
+    private Pizza pizza;
+    
+    public PizzaIngredienteDecorator(Pizza pizza) {
+        this.pizza = pizza;
+    }
+    
+    public double getValor() {
+        return pizza.getValor();
+    }
+}
