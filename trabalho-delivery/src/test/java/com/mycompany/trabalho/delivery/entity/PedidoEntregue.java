@@ -4,23 +4,28 @@
  */
 package com.mycompany.trabalhofinal.Entity;
 
+import com.mycompany.trabalho.delivery.entity.Pedido;
+
 /**
  *
  * @author erko
  */
-public class PedidoPreparando implements IPedidoStatus {
+
+
+
+public class PedidoEntregue implements IPedidoStatus {
     @Override
     public void proximo(Pedido pedido) {
-        pedido.setEstado(new PedidoPronto());
+        // Estado final: operação ignorada ou excepção
     }
 
     @Override
     public void cancelar(Pedido pedido) {
-        throw new IllegalStateException("Pedido em preparação não pode ser cancelado.");
+        throw new IllegalStateException("Pedido já entregue.");
     }
 
     @Override
     public String getDescricao() {
-        return "PREPARANDO - O pedido está a ser cozinhado";
+        return "ENTREGUE - Concluído com sucesso";
     }
 }
