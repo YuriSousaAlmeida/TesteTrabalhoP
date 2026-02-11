@@ -14,4 +14,9 @@ public abstract class PizzaIngredienteDecorator implements Pizza {
     public double getValor() {
         return pizza.getValor();
     }
+    
+    @Override
+    public String toString() {
+        return pizza.toString();
+    }
 }

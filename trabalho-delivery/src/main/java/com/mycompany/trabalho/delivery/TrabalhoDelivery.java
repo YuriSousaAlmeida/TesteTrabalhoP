@@ -4,13 +4,24 @@
 
 package com.mycompany.trabalho.delivery;
 
+import com.mycompany.trabalho.delivery.dominio.model.pizza.decorators.*;
+import com.mycompany.trabalho.delivery.dominio.model.pizza.*;
+
 /**
  *
  * @author erko
  */
 public class TrabalhoDelivery {
+public static void main(String[] args) {
+        ITamanhoStrategy tamanho = new TamanhoMedioStrategy();
+        Pizza minhaPizza = new BasePizza(tamanho); 
+        
+        minhaPizza = new CalabresaDecorator(minhaPizza);  
+        minhaPizza = new MussarelaDecorator(minhaPizza);
+        minhaPizza = new PresuntoDecorator(minhaPizza);
+        minhaPizza = new CogumelosDecorator(minhaPizza);
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println("Descrição: " + minhaPizza.toString());
+        System.out.println("Valor Final: " + minhaPizza.getValor());
     }
 }
