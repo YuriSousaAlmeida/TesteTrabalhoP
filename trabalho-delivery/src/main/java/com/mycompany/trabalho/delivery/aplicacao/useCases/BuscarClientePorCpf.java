@@ -4,10 +4,22 @@
  */
 package com.mycompany.trabalho.delivery.aplicacao.useCases;
 
+import com.mycompany.trabalho.delivery.dominio.model.cliente.Cliente;
+import com.mycompany.trabalho.delivery.dominio.port.IClienteRepository;
+
 /**
  *
  * @author André
  */
 public class BuscarClientePorCpf {
-    
+    private final IClienteRepository repositorio;
+
+    public BuscarClientePorCpf(IClienteRepository repositorio) {
+        this.repositorio = repositorio;
+    }
+
+    public Cliente executar(String cpf) {
+        Cliente cliente = repositorio.buscarClientePorCPF(cpf);
+        return cliente; 
+    }
 }

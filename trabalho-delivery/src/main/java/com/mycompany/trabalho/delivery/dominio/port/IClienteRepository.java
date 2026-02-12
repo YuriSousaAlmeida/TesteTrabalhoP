@@ -14,5 +14,5 @@ public interface IClienteRepository {
     public void salvarCliente(Cliente cliente);
     public Cliente buscarClientePorNome(String nome);
     public void deletarCliente(String nome);
-    public Cliente buscarClientePorCPF(int cpf);
+    public Cliente buscarClientePorCPF(String cpf);
 }

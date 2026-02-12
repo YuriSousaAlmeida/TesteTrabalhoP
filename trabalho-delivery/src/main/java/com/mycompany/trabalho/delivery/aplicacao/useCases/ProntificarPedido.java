@@ -4,10 +4,28 @@
  */
 package com.mycompany.trabalho.delivery.aplicacao.useCases;
 
+import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
+import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoProntoState;
+import com.mycompany.trabalho.delivery.dominio.port.IPedidoRepository;
+
 /**
  *
  * @author André
  */
 public class ProntificarPedido {
-    
+    private final IPedidoRepository repositorio;
+
+    public ProntificarPedido(IPedidoRepository repositorio) {
+        this.repositorio = repositorio;
+    }
+
+    public void executar(int idPedido) {
+        
+        Pedido pedido = repositorio.buscarPedidoPorId(idPedido);
+        pedido.setEstado( new PedidoProntoState()); 
+
+        repositorio.salvarPedido(pedido);
+        
+        System.out.println("Pedido " + idPedido + " ficou pronto.");
+    }
 }

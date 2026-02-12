@@ -8,19 +8,19 @@ package com.mycompany.trabalho.delivery.dominio.model.pedido;
  *
  * @author erko
  */
-public class PedidoPendenteState implements IPedidoState {
+public class PedidoPreparadoState implements IPedidoState {
     @Override
     public void proximo(Pedido pedido) {
-        pedido.setEstado(new PedidoPreparadoState());
+        pedido.setEstado(new PedidoProntoState());
     }
 
     @Override
     public void cancelar(Pedido pedido) {
-        pedido.setEstado(new PedidoCanceladoState());
+        throw new IllegalStateException("Pedido em preparação não pode ser cancelado.");
     }
 
     @Override
     public String getDescricao() {
-        return "PENDENTE - Aguardando confirmação do restaurante";
+        return "PREPARANDO - O pedido está a ser cozinhado";
     }
 }
