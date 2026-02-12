@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package com.mycompany.trabalho.delivery.presentation.ui;
 
 /**
  *
@@ -49,7 +49,6 @@ public class ClienteView extends javax.swing.JFrame {
         txtRua = new javax.swing.JTextField();
         lblNumero = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
-        btnPedidosCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,9 +99,6 @@ public class ClienteView extends javax.swing.JFrame {
 
         lblNumero.setText("Número");
 
-        btnPedidosCliente.setText("Pedidos do Cliente");
-        btnPedidosCliente.addActionListener(this::btnPedidosClienteActionPerformed);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,10 +147,6 @@ public class ClienteView extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(scrClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnPedidosCliente)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,17 +182,11 @@ public class ClienteView extends javax.swing.JFrame {
                     .addComponent(btnExcluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPedidosCliente)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnPedidosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPedidosClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,7 +216,6 @@ public class ClienteView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnLimpar;
-    private javax.swing.JButton btnPedidosCliente;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCidade;

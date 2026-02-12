@@ -11,7 +11,7 @@ import com.mycompany.trabalho.delivery.dominio.model.cliente.Cliente;
  * @author André
  */
 public interface IClienteRepository {
-    public void salvarCliente();
+    public void salvarCliente(Cliente cliente);
     public Cliente buscarClientePorNome(String nome);
     public void deletarCliente(String nome);
     public Cliente buscarClientePorCPF(int cpf);

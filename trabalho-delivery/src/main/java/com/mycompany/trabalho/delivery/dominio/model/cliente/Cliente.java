@@ -21,4 +21,8 @@ public class Cliente {
         this.email = email;
         this.endereco = endereco;
     }
+
+    public String getNome(){
+        return this.nome;
+    }
 }
