@@ -1,19 +1,20 @@
 package com.mycompany.trabalho.delivery.dominio.model.pedido;
 
 import com.mycompany.trabalho.delivery.dominio.model.cliente.Cliente;
+import com.mycompany.trabalho.delivery.dominio.port.ILogService;
 import java.util.List;
 
 /**
- *
  * @author lucas.lopes
  */
 public class PedidoBuilder {
     private Cliente cliente;
     private List<Item> itens;
-    private Pedido pedido;
-    
-    public PedidoBuilder(List<Item> itens) {
+    private ILogService logger;
+
+    public PedidoBuilder(List<Item> itens, ILogService logger) {
         this.itens = itens;
+        this.logger = logger;
     }
     
     public void setCliente(Cliente cliente) {
@@ -33,6 +34,6 @@ public class PedidoBuilder {
     }
     
     public Pedido getPedido() {
-        return new Pedido(cliente, itens, new PedidoPendenteState());
+        return new Pedido(logger, cliente, itens, new PedidoPendenteState());
     }
 }
