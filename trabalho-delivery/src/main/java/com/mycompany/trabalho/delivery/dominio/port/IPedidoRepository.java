@@ -11,7 +11,7 @@ import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
  * @author André
  */
 public interface IPedidoRepository {
-    public void salvarPedido();
+    public void salvarPedido(Pedido pedido);
     public Pedido buscarPedidoPorId(int id);
     public void deletarPedido(int id);
 }
