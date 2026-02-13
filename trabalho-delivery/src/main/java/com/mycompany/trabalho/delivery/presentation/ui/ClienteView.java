@@ -7,6 +7,8 @@ package com.mycompany.trabalho.delivery.presentation.ui;
 import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteInputDTO;
 import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteOutputDTO;
 import com.mycompany.trabalho.delivery.presentation.controllers.ClienteController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Optional;
 import javax.swing.table.DefaultTableModel;
@@ -15,39 +17,33 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author erko
  */
-public class ClienteView extends javax.swing.JFrame  {
+public class ClienteView extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ClienteView.class.getName());
 
 //    private ClientePresenter presenter;
-      private ClienteController controller;
-      
-      public void ClienteView() {
-          
-        
-    }
-    
-    
+    private ClienteController controller;
+
 //    public void setPresenter(ClientePresenter presenter) {
 //        this.presenter = presenter;
 //    }
-    
-    
     /**
      * Creates new form ClienteView
      */
     public ClienteView() {
         initComponents();
-        
+        setLocationRelativeTo(null);
+
     }
-    
-    public void incicializaView(){
+
+    public void incicializaView() {
         setTitle("Gestão de Clientes - Sistema Delivery");
-        setLocationRelativeTo(null); //centralizar a janela 
+       
         limparCampos();
+        this.configurarListeners();
         this.setVisible(true);
     }
-    
+
     //setters que enviaram para presenter
 //    @Override
     public String getNome() {
@@ -78,8 +74,10 @@ public class ClienteView extends javax.swing.JFrame  {
     public String getNumero() {
         return txtNumero.getText();
     }
-    
-    
+
+    public String getCpf() {
+        return txtCPF.getText();
+    }
 
 //    @Override
     public int getLinhaSelecionada() {
@@ -91,16 +89,19 @@ public class ClienteView extends javax.swing.JFrame  {
         //mostra um optionpane com a mensagem
         javax.swing.JOptionPane.showMessageDialog(this, msg);
     }
-    
-    
-    public void inicializar(){
+
+    public void inicializar() {
+        setTitle("Gestão de Clientes - Sistema Delivery");
+       
+        limparCampos();
+        this.configurarListeners();
         this.setVisible(true);
     }
-    
+
     public void setController(ClienteController controller) {
         this.controller = controller;
     }
-    
+
     public void adicionarClienteNaTabela(String cpf, String nome, String endereco, String email) {
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
 
@@ -108,40 +109,101 @@ public class ClienteView extends javax.swing.JFrame  {
     }
     // Dentro de ClienteView.java
 
-private void btnSalvar(java.awt.event.ActionEvent evt) {                                          
-    CreateClienteInputDTO dto = new CreateClienteInputDTO();
-    
-    dto.nome = txtNome.getText();
-    dto.email = txtEMail.getText();
-    dto.cpf = txtCPF.getText();
-    
-    dto.cidade = txtCidade.getText();
-    dto.bairro = txtBairro.getText();
-    dto.rua = txtRua.getText();
-    dto.numero = txtNumero.getText();
-    
-    
-    
-        if (controller != null) {
-        Optional<CreateClienteOutputDTO> retorno = controller.salvar(dto);
-        if (retorno.isPresent()) {
-            CreateClienteOutputDTO output = retorno.get();
-            String enderecoCompleto = dto.rua + ", " + dto.numero + " - " + dto.bairro + " - " + dto.cidade;
-
-            adicionarClienteNaTabela(output.cpf, output.nome, enderecoCompleto, output.email);
-
-            System.out.println("DTO Enviado: " + dto.nome + " - CPF: " + dto.cpf);
-
-            limparCampos();
-        } else {mostrarMensagem("Erro ao salvar cliente.");
-        }
-
-    } else {
-        System.err.println("Erro: Controller não foi inicializado!");
+    //=========metodos para adicionar lsiteners aos botoes=======================================================
+    private void addSalvarListener(ActionListener listener) {
+        btnSalvar.addActionListener(listener);
     }
-       
-}
-    
+
+    private void addPesquisarListener(ActionListener listener) {
+        btnPesquisar.addActionListener(listener);
+    }
+
+    private void addLimparListener(ActionListener listener) {
+        btnLimpar.addActionListener(listener);
+    }
+
+    private void addExcluirListener(ActionListener listener) {
+        btnExcluir.addActionListener(listener);
+    }
+
+    private void addPedidosClienteListener(ActionListener listener) {
+        btnPedidosDoCliente.addActionListener(listener);
+    }
+    //=====================================//=====================================//===================================== 
+
+    private void configurarListeners() {
+        // Ação do Botão Salvar
+        btnSalvar.addActionListener((ActionEvent e) -> {
+//            executarFluxoSalvar();
+              this.mostrarMensagem("Salvar ainda não implementado");
+        });
+
+        // Ação do Botão Limpar
+        btnLimpar.addActionListener(e -> {
+            limparCampos();
+            this.mostrarMensagem("Limpando campos");
+        });
+        
+        //Ação botao pesquisar
+        btnPesquisar.addActionListener((ActionEvent e) -> {
+//            executarFluxoPesquisa();
+              this.mostrarMensagem("Pesquisar ainda não implementadp"); //TODO
+        });
+        
+        
+        //ação Botão Pedidos cliente
+        btnPedidosDoCliente.addActionListener((ActionEvent e) -> {
+//            executarFluxoPedidoCliente();
+              this.mostrarMensagem("Pedidos do cliente ainda não implementadp"); //TODO
+        });
+        
+        
+        
+        // Ação do Botão Excluir
+        btnExcluir.addActionListener(e -> {
+            int row = tblClientes.getSelectedRow();
+            if (row != -1) {
+//                cacheVisual.remove(row); //remove linha (row) da tabela 
+//                atualizarTabela();
+                mostrarMensagem("Removido da visualização.");
+            } else {
+                mostrarMensagem("Selecione um cliente na tabela primeiro.");
+            }
+        });
+    }
+
+//    private void btnSalvar(java.awt.event.ActionEvent evt) {
+//        CreateClienteInputDTO dto = new CreateClienteInputDTO();
+//
+//        dto.nome = txtNome.getText();
+//        dto.email = txtEMail.getText();
+//        dto.cpf = txtCPF.getText();
+//
+//        dto.cidade = txtCidade.getText();
+//        dto.bairro = txtBairro.getText();
+//        dto.rua = txtRua.getText();
+//        dto.numero = txtNumero.getText();
+//
+//        if (controller != null) {
+//            Optional<CreateClienteOutputDTO> retorno = controller.salvar(dto);
+//            if (retorno.isPresent()) {
+//                CreateClienteOutputDTO output = retorno.get();
+//                String enderecoCompleto = dto.rua + ", " + dto.numero + " - " + dto.bairro + " - " + dto.cidade;
+//
+//                adicionarClienteNaTabela(output.cpf, output.nome, enderecoCompleto, output.email);
+//
+//                System.out.println("DTO Enviado: " + dto.nome + " - CPF: " + dto.cpf);
+//
+//                limparCampos();
+//            } else {
+//                mostrarMensagem("Erro ao salvar cliente.");
+//            }
+//
+//        } else {
+//            System.err.println("Erro: Controller não foi inicializado!");
+//        }
+//
+//    }
 
 //       @Override
 //    public void atualizarTabela(List<ClientesColecaoView> clientes) { //limpa tabela e preenche com clientes 
@@ -159,29 +221,23 @@ private void btnSalvar(java.awt.event.ActionEvent evt) {
 //            });
 //        }
 //    }
-
 //    @Override
     public void limparCampos() {
-        
+
         txtNome.setText("");
         txtEMail.setText("");
         txtCidade.setText("");
         txtBairro.setText("");
         txtRua.setText("");
         txtNumero.setText("");
-        
+
         //limpa a tabela 
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
-        model.setRowCount(0); 
-        
+        model.setRowCount(0);
+
     }
 
 //====================================================================
-
- 
-    
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
