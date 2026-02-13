@@ -4,7 +4,9 @@
  */
 package com.mycompany.trabalho.delivery.aplicacao.useCases;
 
+import com.mycompany.trabalho.delivery.aplicacao.dto.ClienteDTO;
 import com.mycompany.trabalho.delivery.dominio.model.cliente.Cliente;
+import com.mycompany.trabalho.delivery.dominio.model.shared.Endereco;
 import com.mycompany.trabalho.delivery.dominio.port.IClienteRepository;
 
 /**
@@ -18,9 +20,19 @@ public class CadastrarCliente {
         this.repositorio = repositorio;
     }
 
-    public void executar(Cliente cliente) {
-        repositorio.salvarCliente(cliente);
+    public void executar(ClienteDTO dto) {
+        Endereco endereco = new Endereco(dto.cidade, dto.bairro, dto.rua, dto.numero);
+        Cliente cliente = new Cliente(dto.nome, dto.cpf, dto.email, endereco);
+      
+       
+        BuscarClientePorCpf verificar = new BuscarClientePorCpf(repositorio);
         
-        System.out.println("Cliente " + cliente.getNome() + " foi cadastrado com sucesso.");
+        if (verificar.executar(cliente.getCpf()) != null) {
+            throw new RuntimeException("O Cliente já existe!");
+        }
+        else{
+            repositorio.salvarCliente(cliente);
+            System.out.println("Cliente " + cliente.getNome() + " foi cadastrado com sucesso.");
+        }
     }
 }

@@ -9,5 +9,15 @@ package com.mycompany.trabalho.delivery.aplicacao.dto;
  * @author André
  */
 public class ClienteDTO {
-    
+    public Integer id;
+    public String nome;
+    public String email;
+    public String cpf;
+    public String cidade;
+    public String bairro;
+    public String rua;
+    public String numero;
+
+    public ClienteDTO() {
+    }
 }

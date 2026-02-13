@@ -4,6 +4,8 @@
  */
 package com.mycompany.trabalho.delivery.presentation.ui;
 
+import com.mycompany.trabalho.delivery.aplicacao.dto.ClienteDTO;
+import com.mycompany.trabalho.delivery.presentation.controllers.ClienteController;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,7 +18,8 @@ public class ClienteView extends javax.swing.JFrame implements IClienteView {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ClienteView.class.getName());
 
 //    private ClientePresenter presenter;
-
+      private ClienteController controller;
+      
       public void ClienteView() {
           
         
@@ -87,7 +90,34 @@ public class ClienteView extends javax.swing.JFrame implements IClienteView {
         this.setVisible(true);
     }
     
+    public void setController(ClienteController controller) {
+        this.controller = controller;
+    }
     
+    // Dentro de ClienteView.java
+
+private void btnSalvar(java.awt.event.ActionEvent evt) {                                          
+    ClienteDTO dto = new ClienteDTO();
+    
+    dto.nome = txtNome.getText();
+    dto.email = txtEMail.getText();
+    dto.cpf = txtCPF.getText();
+    
+    dto.cidade = txtCidade.getText();
+    dto.bairro = txtBairro.getText();
+    dto.rua = txtRua.getText();
+    dto.numero = txtNumero.getText();
+    
+    if (controller != null) {
+            controller.salvar(dto);
+            limparCampos();
+            System.out.println("DTO Enviado: " + dto.nome + " - CPF: " + dto.cpf);
+        } else {
+            System.err.println("Erro: Controller não foi inicializado!");
+        }
+}
+    
+
 //       @Override
 //    public void atualizarTabela(List<ClientesColecaoView> clientes) { //limpa tabela e preenche com clientes 
 //        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
