@@ -4,14 +4,30 @@
  */
 package com.mycompany.trabalho.delivery.presentation.ui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author erko
  */
-public class ClienteView extends javax.swing.JFrame {
+public class ClienteView extends javax.swing.JFrame implements IClienteView {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ClienteView.class.getName());
 
+//    private ClientePresenter presenter;
+
+      public void ClienteView() {
+          
+        
+    }
+    
+    
+//    public void setPresenter(ClientePresenter presenter) {
+//        this.presenter = presenter;
+//    }
+    
+    
     /**
      * Creates new form ClienteView
      */
@@ -20,8 +36,93 @@ public class ClienteView extends javax.swing.JFrame {
         setTitle("Gestão de Clientes - Sistema Delivery");
         setLocationRelativeTo(null); //centralizar a janela 
     }
-   
+//========================IMPLEMENTAÇÃO DA INTERFACE============
     
+    //setters que enviaram para presenter
+    @Override
+    public String getNome() {
+        return txtNome.getText();
+    }
+
+    @Override
+    public String getEmail() {
+        return txtEMail.getText();
+    }
+
+    @Override
+    public String getCidade() {
+        return txtCidade.getText();
+    }
+
+    @Override
+    public String getBairro() {
+        return txtBairro.getText();
+    }
+
+    @Override
+    public String getRua() {
+        return txtRua.getText();
+    }
+
+    @Override
+    public String getNumero() {
+        return txtNumero.getText();
+    }
+    
+    
+
+    @Override
+    public int getLinhaSelecionada() {
+        return tblClientes.getSelectedRow();
+    }
+
+    @Override
+    public void mostrarMensagem(String msg) {
+        //mostra um optionpane com a mensagem
+        javax.swing.JOptionPane.showMessageDialog(this, msg);
+    }
+    
+    
+    public void inicializar(){
+        this.setVisible(true);
+    }
+    
+    
+//       @Override
+//    public void atualizarTabela(List<ClientesColecaoView> clientes) { //limpa tabela e preenche com clientes 
+//        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+//        model.setRowCount(0); //limpa a tabela 
+//
+//        for (ClientesColecaoView c : clientes) { //preenche com os dados da lista de clientes
+//            model.addRow(new Object[]{
+//                c.getId(),
+//                
+//                c.getNome(),
+//                c.getRua() + " " + c.getNumeroEndereco() + " " + c.getBairro() + " " ,
+//                c.getEmail()
+//                    
+//            });
+//        }
+//    }
+
+    @Override
+    public void limparCampos() {
+        
+        txtNome.setText("");
+        txtEMail.setText("");
+        txtCidade.setText("");
+        txtBairro.setText("");
+        txtRua.setText("");
+        txtNumero.setText("");
+        
+    }
+
+//====================================================================
+
+ 
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +150,10 @@ public class ClienteView extends javax.swing.JFrame {
         txtRua = new javax.swing.JTextField();
         lblNumero = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
+        btnPedidosDoCliente = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
+        lblCPF = new javax.swing.JLabel();
+        txtCPF = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +204,13 @@ public class ClienteView extends javax.swing.JFrame {
 
         lblNumero.setText("Número");
 
+        btnPedidosDoCliente.setText("Pedidos do Cliente");
+
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(this::btnPesquisarActionPerformed);
+
+        lblCPF.setText("CPF");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,7 +241,13 @@ public class ClienteView extends javax.swing.JFrame {
                             .addComponent(lblNumero))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCPF)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtCidade)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,12 +259,18 @@ public class ClienteView extends javax.swing.JFrame {
                         .addComponent(btnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLimpar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExcluir))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(scrClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnPedidosDoCliente)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,19 +298,28 @@ public class ClienteView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumero)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCPF)
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
-                    .addComponent(btnExcluir))
+                    .addComponent(btnExcluir)
+                    .addComponent(btnPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPedidosDoCliente)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,8 +349,11 @@ public class ClienteView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnPedidosDoCliente;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel lblBairro;
+    private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblEMail;
     private javax.swing.JLabel lblEndereco;
@@ -227,6 +363,7 @@ public class ClienteView extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrClientes;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtBairro;
+    private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtEMail;
     private javax.swing.JTextField txtNome;
