@@ -13,7 +13,8 @@ public class Pedido {
     private IPedidoState estado;
     private double valorTotal;
     private ILogService logger;
-
+    private long id;
+    
     public Pedido(ILogService logger, Cliente cliente, List<Item> itens, IPedidoState estado) {
         this.logger = logger;
         this.cliente = cliente;
