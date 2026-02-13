@@ -23,6 +23,8 @@ public class ClienteView extends javax.swing.JFrame {
 
 //    private ClientePresenter presenter;
     private ClienteController controller;
+    
+    
 
 //    public void setPresenter(ClientePresenter presenter) {
 //        this.presenter = presenter;
@@ -36,14 +38,7 @@ public class ClienteView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
     }
-//metodo duplicado
-//    public void incicializaView() {
-//        setTitle("Gestão de Clientes - Sistema Delivery");
-//       
-//        limparCampos();
-//        this.configurarListeners();
-//        this.setVisible(true);
-//    }
+
 
      public void inicializar() {
         setTitle("Gestão de Clientes - Sistema Delivery");
@@ -159,7 +154,20 @@ public class ClienteView extends javax.swing.JFrame {
         //ação Botão Pedidos cliente
         btnPedidosDoCliente.addActionListener((ActionEvent e) -> {
 //            executarFluxoPedidoCliente();
-              this.mostrarMensagem("Pedidos do cliente ainda não implementado"); //TODO
+
+            //parent como parametro para poder desabilitar esta tela
+            PedidosView pedidosView = new PedidosView(this, 0);   //TODO passando qualquer CPF como parametro por enquanto, até ser implementado
+            
+            
+            //desativa essa janela 
+            this.setEnabled(false);
+            
+            //mstra a nova janela PEDIDOS
+            pedidosView.iniciarView();
+            
+            System.out.println("[Navegação] PedidosView aberta. ClienteView temporariamente inativa.");
+
+           
         });
         
         
@@ -350,6 +358,7 @@ public class ClienteView extends javax.swing.JFrame {
         lblNumero.setText("Número");
 
         btnPedidosDoCliente.setText("Pedidos do Cliente");
+        btnPedidosDoCliente.addActionListener(this::btnPedidosDoClienteActionPerformed);
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(this::btnPesquisarActionPerformed);
@@ -465,6 +474,10 @@ public class ClienteView extends javax.swing.JFrame {
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnPedidosDoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosDoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPedidosDoClienteActionPerformed
 
     /**
      * @param args the command line arguments

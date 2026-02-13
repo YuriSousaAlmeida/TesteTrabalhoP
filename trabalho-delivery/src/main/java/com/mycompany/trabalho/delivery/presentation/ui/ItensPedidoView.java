@@ -97,7 +97,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
         radPizzaModaCasa = new javax.swing.JRadioButton();
         radPizzaFrangoCatupiry = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblPedidoID.setText("Pedido ID: #");
 
