@@ -17,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteRepositorySQLite implements IClienteRepository {
 
@@ -121,5 +123,27 @@ public class ClienteRepositorySQLite implements IClienteRepository {
             e.printStackTrace();
         }
         return -1;
+    }
+    
+    @Override
+    public List<Cliente> buscarTodos(){
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM clientes";
+        
+        try (Connection conexao = ConexaoSingleton.getConexao();
+             PreparedStatement statement = conexao.prepareStatement(sql);
+             ResultSet rset = statement.executeQuery()) {
+            
+            while (rset.next()) {
+                Cliente cliente = mapearCliente(rset);
+                clientes.add(cliente);
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar todos os clientes: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return clientes;
     }
 }

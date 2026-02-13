@@ -5,6 +5,7 @@
 package com.mycompany.trabalho.delivery.dominio.port;
 
 import com.mycompany.trabalho.delivery.dominio.model.cliente.Cliente;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,5 @@ public interface IClienteRepository {
     public Cliente buscarClientePorNome(String nome);
     public void deletarCliente(String nome);
     public Cliente buscarClientePorCPF(String cpf);
+    public List<Cliente> buscarTodos();
 }
