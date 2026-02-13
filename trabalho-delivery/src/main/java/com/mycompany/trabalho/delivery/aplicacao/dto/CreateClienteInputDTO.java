@@ -8,8 +8,7 @@ package com.mycompany.trabalho.delivery.aplicacao.dto;
  *
  * @author André
  */
-public class ClienteDTO {
-    public Integer id;
+public class CreateClienteInputDTO {
     public String nome;
     public String email;
     public String cpf;
@@ -18,5 +17,5 @@ public class ClienteDTO {
     public String rua;
     public String numero;
 
-    public ClienteDTO() {}
+    public CreateClienteInputDTO() {}
 }

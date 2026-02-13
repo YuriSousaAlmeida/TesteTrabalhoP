@@ -5,8 +5,10 @@
 
 package com.mycompany.trabalho.delivery.presentation.controllers;
 
-import com.mycompany.trabalho.delivery.aplicacao.dto.ClienteDTO;
+import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteInputDTO;
+import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteOutputDTO;
 import com.mycompany.trabalho.delivery.aplicacao.useCases.CadastrarCliente;
+import java.util.Optional;
 import javax.swing.JOptionPane;
 
 public class ClienteController {
@@ -18,12 +20,12 @@ public class ClienteController {
     }
 
     
-    public void salvar(ClienteDTO dados) {
+    public Optional<CreateClienteOutputDTO> salvar(CreateClienteInputDTO dados) {
         try {
-            cadastrarCliente.executar(dados);
-            JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso!");
+            return cadastrarCliente.executar(dados);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar: " + e.getMessage());
+            //log
+            return null;
         }
     }
 }

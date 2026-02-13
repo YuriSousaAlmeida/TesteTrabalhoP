@@ -31,4 +31,25 @@ public class Cliente {
     public String getCpf(){
         return this.cpf;
     }
+    
+    public String getCidade() {
+        return endereco.getCidade();
+    }
+
+    public String getBairro() {
+        return endereco.getBairro();
+    }
+
+    public String getRua() {
+        return endereco.getRua();
+    }
+
+    public String getNumero() {
+        return endereco.getNumero();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    
 }

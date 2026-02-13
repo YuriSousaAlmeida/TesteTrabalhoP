@@ -4,9 +4,11 @@
  */
 package com.mycompany.trabalho.delivery.presentation.ui;
 
-import com.mycompany.trabalho.delivery.aplicacao.dto.ClienteDTO;
+import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteInputDTO;
+import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteOutputDTO;
 import com.mycompany.trabalho.delivery.presentation.controllers.ClienteController;
 import java.util.List;
+import java.util.Optional;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -102,7 +104,7 @@ public class ClienteView extends javax.swing.JFrame  {
     // Dentro de ClienteView.java
 
 private void btnSalvar(java.awt.event.ActionEvent evt) {                                          
-    ClienteDTO dto = new ClienteDTO();
+    CreateClienteInputDTO dto = new CreateClienteInputDTO();
     
     dto.nome = txtNome.getText();
     dto.email = txtEMail.getText();
@@ -116,10 +118,13 @@ private void btnSalvar(java.awt.event.ActionEvent evt) {
     
     
     if (controller != null) {
-            controller.salvar(dto);
-            limparCampos();
+        Optional<CreateClienteOutputDTO> retorno = controller.salvar(dto);
+        limparCampos();
+        if(retorno.isPresent())
+            // TODO: chama os sets dados na lista/tabela
             System.out.println("DTO Enviado: " + dto.nome + " - CPF: " + dto.cpf);
         } else {
+            // TODO: chama o JOptionalPane
             System.err.println("Erro: Controller não foi inicializado!");
         }
 }

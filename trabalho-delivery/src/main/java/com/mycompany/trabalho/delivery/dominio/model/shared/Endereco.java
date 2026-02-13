@@ -16,4 +16,21 @@ public class Endereco {
         this.rua = rua;
         this.numero = numero;
     }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+    
 }

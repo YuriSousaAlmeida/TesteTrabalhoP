@@ -27,8 +27,8 @@ public class TrabalhoDelivery {
 
         ITamanhoStrategy tamanhoPizza = new PizzaTamanhoMedioStrategy();
         Pizza pizza = new BasePizza(tamanhoPizza); 
-        pizza = new CalabresaDecorator(pizza);  
-        pizza = new MussarelaDecorator(pizza);
+        //pizza = new CalabresaDecorator(pizza);  
+        //pizza = new MussarelaDecorator(pizza);
 
         ITamanhoStrategy tamanhoCoca = new CocaColaTamanhoPequenoStrategy();
         CocaCola coca = new CocaCola(tamanhoCoca);
