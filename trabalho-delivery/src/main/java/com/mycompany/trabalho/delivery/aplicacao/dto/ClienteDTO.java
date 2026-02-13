@@ -18,6 +18,5 @@ public class ClienteDTO {
     public String rua;
     public String numero;
 
-    public ClienteDTO() {
-    }
+    public ClienteDTO() {}
 }

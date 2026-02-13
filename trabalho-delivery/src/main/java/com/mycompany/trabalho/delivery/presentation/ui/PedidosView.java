@@ -90,6 +90,7 @@ public class PedidosView extends javax.swing.JFrame {
         btnVerPedido.setText("Ver Pedido");
 
         btnEntregarPedido.setText("Entregar Pedido");
+        btnEntregarPedido.addActionListener(this::btnEntregarPedidoActionPerformed);
 
         btnPrepararPedido.setText("Preparar Pedido");
         btnPrepararPedido.addActionListener(this::btnPrepararPedidoActionPerformed);
@@ -103,7 +104,7 @@ public class PedidosView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                    .addComponent(scrPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNomeCliente)
@@ -112,13 +113,13 @@ public class PedidosView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnVerPedido))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnEntregarPedido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnPrepararPedido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelarPedido)
+                                .addComponent(btnProntificarPedido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnProntificarPedido)))
+                                .addComponent(btnEntregarPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancelarPedido)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -135,10 +136,10 @@ public class PedidosView extends javax.swing.JFrame {
                     .addComponent(btnVerPedido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEntregarPedido)
                     .addComponent(btnPrepararPedido)
                     .addComponent(btnCancelarPedido)
-                    .addComponent(btnProntificarPedido))
+                    .addComponent(btnProntificarPedido)
+                    .addComponent(btnEntregarPedido))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -148,6 +149,10 @@ public class PedidosView extends javax.swing.JFrame {
     private void btnPrepararPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrepararPedidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrepararPedidoActionPerformed
+
+    private void btnEntregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEntregarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
