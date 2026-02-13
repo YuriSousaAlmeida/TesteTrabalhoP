@@ -31,19 +31,29 @@ public class ClienteView extends javax.swing.JFrame {
      * Creates new form ClienteView
      */
     public ClienteView() {
+        
         initComponents();
         setLocationRelativeTo(null);
 
     }
+//metodo duplicado
+//    public void incicializaView() {
+//        setTitle("Gestão de Clientes - Sistema Delivery");
+//       
+//        limparCampos();
+//        this.configurarListeners();
+//        this.setVisible(true);
+//    }
 
-    public void incicializaView() {
+     public void inicializar() {
         setTitle("Gestão de Clientes - Sistema Delivery");
        
         limparCampos();
         this.configurarListeners();
+        atualizarTabela();
         this.setVisible(true);
     }
-
+    
     //setters que enviaram para presenter
 //    @Override
     public String getNome() {
@@ -90,13 +100,7 @@ public class ClienteView extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, msg);
     }
 
-    public void inicializar() {
-        setTitle("Gestão de Clientes - Sistema Delivery");
-       
-        limparCampos();
-        this.configurarListeners();
-        this.setVisible(true);
-    }
+   
 
     public void setController(ClienteController controller) {
         this.controller = controller;
@@ -130,31 +134,32 @@ public class ClienteView extends javax.swing.JFrame {
         btnPedidosDoCliente.addActionListener(listener);
     }
     //=====================================//=====================================//===================================== 
-
+    
     private void configurarListeners() {
         // Ação do Botão Salvar
         btnSalvar.addActionListener((ActionEvent e) -> {
 //            executarFluxoSalvar();
-              this.mostrarMensagem("Salvar ainda não implementado");
+              salvarCliente();
+              this.mostrarMensagem("Salvando");
         });
 
         // Ação do Botão Limpar
         btnLimpar.addActionListener(e -> {
             limparCampos();
-            this.mostrarMensagem("Limpando campos");
+            this.mostrarMensagem("Limpando campos de entrada");
         });
         
         //Ação botao pesquisar
         btnPesquisar.addActionListener((ActionEvent e) -> {
 //            executarFluxoPesquisa();
-              this.mostrarMensagem("Pesquisar ainda não implementadp"); //TODO
+              this.mostrarMensagem("Pesquisar ainda não implementado"); //TODO
         });
         
         
         //ação Botão Pedidos cliente
         btnPedidosDoCliente.addActionListener((ActionEvent e) -> {
 //            executarFluxoPedidoCliente();
-              this.mostrarMensagem("Pedidos do cliente ainda não implementadp"); //TODO
+              this.mostrarMensagem("Pedidos do cliente ainda não implementado"); //TODO
         });
         
         
@@ -172,49 +177,68 @@ public class ClienteView extends javax.swing.JFrame {
         });
     }
 
-//    private void btnSalvar(java.awt.event.ActionEvent evt) {
-//        CreateClienteInputDTO dto = new CreateClienteInputDTO();
-//
-//        dto.nome = txtNome.getText();
-//        dto.email = txtEMail.getText();
-//        dto.cpf = txtCPF.getText();
-//
-//        dto.cidade = txtCidade.getText();
-//        dto.bairro = txtBairro.getText();
-//        dto.rua = txtRua.getText();
-//        dto.numero = txtNumero.getText();
-//
-//        if (controller != null) {
-//            Optional<CreateClienteOutputDTO> retorno = controller.salvar(dto);
-//            if (retorno.isPresent()) {
-//                CreateClienteOutputDTO output = retorno.get();
-//                String enderecoCompleto = dto.rua + ", " + dto.numero + " - " + dto.bairro + " - " + dto.cidade;
-//
-//                adicionarClienteNaTabela(output.cpf, output.nome, enderecoCompleto, output.email);
-//
-//                System.out.println("DTO Enviado: " + dto.nome + " - CPF: " + dto.cpf);
-//
-//                limparCampos();
-//            } else {
-//                mostrarMensagem("Erro ao salvar cliente.");
-//            }
-//
-//        } else {
-//            System.err.println("Erro: Controller não foi inicializado!");
-//        }
-//
-//    }
+    private void salvarCliente(/*java.awt.event.ActionEvent evt*/) {
+        CreateClienteInputDTO dto = new CreateClienteInputDTO();
 
+        dto.nome = txtNome.getText();
+        dto.email = txtEMail.getText();
+        dto.cpf = txtCPF.getText();
+
+        dto.cidade = txtCidade.getText();
+        dto.bairro = txtBairro.getText();
+        dto.rua = txtRua.getText();
+        dto.numero = txtNumero.getText();
+
+        if (controller != null) {
+            Optional<CreateClienteOutputDTO> retorno = controller.salvar(dto);
+            if (retorno.isPresent()) {
+                CreateClienteOutputDTO output = retorno.get();
+                String enderecoCompleto = dto.rua + ", " + dto.numero + " - " + dto.bairro + " - " + dto.cidade;
+
+                adicionarClienteNaTabela(output.cpf, output.nome, enderecoCompleto, output.email);
+
+                System.out.println("DTO Enviado: " + dto.nome + " - CPF: " + dto.cpf);
+
+//                limparCampos();
+            } else {
+                mostrarMensagem("Erro ao salvar cliente.");
+            }
+
+        } else {
+            System.err.println("Erro: Controller não foi inicializado!");
+        }
+
+    }
+
+    
+    
+    
 //       @Override
-//    public void atualizarTabela(List<ClientesColecaoView> clientes) { //limpa tabela e preenche com clientes 
+    public void atualizarTabela(/*List<CreateClienteOutputDTO> clientes*/) { //limpa tabela e preenche com clientes 
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel(); 
+        model.setRowCount(0);//limpa tabela
+        List<CreateClienteOutputDTO> clientes = controller.listarTodos();
+        for (CreateClienteOutputDTO c : clientes) { //preenche com os dados da lista de clientes
+            model.addRow(new Object[]{
+               
+                c.cpf,
+                
+                c.nome,
+                c.rua + " " + c.numero + " " + c.bairro + " " ,
+                c.email
+                    
+            });
+    
+        }
+    }
 //        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
 //        model.setRowCount(0); //limpa a tabela 
 //
-//        for (ClientesColecaoView c : clientes) { //preenche com os dados da lista de clientes
+//        for (CreateClienteOutputDTO c : clientes) { //preenche com os dados da lista de clientes
 //            model.addRow(new Object[]{
-//                c.getId(),
+//                c.cpf(),
 //                
-//                c.getNome(),
+//                c.nome(),
 //                c.getRua() + " " + c.getNumeroEndereco() + " " + c.getBairro() + " " ,
 //                c.getEmail()
 //                    
@@ -230,13 +254,19 @@ public class ClienteView extends javax.swing.JFrame {
         txtBairro.setText("");
         txtRua.setText("");
         txtNumero.setText("");
+        txtCPF.setText("");
 
-        //limpa a tabela 
-        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
-        model.setRowCount(0);
+       
+//        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+//        model.setRowCount(0);
 
     }
 
+    
+    public void limparTabela(){
+          DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+        model.setRowCount(0);
+    }
 //====================================================================
     /**
      * This method is called from within the constructor to initialize the form.
@@ -293,7 +323,7 @@ public class ClienteView extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -357,7 +387,7 @@ public class ClienteView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblCPF)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

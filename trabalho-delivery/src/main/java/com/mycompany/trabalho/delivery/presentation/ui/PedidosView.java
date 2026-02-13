@@ -31,6 +31,9 @@ public class PedidosView extends javax.swing.JFrame {
         DefaultTableModel modelTblPedidos = (DefaultTableModel) tblPedidos.getModel(); //limpa tabela
         modelTblPedidos.setRowCount(0);
     }
+    
+    
+    
 
     /** This method is called from within the constructor to
      * initialize the form.

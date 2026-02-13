@@ -1,5 +1,7 @@
 package com.mycompany.trabalho.delivery;
 
+import com.mycompany.trabalho.delivery.aplicacao.useCases.BuscarTodosOsClientesUseCase;
+import com.mycompany.trabalho.delivery.aplicacao.useCases.CadastrarClienteUseCase;
 import com.mycompany.trabalho.delivery.dominio.adapter.ConsoleLogAdapter;
 import com.mycompany.trabalho.delivery.dominio.model.bebida.Bebida;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.Item;
@@ -7,8 +9,11 @@ import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoBuilder;
 import com.mycompany.trabalho.delivery.dominio.port.ILogService;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.*;
+import com.mycompany.trabalho.delivery.dominio.port.IClienteRepository;
 import com.mycompany.trabalho.delivery.infraestrutura.logger.Logger;
 import com.mycompany.trabalho.delivery.infraestrutura.logger.CSVMetodo;
+import com.mycompany.trabalho.delivery.infraestrutura.repositories.ClienteRepositorySQLite;
+import com.mycompany.trabalho.delivery.presentation.controllers.ClienteController;
 import com.mycompany.trabalho.delivery.presentation.ui.ClienteView;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +21,12 @@ import java.util.List;
 public class TrabalhoDelivery {
 
     public static void main(String[] args) {
-        
-        ClienteView view = new ClienteView();
+        IClienteRepository repo = new ClienteRepositorySQLite(); 
+        CadastrarClienteUseCase useCase = new CadastrarClienteUseCase(repo);
+	ClienteView view = new ClienteView();
+        BuscarTodosOsClientesUseCase buscar = new BuscarTodosOsClientesUseCase(repo);
+        ClienteController controller = new ClienteController(useCase, buscar);
+        view.setController(controller);
         
         view.inicializar();
         

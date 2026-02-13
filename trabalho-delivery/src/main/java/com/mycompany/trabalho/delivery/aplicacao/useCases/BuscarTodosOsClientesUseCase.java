@@ -32,6 +32,7 @@ public class BuscarTodosOsClientesUseCase {
             dto.bairro = cliente.getBairro();
             dto.rua = cliente.getRua();
             dto.numero = cliente.getNumero();
+            dto.cpf = cliente.getCpf();
 
             return dto;
 
