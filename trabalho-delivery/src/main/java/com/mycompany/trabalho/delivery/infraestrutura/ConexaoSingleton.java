@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.trabalho.delivery.infraestrutura;
-
+import com.mycompany.trabalho.delivery.infraestrutura.logger.Logger;
 /**
  *
  * @author Yuri
@@ -32,9 +32,11 @@ public class ConexaoSingleton {
                 String password = properties.getProperty("db.password");
                 if(password==null) password="";
                 
-                conexao=DriverManager.getConnection(url, user, password);                
+                conexao=DriverManager.getConnection(url, user, password);
+                Logger.getInstancia().registrar("[DB INFO] Nova conexão com a base de dados estabelecida.");                
             }
         }catch(SQLException e){
+            Logger.getInstancia().registrar("[DB ERRO] Falha ao conectar na base de dados: " + e.getMessage());
             throw new RuntimeException("Erro ao conectar no banco de dados", e);
         }
         return conexao;
