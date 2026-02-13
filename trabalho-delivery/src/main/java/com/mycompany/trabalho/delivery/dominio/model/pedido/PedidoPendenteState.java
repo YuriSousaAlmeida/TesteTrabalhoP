@@ -12,11 +12,13 @@ public class PedidoPendenteState implements IPedidoState {
     @Override
     public void proximo(Pedido pedido) {
         pedido.setEstado(new PedidoPreparadoState());
+        pedido.getLogger().info("Mudança de estado realizada com sucesso: PENDENTE -> PREPARANDO");
     }
 
     @Override
     public void cancelar(Pedido pedido) {
-        pedido.setEstado(new PedidoCanceladoState());
+        pedido.setEstado(new PedidoCanceladoState());     
+        pedido.getLogger().info("O pedido foi CANCELADO pelo usuário.");
     }
 
     @Override
