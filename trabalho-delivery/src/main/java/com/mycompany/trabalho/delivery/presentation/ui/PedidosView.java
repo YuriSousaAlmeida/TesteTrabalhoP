@@ -5,6 +5,10 @@
 
 package com.mycompany.trabalho.delivery.presentation.ui;
 
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,17 +16,70 @@ import javax.swing.table.DefaultTableModel;
  * @author erko
  */
 public class PedidosView extends javax.swing.JFrame {
-
+    private JFrame parent;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PedidosView.class.getName());
 
     /** Creates new form PedidosView */
     public PedidosView() {
+        this.parent=null;
         initComponents();
+    }
+    
+    public PedidosView(JFrame parent, int cpf) { //CPF usado para recuperar pedidos do cliente
+        this();
+        this.parent = parent;
+        initComponents();
+        
+        //listener para detectar quando esta janela fechar
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if (parent != null) {
+                    parent.setEnabled(true); //reativa a ClienteView
+                    parent.toFront();        //traz pra frente
+                }
+            }
+        });
+        
+        
+        
+    }
+    
+    
+    // ======================METODOS DE VÍNCULO DE LISTENERS =====================
+
+    private void addNovoPedidoListener(ActionListener listener) {
+        btnNovoPedido.addActionListener(listener);
+    }
+
+    private void addVerPedidoListener(ActionListener listener) {
+        btnVerPedido.addActionListener(listener);
+    }
+
+    private void addPrepararPedidoListener(ActionListener listener) {
+        btnPrepararPedido.addActionListener(listener);
+    }
+
+    private void addProntificarPedidoListener(ActionListener listener) {
+        btnProntificarPedido.addActionListener(listener);
+    }
+
+    private void addEntregarPedidoListener(ActionListener listener) {
+        btnEntregarPedido.addActionListener(listener);
+    }
+
+    private void addCancelarPedidoListener(ActionListener listener) {
+        btnCancelarPedido.addActionListener(listener);
+    }
+//==========================================================================================
+    
+    public void configurarListenersBotoes(){
+            
     }
     
     public void iniciarView(){
         limparTabelas();
-        
+        this.setVisible(true);
         
     }
     
@@ -54,16 +111,13 @@ public class PedidosView extends javax.swing.JFrame {
         btnPrepararPedido = new javax.swing.JButton();
         btnProntificarPedido = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblNomeCliente.setText("Pedido do cliente: Fulano");
 
         tblPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "ID", "Nome", "Status"
@@ -107,7 +161,7 @@ public class PedidosView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                    .addComponent(scrPedidos)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNomeCliente)
