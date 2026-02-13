@@ -101,6 +101,11 @@ public class ClienteView extends javax.swing.JFrame  {
         this.controller = controller;
     }
     
+    public void adicionarClienteNaTabela(String cpf, String nome, String endereco, String email) {
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+
+        model.addRow(new Object[]{cpf, nome, endereco, email});
+    }
     // Dentro de ClienteView.java
 
 private void btnSalvar(java.awt.event.ActionEvent evt) {                                          
@@ -117,16 +122,24 @@ private void btnSalvar(java.awt.event.ActionEvent evt) {
     
     
     
-    if (controller != null) {
+        if (controller != null) {
         Optional<CreateClienteOutputDTO> retorno = controller.salvar(dto);
-        limparCampos();
-        if(retorno.isPresent())
-            // TODO: chama os sets dados na lista/tabela
+        if (retorno.isPresent()) {
+            CreateClienteOutputDTO output = retorno.get();
+            String enderecoCompleto = dto.rua + ", " + dto.numero + " - " + dto.bairro + " - " + dto.cidade;
+
+            adicionarClienteNaTabela(output.cpf, output.nome, enderecoCompleto, output.email);
+
             System.out.println("DTO Enviado: " + dto.nome + " - CPF: " + dto.cpf);
-        } else {
-            // TODO: chama o JOptionalPane
-            System.err.println("Erro: Controller não foi inicializado!");
+
+            limparCampos();
+        } else {mostrarMensagem("Erro ao salvar cliente.");
         }
+
+    } else {
+        System.err.println("Erro: Controller não foi inicializado!");
+    }
+       
 }
     
 
@@ -220,7 +233,7 @@ private void btnSalvar(java.awt.event.ActionEvent evt) {
 
             },
             new String [] {
-                "ID", "Nome", "Endereço", "E-mail"
+                "CPF", "Nome", "Endereço", "E-mail"
             }
         ) {
             Class[] types = new Class [] {

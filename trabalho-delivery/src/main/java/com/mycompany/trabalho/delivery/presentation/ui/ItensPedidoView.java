@@ -32,14 +32,8 @@ public class ItensPedidoView extends javax.swing.JFrame {
     public void limparTodosCombos() {
         
         cmbBebida.removeAllItems();
-        
-       
         cmbIngrediente.removeAllItems();
-        
-        
         cmbTamanhoBebida.removeAllItems();
-        
-        System.out.println("[UI] Listagens de ComboBox limpas com sucesso");
     }
     
     public void adicionarOpcaoBebida(String nomeBebida) {
@@ -59,7 +53,11 @@ public class ItensPedidoView extends javax.swing.JFrame {
         modelPizza.setRowCount(0);
         DefaultTableModel modelItens = (DefaultTableModel) tblItens.getModel();
         modelItens.setRowCount(0);
-        
+    }
+    
+    public void adicionarItemNaTabela(Integer idItem, String descricao, Integer quantidade, Double valor) {
+        DefaultTableModel model = (DefaultTableModel) tblItens.getModel();
+        model.addRow(new Object[]{idItem,descricao,quantidade,valor});
     }
     
     /**
