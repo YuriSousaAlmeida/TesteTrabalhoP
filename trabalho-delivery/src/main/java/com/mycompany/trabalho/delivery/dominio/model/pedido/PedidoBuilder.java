@@ -33,9 +33,10 @@ public class PedidoBuilder {
         itens.clear();
     }
     
-    public Pedido getPedido() {
-    // Log criação de pedido
-    logger.info("Novo pedido criado para o cliente: " + cliente.getNome() + " com " + itens.size() + " itens.");
-    return new Pedido(logger, cliente, itens, new PedidoPendenteState());
-}
+   public Pedido getPedido() {
+        String nomeCliente = (cliente != null) ? cliente.getNome() : "Cliente Não Identificado";
+        
+        logger.info("Novo pedido criado para o cliente: " + nomeCliente + " com " + itens.size() + " itens.");
+        return new Pedido(logger, cliente, itens, new PedidoPendenteState());
+    }
 }

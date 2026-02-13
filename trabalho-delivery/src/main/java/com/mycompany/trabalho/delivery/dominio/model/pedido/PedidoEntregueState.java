@@ -8,17 +8,15 @@ package com.mycompany.trabalho.delivery.dominio.model.pedido;
  *
  * @author erko
  */
-
-
-
 public class PedidoEntregueState implements IPedidoState {
     @Override
     public void proximo(Pedido pedido) {
-        // Estado final: operação ignorada ou excepção
+        pedido.getLogger().erro("Operação bloqueada: Tentativa de avançar o status de um pedido que já está ENTREGUE.");
     }
 
     @Override
     public void cancelar(Pedido pedido) {
+        pedido.getLogger().erro("Operação bloqueada: Tentativa de CANCELAR um pedido que já foi ENTREGUE.");
         throw new IllegalStateException("Pedido já entregue.");
     }
 
