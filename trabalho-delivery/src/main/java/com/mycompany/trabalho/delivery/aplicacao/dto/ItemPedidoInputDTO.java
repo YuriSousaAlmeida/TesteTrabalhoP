@@ -4,20 +4,8 @@
  */
 package com.mycompany.trabalho.delivery.aplicacao.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author André
  */
-public class ItemPedidoInputDTO {
-    public String tipo;   
-    public String sabor;
-    public String tamanho;
-    public List<String> adicionais = new ArrayList<>(); 
-    public int quantidade = 1;
-
-    public ItemPedidoInputDTO() {
-    }
-}
+public interface ItemPedidoInputDTO {}
