@@ -1,9 +1,7 @@
 package com.mycompany.trabalho.delivery;
 
 import com.mycompany.trabalho.delivery.dominio.adapter.ConsoleLogAdapter;
-import com.mycompany.trabalho.delivery.dominio.model.bebida.CocaCola;
-import com.mycompany.trabalho.delivery.dominio.model.bebida.CocaColaTamanhoPequenoStrategy;
-import com.mycompany.trabalho.delivery.dominio.model.pedido.ITamanhoStrategy;
+import com.mycompany.trabalho.delivery.dominio.model.bebida.Bebida;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.Item;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoBuilder;
@@ -24,14 +22,13 @@ public class TrabalhoDelivery {
         
         logger.info("INICIANDO TESTE DE LOG EM ARQUIVO...");
 
-        ITamanhoStrategy tamanhoCoca = new CocaColaTamanhoPequenoStrategy();
-        //CocaCola coca = new CocaCola(tamanhoCoca);
+        Bebida coca = new Bebida("Coca-cola, latinha 350ml", 7.0);
         
         PizzaioloDiretor diretor = new PizzaioloDiretor();
         PizzaComponente calabresa = diretor.build(new CalabresaBuilder());
         List<Item> listaItens = new ArrayList<>();
         listaItens.add(calabresa);
-        //listaItens.add(coca);
+        listaItens.add(coca);
 
         PedidoBuilder builder = new PedidoBuilder(listaItens, logger);
         Pedido meuPedido = builder.getPedido();
@@ -49,7 +46,7 @@ public class TrabalhoDelivery {
         System.out.println("Resumo do Pedido:");
         System.out.println("Itens: " + listaItens.size());
         System.out.println("Descrição: " + calabresa.toString());
-        //System.out.println("Valor Total: R$ " + (calabresa.getValor() + coca.getValor()));
+        System.out.println("Valor Total: R$ " + (calabresa.getPreco() + coca.getPreco()));
         
         logger.info("Teste finalizado com sucesso.");
     }
