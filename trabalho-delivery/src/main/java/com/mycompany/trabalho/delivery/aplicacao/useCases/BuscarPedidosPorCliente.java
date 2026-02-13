@@ -17,6 +17,6 @@ public class BuscarPedidosPorCliente {
     }
     
     public List<Pedido> executar(String cpf) {
-        return repositorio.buscarPedidoPorCliente(cpf);
+        return repositorio.buscarPedidosPorCpf(cpf);
     }
 }
