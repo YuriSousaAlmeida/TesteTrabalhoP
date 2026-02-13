@@ -25,7 +25,7 @@ public class ConexaoSingleton {
     
     public static Connection getConexao(){
         try{
-            if(conexao==null){
+            if(conexao==null || conexao.isClosed()){
                 Properties properties = carregarConfiguracoes();
                 String url = properties.getProperty("db.url");
                 String user = properties.getProperty("db.user");
@@ -62,7 +62,7 @@ public class ConexaoSingleton {
         try {
             Connection conexao = ConexaoSingleton.getConexao();
 
-            if(conexao != null){
+            if(conexao != null || conexao.isClosed()){
                 System.out.println("A conexão foi estabelecida");
             }else{
                 System.err.println("Não foi possível estabelecer a conexao");
