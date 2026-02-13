@@ -247,6 +247,35 @@ public class PedidoRepositorySQLite implements IPedidoRepository {
         }
         return null;
     }
+    
+    @Override
+    public List<Pedido> buscarPedidosPorCpf(String cpf) {
+        List<Pedido> pedidos = new ArrayList<>();
+                String sql= "SELECT p.id FROM pedidos p " +
+                     "JOIN clientes c ON p.cliente_id = c.id " +
+                     "WHERE c.cpf = ?";
+
+        try(Connection conexao = ConexaoSingleton.getConexao();
+            PreparedStatement statement = conexao.prepareStatement(sql)) {
+
+            statement.setString(1, cpf);
+            ResultSet rset = statement.executeQuery();
+
+            while(rset.next()) {
+                int id = rset.getInt("id");
+                
+                Pedido pedido = buscarPedidoPorId(id);    
+                if(pedido != null){
+                    pedidos.add(pedido);
+                }
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return pedidos;
+    }
 
     private IPedidoState mapearEstado(String descricao) {
         if (descricao.contains("PENDENTE")) return new PedidoPendenteState();

@@ -5,6 +5,7 @@
 package com.mycompany.trabalho.delivery.dominio.port;
 
 import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,5 @@ public interface IPedidoRepository {
     public void salvarPedido(Pedido pedido);
     public Pedido buscarPedidoPorId(int id);
     public void deletarPedido(int id);
+    public List<Pedido> buscarPedidosPorCpf(String cpf);
 }
