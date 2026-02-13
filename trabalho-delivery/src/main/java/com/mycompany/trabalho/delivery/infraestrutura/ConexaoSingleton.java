@@ -64,7 +64,7 @@ public class ConexaoSingleton {
         try {
             Connection conexao = ConexaoSingleton.getConexao();
 
-            if(conexao != null || conexao.isClosed()){
+            if(conexao != null && !conexao.isClosed()){
                 System.out.println("A conexão foi estabelecida");
             }else{
                 System.err.println("Não foi possível estabelecer a conexao");

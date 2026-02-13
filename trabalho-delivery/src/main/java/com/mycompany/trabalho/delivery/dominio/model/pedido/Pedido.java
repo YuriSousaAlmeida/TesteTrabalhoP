@@ -23,6 +23,28 @@ public class Pedido {
         
         calcularTotal(); 
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public IPedidoState getEstado() {
+        return estado;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public long getId() {
+        return id;
+    }
+    
+    
     
     public void avancarStatus() {
         logger.info("Iniciando transição de status do pedido. Valor total: R$ " + valorTotal);
