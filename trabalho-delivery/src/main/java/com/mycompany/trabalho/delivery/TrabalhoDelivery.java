@@ -16,12 +16,14 @@ import com.mycompany.trabalho.delivery.infraestrutura.logger.CSVMetodo;
 import com.mycompany.trabalho.delivery.infraestrutura.repositories.ClienteRepositorySQLite;
 import com.mycompany.trabalho.delivery.presentation.controllers.ClienteController;
 import com.mycompany.trabalho.delivery.presentation.ui.ClienteView;
+import com.mycompany.trabalho.delivery.infraestrutura.DbInitializer;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TrabalhoDelivery {
 
     public static void main(String[] args) {
+        DbInitializer.inicializar();
         IClienteRepository repo = new ClienteRepositorySQLite(); 
         CadastrarClienteUseCase useCase = new CadastrarClienteUseCase(repo);
 	ClienteView view = new ClienteView();
