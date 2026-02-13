@@ -26,7 +26,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrPedidos" max="32767" attributes="0"/>
+                  <Component id="scrPedidos" pref="618" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblNomeCliente" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -34,17 +34,15 @@
                               <Component id="btnNovoPedido" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnVerPedido" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnEntregarPedido" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnPrepararPedido" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnCancelarPedido" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnPedidoComoPendente" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnPedidoComoEntregue" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnPedidoComoPreparando" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnPedidoComoPronto" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnProntificarPedido" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -64,15 +62,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnNovoPedido" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnPedidoComoPendente" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCancelarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnVerPedido" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnPedidoComoEntregue" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnPedidoComoPreparando" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnPedidoComoPronto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEntregarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPrepararPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnProntificarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -132,11 +129,6 @@
         <Property name="text" type="java.lang.String" value="Novo Pedido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnPedidoComoPendente">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Definir pedido como Pendente"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="btnCancelarPedido">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar Pedido"/>
@@ -147,22 +139,22 @@
         <Property name="text" type="java.lang.String" value="Ver Pedido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnPedidoComoEntregue">
+    <Component class="javax.swing.JButton" name="btnEntregarPedido">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Definir Pedido como Entregue"/>
+        <Property name="text" type="java.lang.String" value="Entregar Pedido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnPedidoComoPreparando">
+    <Component class="javax.swing.JButton" name="btnPrepararPedido">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Definir Pedido como Preparando"/>
+        <Property name="text" type="java.lang.String" value="Preparar Pedido"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPedidoComoPreparandoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrepararPedidoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnPedidoComoPronto">
+    <Component class="javax.swing.JButton" name="btnProntificarPedido">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Definir Pedido como Pronto"/>
+        <Property name="text" type="java.lang.String" value="Prontificar Pedido"/>
       </Properties>
     </Component>
   </SubComponents>

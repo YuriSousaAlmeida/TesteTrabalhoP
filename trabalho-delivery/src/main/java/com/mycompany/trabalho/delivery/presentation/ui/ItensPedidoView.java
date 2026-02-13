@@ -4,6 +4,8 @@
  */
 package com.mycompany.trabalho.delivery.presentation.ui;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author erko
@@ -17,8 +19,49 @@ public class ItensPedidoView extends javax.swing.JFrame {
      */
     public ItensPedidoView() {
         initComponents();
+        
     }
 
+    public void iniciarView(){
+        limparTodosCombos();
+        limparTabelas();
+        this.setVisible(true);
+        
+    }
+    
+    public void limparTodosCombos() {
+        
+        cmbBebida.removeAllItems();
+        
+       
+        cmbIngrediente.removeAllItems();
+        
+        
+        cmbTamanhoBebida.removeAllItems();
+        
+        System.out.println("[UI] Listagens de ComboBox limpas com sucesso");
+    }
+    
+    public void adicionarOpcaoBebida(String nomeBebida) {
+        cmbBebida.addItem(nomeBebida);
+    }
+    
+    public void adicionarOpcaoIngrediente(String nomeIngrediente) {
+        cmbIngrediente.addItem(nomeIngrediente);
+    }
+    
+    public void adicionarOpcaoTamanhoBebida(String tamanho) {
+        cmbTamanhoBebida.addItem(tamanho);
+    }
+    
+    public void limparTabelas(){ //esvazia as tabelas
+        DefaultTableModel modelPizza = (DefaultTableModel) tblAdicionaisPizza.getModel();
+        modelPizza.setRowCount(0);
+        DefaultTableModel modelItens = (DefaultTableModel) tblItens.getModel();
+        modelItens.setRowCount(0);
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,6 +139,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
         lblIngrediente.setText("Adicional:");
 
         cmbIngrediente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbIngrediente.addActionListener(this::cmbIngredienteActionPerformed);
 
         tblAdicionaisPizza.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -275,6 +319,10 @@ public class ItensPedidoView extends javax.swing.JFrame {
     private void btnRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoverItemActionPerformed
+
+    private void cmbIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIngredienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbIngredienteActionPerformed
 
     /**
      * @param args the command line arguments

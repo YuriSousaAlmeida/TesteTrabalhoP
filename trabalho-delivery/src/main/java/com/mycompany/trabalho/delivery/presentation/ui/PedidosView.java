@@ -5,6 +5,8 @@
 
 package com.mycompany.trabalho.delivery.presentation.ui;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author erko
@@ -16,6 +18,18 @@ public class PedidosView extends javax.swing.JFrame {
     /** Creates new form PedidosView */
     public PedidosView() {
         initComponents();
+    }
+    
+    public void iniciarView(){
+        limparTabelas();
+        
+        
+    }
+    
+    
+    public void limparTabelas(){
+        DefaultTableModel modelTblPedidos = (DefaultTableModel) tblPedidos.getModel(); //limpa tabela
+        modelTblPedidos.setRowCount(0);
     }
 
     /** This method is called from within the constructor to
@@ -31,12 +45,11 @@ public class PedidosView extends javax.swing.JFrame {
         scrPedidos = new javax.swing.JScrollPane();
         tblPedidos = new javax.swing.JTable();
         btnNovoPedido = new javax.swing.JButton();
-        btnPedidoComoPendente = new javax.swing.JButton();
         btnCancelarPedido = new javax.swing.JButton();
         btnVerPedido = new javax.swing.JButton();
-        btnPedidoComoEntregue = new javax.swing.JButton();
-        btnPedidoComoPreparando = new javax.swing.JButton();
-        btnPedidoComoPronto = new javax.swing.JButton();
+        btnEntregarPedido = new javax.swing.JButton();
+        btnPrepararPedido = new javax.swing.JButton();
+        btnProntificarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,18 +85,16 @@ public class PedidosView extends javax.swing.JFrame {
 
         btnNovoPedido.setText("Novo Pedido");
 
-        btnPedidoComoPendente.setText("Definir pedido como Pendente");
-
         btnCancelarPedido.setText("Cancelar Pedido");
 
         btnVerPedido.setText("Ver Pedido");
 
-        btnPedidoComoEntregue.setText("Definir Pedido como Entregue");
+        btnEntregarPedido.setText("Entregar Pedido");
 
-        btnPedidoComoPreparando.setText("Definir Pedido como Preparando");
-        btnPedidoComoPreparando.addActionListener(this::btnPedidoComoPreparandoActionPerformed);
+        btnPrepararPedido.setText("Preparar Pedido");
+        btnPrepararPedido.addActionListener(this::btnPrepararPedidoActionPerformed);
 
-        btnPedidoComoPronto.setText("Definir Pedido como Pronto");
+        btnProntificarPedido.setText("Prontificar Pedido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,24 +103,22 @@ public class PedidosView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrPedidos)
+                    .addComponent(scrPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNomeCliente)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNovoPedido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnVerPedido)
+                                .addComponent(btnVerPedido))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEntregarPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPrepararPedido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCancelarPedido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPedidoComoPendente))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnPedidoComoEntregue)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPedidoComoPreparando)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPedidoComoPronto)))
+                                .addComponent(btnProntificarPedido)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -123,23 +132,22 @@ public class PedidosView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovoPedido)
-                    .addComponent(btnPedidoComoPendente)
-                    .addComponent(btnCancelarPedido)
                     .addComponent(btnVerPedido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPedidoComoEntregue)
-                    .addComponent(btnPedidoComoPreparando)
-                    .addComponent(btnPedidoComoPronto))
+                    .addComponent(btnEntregarPedido)
+                    .addComponent(btnPrepararPedido)
+                    .addComponent(btnCancelarPedido)
+                    .addComponent(btnProntificarPedido))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPedidoComoPreparandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoComoPreparandoActionPerformed
+    private void btnPrepararPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrepararPedidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnPedidoComoPreparandoActionPerformed
+    }//GEN-LAST:event_btnPrepararPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,11 +176,10 @@ public class PedidosView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarPedido;
+    private javax.swing.JButton btnEntregarPedido;
     private javax.swing.JButton btnNovoPedido;
-    private javax.swing.JButton btnPedidoComoEntregue;
-    private javax.swing.JButton btnPedidoComoPendente;
-    private javax.swing.JButton btnPedidoComoPreparando;
-    private javax.swing.JButton btnPedidoComoPronto;
+    private javax.swing.JButton btnPrepararPedido;
+    private javax.swing.JButton btnProntificarPedido;
     private javax.swing.JButton btnVerPedido;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JScrollPane scrPedidos;

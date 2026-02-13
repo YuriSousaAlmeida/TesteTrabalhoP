@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author erko
  */
-public class ClienteView extends javax.swing.JFrame implements IClienteView {
+public class ClienteView extends javax.swing.JFrame  {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ClienteView.class.getName());
 
@@ -36,50 +36,55 @@ public class ClienteView extends javax.swing.JFrame implements IClienteView {
      */
     public ClienteView() {
         initComponents();
+        
+    }
+    
+    public void incicializaView(){
         setTitle("Gestão de Clientes - Sistema Delivery");
         setLocationRelativeTo(null); //centralizar a janela 
+        limparCampos();
+        this.setVisible(true);
     }
-//========================IMPLEMENTAÇÃO DA INTERFACE============
     
     //setters que enviaram para presenter
-    @Override
+//    @Override
     public String getNome() {
         return txtNome.getText();
     }
 
-    @Override
+//    @Override
     public String getEmail() {
         return txtEMail.getText();
     }
 
-    @Override
+//    @Override
     public String getCidade() {
         return txtCidade.getText();
     }
 
-    @Override
+//    @Override
     public String getBairro() {
         return txtBairro.getText();
     }
 
-    @Override
+//    @Override
     public String getRua() {
         return txtRua.getText();
     }
 
-    @Override
+//    @Override
     public String getNumero() {
         return txtNumero.getText();
     }
     
     
 
-    @Override
+//    @Override
     public int getLinhaSelecionada() {
         return tblClientes.getSelectedRow();
     }
 
-    @Override
+//    @Override
     public void mostrarMensagem(String msg) {
         //mostra um optionpane com a mensagem
         javax.swing.JOptionPane.showMessageDialog(this, msg);
@@ -108,6 +113,8 @@ private void btnSalvar(java.awt.event.ActionEvent evt) {
     dto.rua = txtRua.getText();
     dto.numero = txtNumero.getText();
     
+    
+    
     if (controller != null) {
             controller.salvar(dto);
             limparCampos();
@@ -135,7 +142,7 @@ private void btnSalvar(java.awt.event.ActionEvent evt) {
 //        }
 //    }
 
-    @Override
+//    @Override
     public void limparCampos() {
         
         txtNome.setText("");
@@ -144,6 +151,10 @@ private void btnSalvar(java.awt.event.ActionEvent evt) {
         txtBairro.setText("");
         txtRua.setText("");
         txtNumero.setText("");
+        
+        //limpa a tabela 
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+        model.setRowCount(0); 
         
     }
 
