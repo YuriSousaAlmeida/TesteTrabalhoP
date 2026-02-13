@@ -11,13 +11,10 @@ import java.util.List;
  *
  * @author André
  */
-public class ItemPedidoInputDTO {
-    public String tipo;   
+public class ItemPedidoPizzaInputDTO {
     public String sabor;
-    public String tamanho;
-    public List<String> adicionais = new ArrayList<>(); 
-    public int quantidade = 1;
+    public List<String> adicionais = new ArrayList<>();
 
-    public ItemPedidoInputDTO() {
+    public ItemPedidoPizzaInputDTO() {
     }
 }
