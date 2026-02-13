@@ -45,7 +45,7 @@ public class Pedido {
     private void calcularTotal() {
         valorTotal = 0;
         for(Item item : itens) {
-            valorTotal += item.getValor();
+            valorTotal += item.getPreco();
         }
     }
 }

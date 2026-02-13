@@ -9,7 +9,6 @@ import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoBuilder;
 import com.mycompany.trabalho.delivery.dominio.port.ILogService;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.*;
-import com.mycompany.trabalho.delivery.dominio.model.pizza.decorators.*;
 import com.mycompany.trabalho.delivery.infraestrutura.logger.Logger;
 import com.mycompany.trabalho.delivery.infraestrutura.logger.CSVMetodo;
 import java.util.ArrayList;
@@ -25,17 +24,14 @@ public class TrabalhoDelivery {
         
         logger.info("INICIANDO TESTE DE LOG EM ARQUIVO...");
 
-        ITamanhoStrategy tamanhoPizza = new PizzaTamanhoMedioStrategy();
-        Pizza pizza = new BasePizza(tamanhoPizza); 
-        //pizza = new CalabresaDecorator(pizza);  
-        //pizza = new MussarelaDecorator(pizza);
-
         ITamanhoStrategy tamanhoCoca = new CocaColaTamanhoPequenoStrategy();
-        CocaCola coca = new CocaCola(tamanhoCoca);
+        //CocaCola coca = new CocaCola(tamanhoCoca);
         
+        PizzaioloDiretor diretor = new PizzaioloDiretor();
+        PizzaComponente calabresa = diretor.build(new CalabresaBuilder());
         List<Item> listaItens = new ArrayList<>();
-        listaItens.add(pizza);
-        listaItens.add(coca);
+        listaItens.add(calabresa);
+        //listaItens.add(coca);
 
         PedidoBuilder builder = new PedidoBuilder(listaItens, logger);
         Pedido meuPedido = builder.getPedido();
@@ -52,8 +48,8 @@ public class TrabalhoDelivery {
 
         System.out.println("Resumo do Pedido:");
         System.out.println("Itens: " + listaItens.size());
-        System.out.println("Descrição Pizza: " + pizza.toString());
-        System.out.println("Valor Total: R$ " + (pizza.getValor() + coca.getValor()));
+        System.out.println("Descrição: " + calabresa.toString());
+        //System.out.println("Valor Total: R$ " + (calabresa.getValor() + coca.getValor()));
         
         logger.info("Teste finalizado com sucesso.");
     }
