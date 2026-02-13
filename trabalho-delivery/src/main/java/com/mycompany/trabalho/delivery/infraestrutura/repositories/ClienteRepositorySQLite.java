@@ -22,12 +22,14 @@ import java.util.List;
 
 public class ClienteRepositorySQLite implements IClienteRepository {
 
-    @Override
+@Override
     public Cliente salvarCliente(Cliente cliente) {
         String sql = "INSERT INTO clientes(nome, cpf, email, cidade, bairro, rua, numero) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
-        try(Connection conexao = ConexaoSingleton.getConexao();
-             PreparedStatement statement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        // CORREÇÃO: Conexão fora do try-with-resources para não ser fechada
+        Connection conexao = ConexaoSingleton.getConexao();
+        
+        try(PreparedStatement statement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             
             statement.setString(1, cliente.getNome());
             statement.setString(2, cliente.getCpf());
@@ -52,9 +54,9 @@ public class ClienteRepositorySQLite implements IClienteRepository {
     @Override
     public Cliente buscarClientePorNome(String nome) {
         String sql = "SELECT * FROM clientes WHERE nome = ?";
-        try (Connection conexao = ConexaoSingleton.getConexao();
-             PreparedStatement statement = conexao.prepareStatement(sql)) {
-            
+        Connection conexao = ConexaoSingleton.getConexao();
+        
+        try (PreparedStatement statement = conexao.prepareStatement(sql)) {
             statement.setString(1, nome);
             ResultSet rset = statement.executeQuery();
             
@@ -70,9 +72,9 @@ public class ClienteRepositorySQLite implements IClienteRepository {
     @Override
     public Cliente buscarClientePorCPF(String cpf) {
         String sql = "SELECT * FROM clientes WHERE cpf = ?";
-        try (Connection conexao = ConexaoSingleton.getConexao();
-             PreparedStatement statement = conexao.prepareStatement(sql)) {
-            
+        Connection conexao = ConexaoSingleton.getConexao();
+        
+        try (PreparedStatement statement = conexao.prepareStatement(sql)) {
             statement.setString(1, cpf);
             ResultSet rset = statement.executeQuery();
             
@@ -88,15 +90,33 @@ public class ClienteRepositorySQLite implements IClienteRepository {
     @Override
     public void deletarCliente(String nome) {
         String sql = "DELETE FROM clientes WHERE nome = ?";
-        try(Connection conexao = ConexaoSingleton.getConexao();
-             PreparedStatement statement = conexao.prepareStatement(sql)) {
-            
+        Connection conexao = ConexaoSingleton.getConexao();
+        
+        try(PreparedStatement statement = conexao.prepareStatement(sql)) {
             statement.setString(1, nome);
             statement.executeUpdate();
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    // Novo método solicitado anteriormente
+    @Override
+    public List<Cliente> buscarTodos() {
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM clientes";
+        Connection conexao = ConexaoSingleton.getConexao();
+        
+        try (PreparedStatement statement = conexao.prepareStatement(sql);
+             ResultSet rset = statement.executeQuery()) {
+            
+            while (rset.next()) {
+                clientes.add(mapearCliente(rset));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clientes;
     }
     
     private Cliente mapearCliente(ResultSet rset) throws SQLException {
@@ -114,8 +134,9 @@ public class ClienteRepositorySQLite implements IClienteRepository {
     
     public int buscarIdPorCpf(String cpf) {
         String sql = "SELECT id FROM clientes WHERE cpf = ?";
-        try (Connection conexao = ConexaoSingleton.getConexao();
-             PreparedStatement statement = conexao.prepareStatement(sql)) {
+        Connection conexao = ConexaoSingleton.getConexao();
+        
+        try (PreparedStatement statement = conexao.prepareStatement(sql)) {
             statement.setString(1, cpf);
             ResultSet rset = statement.executeQuery();
             if (rset.next()) return rset.getInt("id");
@@ -125,25 +146,4 @@ public class ClienteRepositorySQLite implements IClienteRepository {
         return -1;
     }
     
-    @Override
-    public List<Cliente> buscarTodos(){
-        List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM clientes";
-        
-        try (Connection conexao = ConexaoSingleton.getConexao();
-             PreparedStatement statement = conexao.prepareStatement(sql);
-             ResultSet rset = statement.executeQuery()) {
-            
-            while (rset.next()) {
-                Cliente cliente = mapearCliente(rset);
-                clientes.add(cliente);
-            }
-            
-        } catch (SQLException e) {
-            System.err.println("Erro ao buscar todos os clientes: " + e.getMessage());
-            e.printStackTrace();
-        }
-        
-        return clientes;
-    }
 }

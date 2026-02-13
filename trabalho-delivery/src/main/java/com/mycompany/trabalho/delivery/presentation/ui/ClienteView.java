@@ -227,35 +227,12 @@ public class ClienteView extends javax.swing.JFrame {
         model.setRowCount(0);//limpa tabela
         List<CreateClienteOutputDTO> clientes = controller.listarTodos();
         for (CreateClienteOutputDTO c : clientes) { //preenche com os dados da lista de clientes
-            model.addRow(new Object[]{
-               
-                c.cpf,
-                
-                c.nome,
-                c.rua + " " + c.numero + " " + c.bairro + " " ,
-                c.email
-                    
-            });
+            model.addRow(new Object[]{ c.cpf, c.nome, c.getEnderecoFormatado(), c.email});
     
         }
     }
-//        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
-//        model.setRowCount(0); //limpa a tabela 
-//
-//        for (CreateClienteOutputDTO c : clientes) { //preenche com os dados da lista de clientes
-//            model.addRow(new Object[]{
-//                c.cpf(),
-//                
-//                c.nome(),
-//                c.getRua() + " " + c.getNumeroEndereco() + " " + c.getBairro() + " " ,
-//                c.getEmail()
-//                    
-//            });
-//        }
-//    }
-//    @Override
+    
     public void limparCampos() {
-
         txtNome.setText("");
         txtEMail.setText("");
         txtCidade.setText("");
@@ -263,11 +240,6 @@ public class ClienteView extends javax.swing.JFrame {
         txtRua.setText("");
         txtNumero.setText("");
         txtCPF.setText("");
-
-       
-//        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
-//        model.setRowCount(0);
-
     }
 
     

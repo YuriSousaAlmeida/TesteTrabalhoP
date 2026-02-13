@@ -30,4 +30,8 @@ public class CreateClienteOutputDTO {
         this.rua = input.getRua();
         this.numero = input.getNumero();
     }
+    
+    public String getEnderecoFormatado() {
+        return this.rua + ", " + this.numero + " - " + this.bairro + " - " + this.cidade;
+    }
 }
