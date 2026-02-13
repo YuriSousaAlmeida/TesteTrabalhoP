@@ -10,6 +10,7 @@ import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteOutputDTO;
 import com.mycompany.trabalho.delivery.aplicacao.useCases.BuscarTodosOsClientesUseCase;
 import com.mycompany.trabalho.delivery.aplicacao.useCases.CadastrarClienteUseCase;
 import com.mycompany.trabalho.delivery.presentation.ui.ClienteView;
+import com.mycompany.trabalho.delivery.aplicacao.useCases.DeletarClienteUseCase;
 import java.util.List;
 import java.util.Optional;
 import javax.swing.JOptionPane;
@@ -19,13 +20,16 @@ public class ClienteController {
 
     private final CadastrarClienteUseCase cadastrarCliente;
     private final BuscarTodosOsClientesUseCase listarClientes;
+    private final DeletarClienteUseCase deletarCliente;
 
     public ClienteController(
             CadastrarClienteUseCase cadastrarCliente,
-            BuscarTodosOsClientesUseCase listarClientes
+            BuscarTodosOsClientesUseCase listarClientes,
+            DeletarClienteUseCase deletarCliente
     ) {
         this.cadastrarCliente = cadastrarCliente;
         this.listarClientes = listarClientes;
+        this.deletarCliente = deletarCliente;
     }
 
     public Optional<CreateClienteOutputDTO> salvar(CreateClienteInputDTO dados) {
@@ -39,4 +43,9 @@ public class ClienteController {
     public List<CreateClienteOutputDTO> listarTodos() {
         return listarClientes.executar();
     }
+    
+    public void deletarCliente(String cpf){
+        deletarCliente.executar(cpf);
+    }
+    
 }

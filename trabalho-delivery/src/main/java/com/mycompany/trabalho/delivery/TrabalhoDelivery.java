@@ -2,6 +2,7 @@ package com.mycompany.trabalho.delivery;
 
 import com.mycompany.trabalho.delivery.aplicacao.useCases.BuscarTodosOsClientesUseCase;
 import com.mycompany.trabalho.delivery.aplicacao.useCases.CadastrarClienteUseCase;
+import com.mycompany.trabalho.delivery.aplicacao.useCases.DeletarClienteUseCase;
 import com.mycompany.trabalho.delivery.dominio.adapter.ConsoleLogAdapter;
 import com.mycompany.trabalho.delivery.dominio.model.bebida.Bebida;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.Item;
@@ -25,7 +26,8 @@ public class TrabalhoDelivery {
         CadastrarClienteUseCase useCase = new CadastrarClienteUseCase(repo);
 	ClienteView view = new ClienteView();
         BuscarTodosOsClientesUseCase buscar = new BuscarTodosOsClientesUseCase(repo);
-        ClienteController controller = new ClienteController(useCase, buscar);
+        DeletarClienteUseCase deletar = new DeletarClienteUseCase(repo);
+        ClienteController controller = new ClienteController(useCase, buscar, deletar);
         view.setController(controller);
         
         view.inicializar();
