@@ -1,6 +1,0 @@
-13/02/2026 01:45:25;"[INFO 01:45:25]: INICIANDO TESTE DE LOG EM ARQUIVO..."
-13/02/2026 01:45:25;"[INFO 01:45:25]: Alterando status do pedido para Preparando..."
-13/02/2026 01:45:25;"[INFO 01:45:25]: Iniciando transição de status do pedido. Valor total: R$ 49.0"
-13/02/2026 01:45:25;"[INFO 01:45:25]: Alterando status do pedido para Pronto..."
-13/02/2026 01:45:25;"[INFO 01:45:25]: Iniciando transição de status do pedido. Valor total: R$ 49.0"
-13/02/2026 01:45:25;"[INFO 01:45:25]: Teste finalizado com sucesso."
