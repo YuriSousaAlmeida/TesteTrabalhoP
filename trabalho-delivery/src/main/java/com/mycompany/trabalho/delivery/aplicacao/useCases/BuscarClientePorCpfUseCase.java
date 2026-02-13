@@ -11,10 +11,10 @@ import com.mycompany.trabalho.delivery.dominio.port.IClienteRepository;
  *
  * @author André
  */
-public class BuscarClientePorCpf {
+public class BuscarClientePorCpfUseCase {
     private final IClienteRepository repositorio;
 
-    public BuscarClientePorCpf(IClienteRepository repositorio) {
+    public BuscarClientePorCpfUseCase(IClienteRepository repositorio) {
         this.repositorio = repositorio;
     }
 

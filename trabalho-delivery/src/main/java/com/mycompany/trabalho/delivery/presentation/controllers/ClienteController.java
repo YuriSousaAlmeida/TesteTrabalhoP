@@ -7,15 +7,15 @@ package com.mycompany.trabalho.delivery.presentation.controllers;
 
 import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteInputDTO;
 import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteOutputDTO;
-import com.mycompany.trabalho.delivery.aplicacao.useCases.CadastrarCliente;
+import com.mycompany.trabalho.delivery.aplicacao.useCases.CadastrarClienteUseCase;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 
 public class ClienteController {
     
-    private final CadastrarCliente cadastrarCliente;
+    private final CadastrarClienteUseCase cadastrarCliente;
 
-    public ClienteController(CadastrarCliente cadastrar) {
+    public ClienteController(CadastrarClienteUseCase cadastrar) {
         this.cadastrarCliente = cadastrar;
     }
 

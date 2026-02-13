@@ -5,27 +5,27 @@
 package com.mycompany.trabalho.delivery.aplicacao.useCases;
 
 import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
-import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoCanceladoState;
+import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoPreparadoState;
 import com.mycompany.trabalho.delivery.dominio.port.IPedidoRepository;
 
 /**
  *
  * @author André
  */
-public class CancelarPedido {
+public class PrepararPedidoUseCase {
     private final IPedidoRepository repositorio;
 
-    public CancelarPedido(IPedidoRepository repositorio) {
+    public PrepararPedidoUseCase(IPedidoRepository repositorio) {
         this.repositorio = repositorio;
     }
 
     public void executar(int idPedido) {
         
         Pedido pedido = repositorio.buscarPedidoPorId(idPedido);
-        pedido.setEstado( new PedidoCanceladoState()); 
+        pedido.setEstado( new PedidoPreparadoState()); 
 
         repositorio.salvarPedido(pedido);
-  
-        System.out.println("Pedido " + idPedido + " foi CANCELADO com sucesso.");
+        
+        System.out.println("Pedido " + idPedido + " foi preparado com sucesso.");
     }
 }

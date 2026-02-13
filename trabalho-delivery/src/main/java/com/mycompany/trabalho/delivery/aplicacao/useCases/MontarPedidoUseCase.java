@@ -16,13 +16,13 @@ package com.mycompany.trabalho.delivery.aplicacao.useCases;
  *
  * @author André
  */
-public class MontarPedido {
+public class MontarPedidoUseCase {
 //    private final IPedidoRepository repositorioPedidos;
 //    private final IClienteRepository repositorioClientes;
 //    private final Cliente cliente;
 //    
 //
-//    public MontarPedido(IPedidoRepository repositorioPedidos, IClienteRepository repositorioClientes) {
+//    public MontarPedidoUseCase(IPedidoRepository repositorioPedidos, IClienteRepository repositorioClientes) {
 //        this.repositorioPedidos = repositorioPedidos;
 //       this.repositorioClientes = repositorioClientes;
 //    }

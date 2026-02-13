@@ -8,6 +8,6 @@ package com.mycompany.trabalho.delivery.aplicacao.useCases;
  *
  * @author André
  */
-public class CalcularTotalPedido {
+public class CalcularTotalPedidoUseCase {
     
 }

@@ -15,10 +15,10 @@ import java.util.Optional;
  *
  * @author André
  */
-public class CadastrarCliente {
+public class CadastrarClienteUseCase {
     private final IClienteRepository repositorio;
 
-    public CadastrarCliente(IClienteRepository repositorio) {
+    public CadastrarClienteUseCase(IClienteRepository repositorio) {
         this.repositorio = repositorio;
     }
 
@@ -27,7 +27,7 @@ public class CadastrarCliente {
         Cliente cliente = new Cliente(dto.nome, dto.cpf, dto.email, endereco);
       
        
-        BuscarClientePorCpf verificar = new BuscarClientePorCpf(repositorio);
+        BuscarClientePorCpfUseCase verificar = new BuscarClientePorCpfUseCase(repositorio);
         
         if (verificar.executar(cliente.getCpf()) != null) {
             throw new RuntimeException("O Cliente já existe!");

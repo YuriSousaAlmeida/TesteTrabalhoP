@@ -5,27 +5,27 @@
 package com.mycompany.trabalho.delivery.aplicacao.useCases;
 
 import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
-import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoPreparadoState;
+import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoProntoState;
 import com.mycompany.trabalho.delivery.dominio.port.IPedidoRepository;
 
 /**
  *
  * @author André
  */
-public class PrepararPedido {
+public class ProntificarPedidoUseCase {
     private final IPedidoRepository repositorio;
 
-    public PrepararPedido(IPedidoRepository repositorio) {
+    public ProntificarPedidoUseCase(IPedidoRepository repositorio) {
         this.repositorio = repositorio;
     }
 
     public void executar(int idPedido) {
         
         Pedido pedido = repositorio.buscarPedidoPorId(idPedido);
-        pedido.setEstado( new PedidoPreparadoState()); 
+        pedido.setEstado( new PedidoProntoState()); 
 
         repositorio.salvarPedido(pedido);
         
-        System.out.println("Pedido " + idPedido + " foi preparado com sucesso.");
+        System.out.println("Pedido " + idPedido + " ficou pronto.");
     }
 }
