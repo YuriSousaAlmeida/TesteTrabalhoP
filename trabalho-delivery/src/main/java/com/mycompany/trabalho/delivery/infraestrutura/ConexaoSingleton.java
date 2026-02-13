@@ -47,11 +47,13 @@ public class ConexaoSingleton {
         
         try(InputStream input = ConexaoSingleton.class.getClassLoader().getResourceAsStream("application.properties")){
             if(input==null){
+                Logger.getInstancia().registrar("[ERRO BD]: Falha ao comunicar com o ficheiro SQLite.");
                 throw new RuntimeException("Erro: application.properties nao encontrado");
             }
             
             properties.load(input);
         } catch (IOException e){
+            Logger.getInstancia().registrar("[ERRO BD]: Falha ao comunicar com o ficheiro SQLite.");
             throw new RuntimeException("Erro ao ler o arquivo de configurações", e);
         }
         
