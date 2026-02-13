@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author André
  */
-public class ItemPedidoPizzaInputDTO implements ItemPedidoInputDTO {
+public class ItemPedidoPizzaInputDTO {
     public String sabor;
     public List<String> adicionais = new ArrayList<>();
 
