@@ -174,17 +174,38 @@ public class ClienteView extends javax.swing.JFrame {
         
         // Ação do Botão Excluir
         btnExcluir.addActionListener(e -> {
-            int row = tblClientes.getSelectedRow();
-            if (row != -1) {
-//                cacheVisual.remove(row); //remove linha (row) da tabela 
-//                atualizarTabela();
-                mostrarMensagem("Removido da visualização.");
+             int row = tblClientes.getSelectedRow();
+            String cpf = getCpfSelecionado();
+            
+            if (row != -1 && cpf != null) {
+                
+                 controller.deletarCliente(cpf);
+                
+                // Remove a linha selecionada do modelo visual da JTable
+                excluirLinhaDaTabela(row);
+                
+                mostrarMensagem("Cliente com CPF " + cpf + " excluído da visualização.");
             } else {
                 mostrarMensagem("Selecione um cliente na tabela primeiro.");
             }
         });
     }
 
+    private String getCpfSelecionado() {
+        int index = tblClientes.getSelectedRow();
+        if (index != -1) {
+            // Assume que o CPF está na primeira coluna (índice 0) conforme seu modelo de tabela
+            Object valor = tblClientes.getValueAt(index, 0);
+            return (valor != null) ? valor.toString() : null;
+        }
+        return null;
+    }
+    
+    private void excluirLinhaDaTabela(int row) {
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+        model.removeRow(row);
+    }
+    
     private void salvarCliente(/*java.awt.event.ActionEvent evt*/) {
         CreateClienteInputDTO dto = new CreateClienteInputDTO();
 

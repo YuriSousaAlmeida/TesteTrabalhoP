@@ -88,17 +88,19 @@ public class ClienteRepositorySQLite implements IClienteRepository {
     }
 
     @Override
-    public void deletarCliente(String nome) {
-        String sql = "DELETE FROM clientes WHERE nome = ?";
+    public void deletarCliente(String cpf) {
+        String sql = "DELETE FROM clientes WHERE cpf = ?";
         Connection conexao = ConexaoSingleton.getConexao();
         
         try(PreparedStatement statement = conexao.prepareStatement(sql)) {
-            statement.setString(1, nome);
+            statement.setString(1, cpf);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
+    
     
     // Novo método solicitado anteriormente
     @Override

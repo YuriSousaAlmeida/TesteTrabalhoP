@@ -14,7 +14,7 @@ import java.util.List;
 public interface IClienteRepository {
     public Cliente salvarCliente(Cliente cliente);
     public Cliente buscarClientePorNome(String nome);
-    public void deletarCliente(String nome);
+    public void deletarCliente(String cpf);
     public Cliente buscarClientePorCPF(String cpf);
     public List<Cliente> buscarTodos();
 }

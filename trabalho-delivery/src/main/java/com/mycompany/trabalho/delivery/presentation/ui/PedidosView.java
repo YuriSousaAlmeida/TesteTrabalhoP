@@ -79,7 +79,9 @@ public class PedidosView extends javax.swing.JFrame {
     
     public void iniciarView(){
         limparTabelas();
+        setLocationRelativeTo(null);
         this.setVisible(true);
+        
         
     }
     
