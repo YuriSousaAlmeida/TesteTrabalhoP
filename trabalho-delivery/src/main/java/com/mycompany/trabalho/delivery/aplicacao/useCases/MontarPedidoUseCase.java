@@ -10,7 +10,6 @@ import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoPendenteState;
 import com.mycompany.trabalho.delivery.dominio.port.IClienteRepository;
 import com.mycompany.trabalho.delivery.dominio.port.IPedidoRepository;
-import com.mycompany.trabalho.delivery.aplicacao.dto.ItemPedidoDTO;
 import com.mycompany.trabalho.delivery.aplicacao.dto.ItemPedidoPizzaInputDTO;
 import com.mycompany.trabalho.delivery.dominio.model.bebida.Bebida;
 import com.mycompany.trabalho.delivery.dominio.model.cliente.Cliente;
@@ -26,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.mycompany.trabalho.delivery.aplicacao.dto.ItemPedidoInputDTO;
 
 /**
  *
