@@ -38,7 +38,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
         lblIngrediente = new javax.swing.JLabel();
         cmbIngrediente = new javax.swing.JComboBox<>();
         scrIngredientesPizza = new javax.swing.JScrollPane();
-        tblIngredientesPizza = new javax.swing.JTable();
+        tblAdicionaisPizza = new javax.swing.JTable();
         btnAddPizzaAoPedido = new javax.swing.JButton();
         btnLimparIngredientes = new javax.swing.JButton();
         lblBebida = new javax.swing.JLabel();
@@ -48,11 +48,11 @@ public class ItensPedidoView extends javax.swing.JFrame {
         btnAddBebidaPedido = new javax.swing.JButton();
         btnCalcularTotal = new javax.swing.JButton();
         btnIncluirAdiciona = new javax.swing.JButton();
-        radPequena = new javax.swing.JRadioButton();
-        radMedia = new javax.swing.JRadioButton();
-        radGrande = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radPizzaPortuguesa = new javax.swing.JRadioButton();
+        radPizzaCalabresa = new javax.swing.JRadioButton();
+        radPizzaQuatroQueijos = new javax.swing.JRadioButton();
+        radPizzaModaCasa = new javax.swing.JRadioButton();
+        radPizzaFrangoCatupiry = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,13 +91,13 @@ public class ItensPedidoView extends javax.swing.JFrame {
 
         lblClienteFulano.setText("Cliente: Fulano");
 
-        lblTamanhoPizza.setText("Tamanho da pizza:");
+        lblTamanhoPizza.setText("Pizza Base:");
 
         lblIngrediente.setText("Adicional:");
 
         cmbIngrediente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        tblIngredientesPizza.setModel(new javax.swing.table.DefaultTableModel(
+        tblAdicionaisPizza.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -105,7 +105,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Ingrediente", "Quantidade"
+                "Adicionais", "Quantidade"
             }
         ) {
             Class[] types = new Class [] {
@@ -123,7 +123,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        scrIngredientesPizza.setViewportView(tblIngredientesPizza);
+        scrIngredientesPizza.setViewportView(tblAdicionaisPizza);
 
         btnAddPizzaAoPedido.setText("Adicionar Pizza ao Pedido");
 
@@ -143,18 +143,20 @@ public class ItensPedidoView extends javax.swing.JFrame {
 
         btnIncluirAdiciona.setText("Incluir Adicional");
 
-        buttonGroup1.add(radPequena);
-        radPequena.setText("Portuguesa");
+        buttonGroup1.add(radPizzaPortuguesa);
+        radPizzaPortuguesa.setText("Portuguesa");
 
-        buttonGroup1.add(radMedia);
-        radMedia.setText("Calabresa");
+        buttonGroup1.add(radPizzaCalabresa);
+        radPizzaCalabresa.setText("Calabresa");
 
-        buttonGroup1.add(radGrande);
-        radGrande.setText("Quatro Queijos");
+        buttonGroup1.add(radPizzaQuatroQueijos);
+        radPizzaQuatroQueijos.setText("Quatro Queijos");
 
-        jRadioButton1.setText("Moda da Casa");
+        buttonGroup1.add(radPizzaModaCasa);
+        radPizzaModaCasa.setText("Moda da Casa");
 
-        jRadioButton2.setText("Frango com Catupiry");
+        buttonGroup1.add(radPizzaFrangoCatupiry);
+        radPizzaFrangoCatupiry.setText("Frango com Catupiry");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,8 +178,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnCalcularTotal))
                                     .addComponent(scrItens, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 18, Short.MAX_VALUE))))
-                    .addComponent(scrIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnIncluirAdiciona)
@@ -186,11 +187,11 @@ public class ItensPedidoView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnLimparIngredientes))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(radPequena)
+                                .addComponent(radPizzaPortuguesa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radMedia)
+                                .addComponent(radPizzaCalabresa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radGrande))
+                                .addComponent(radPizzaQuatroQueijos))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblIngrediente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -198,10 +199,13 @@ public class ItensPedidoView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTamanhoPizza)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton1)
+                                .addComponent(radPizzaModaCasa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2)))
-                        .addGap(179, 179, 179)
+                                .addComponent(radPizzaFrangoCatupiry)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTamanhoBebida)
                             .addGroup(layout.createSequentialGroup()
@@ -226,31 +230,32 @@ public class ItensPedidoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTamanhoPizza)
-                    .addComponent(lblBebida)
-                    .addComponent(cmbBebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(radPizzaModaCasa)
+                    .addComponent(radPizzaFrangoCatupiry))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radPizzaPortuguesa)
+                    .addComponent(radPizzaCalabresa)
+                    .addComponent(radPizzaQuatroQueijos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblIngrediente)
+                    .addComponent(cmbIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(btnIncluirAdiciona)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(radPequena)
-                            .addComponent(radMedia)
-                            .addComponent(radGrande))
+                            .addComponent(lblBebida)
+                            .addComponent(cmbBebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblIngrediente)
-                            .addComponent(cmbIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTamanhoBebida)
                             .addComponent(cmbTamanhoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAddBebidaPedido)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnIncluirAdiciona)
-                .addGap(3, 3, 3)
-                .addComponent(scrIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddPizzaAoPedido)
@@ -307,20 +312,20 @@ public class ItensPedidoView extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbBebida;
     private javax.swing.JComboBox<String> cmbIngrediente;
     private javax.swing.JComboBox<String> cmbTamanhoBebida;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel lblBebida;
     private javax.swing.JLabel lblClienteFulano;
     private javax.swing.JLabel lblIngrediente;
     private javax.swing.JLabel lblPedidoID;
     private javax.swing.JLabel lblTamanhoBebida;
     private javax.swing.JLabel lblTamanhoPizza;
-    private javax.swing.JRadioButton radGrande;
-    private javax.swing.JRadioButton radMedia;
-    private javax.swing.JRadioButton radPequena;
+    private javax.swing.JRadioButton radPizzaCalabresa;
+    private javax.swing.JRadioButton radPizzaFrangoCatupiry;
+    private javax.swing.JRadioButton radPizzaModaCasa;
+    private javax.swing.JRadioButton radPizzaPortuguesa;
+    private javax.swing.JRadioButton radPizzaQuatroQueijos;
     private javax.swing.JScrollPane scrIngredientesPizza;
     private javax.swing.JScrollPane scrItens;
-    private javax.swing.JTable tblIngredientesPizza;
+    private javax.swing.JTable tblAdicionaisPizza;
     private javax.swing.JTable tblItens;
     // End of variables declaration//GEN-END:variables
 }

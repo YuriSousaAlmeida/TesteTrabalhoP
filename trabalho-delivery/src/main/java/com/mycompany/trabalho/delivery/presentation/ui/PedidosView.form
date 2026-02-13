@@ -25,26 +25,32 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblPesquisar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtPesquisaNome" min="-2" pref="436" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="btnNovoPedido" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnEvoluirEstado" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btCancelarPedido" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="scrPedidos" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblNomeCliente" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnNovoPedido" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnVerPedido" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnCancelarPedido" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnPedidoComoPendente" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnPedidoComoEntregue" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnPedidoComoPreparando" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnPedidoComoPronto" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="scrPedidos" min="-2" pref="562" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -52,31 +58,32 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtPesquisaNome" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="lblNomeCliente" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="scrPedidos" min="-2" pref="392" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnNovoPedido" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEvoluirEstado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btCancelarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPedidoComoPendente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVerPedido" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnPedidoComoEntregue" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPedidoComoPreparando" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPedidoComoPronto" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblPesquisar">
+    <Component class="javax.swing.JLabel" name="lblNomeCliente">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pesquisar por cliente:"/>
+        <Property name="text" type="java.lang.String" value="Pedido do cliente: Fulano"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtPesquisaNome">
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrPedidos">
       <AuxValues>
@@ -125,19 +132,37 @@
         <Property name="text" type="java.lang.String" value="Novo Pedido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnEvoluirEstado">
+    <Component class="javax.swing.JButton" name="btnPedidoComoPendente">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Evoluir Estado do Pedido"/>
+        <Property name="text" type="java.lang.String" value="Definir pedido como Pendente"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btCancelarPedido">
+    <Component class="javax.swing.JButton" name="btnCancelarPedido">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar Pedido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnVerPedido">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ver Pedido"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPedidoComoEntregue">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Definir Pedido como Entregue"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPedidoComoPreparando">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Definir Pedido como Preparando"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPedidoComoPreparandoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPedidoComoPronto">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Definir Pedido como Pronto"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -27,18 +27,20 @@ public class PedidosView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblPesquisar = new javax.swing.JLabel();
-        txtPesquisaNome = new javax.swing.JTextField();
+        lblNomeCliente = new javax.swing.JLabel();
         scrPedidos = new javax.swing.JScrollPane();
         tblPedidos = new javax.swing.JTable();
         btnNovoPedido = new javax.swing.JButton();
-        btnEvoluirEstado = new javax.swing.JButton();
-        btCancelarPedido = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnPedidoComoPendente = new javax.swing.JButton();
+        btnCancelarPedido = new javax.swing.JButton();
+        btnVerPedido = new javax.swing.JButton();
+        btnPedidoComoEntregue = new javax.swing.JButton();
+        btnPedidoComoPreparando = new javax.swing.JButton();
+        btnPedidoComoPronto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblPesquisar.setText("Pesquisar por cliente:");
+        lblNomeCliente.setText("Pedido do cliente: Fulano");
 
         tblPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,11 +72,18 @@ public class PedidosView extends javax.swing.JFrame {
 
         btnNovoPedido.setText("Novo Pedido");
 
-        btnEvoluirEstado.setText("Evoluir Estado do Pedido");
+        btnPedidoComoPendente.setText("Definir pedido como Pendente");
 
-        btCancelarPedido.setText("Cancelar Pedido");
+        btnCancelarPedido.setText("Cancelar Pedido");
 
-        jButton1.setText("Ver Pedido");
+        btnVerPedido.setText("Ver Pedido");
+
+        btnPedidoComoEntregue.setText("Definir Pedido como Entregue");
+
+        btnPedidoComoPreparando.setText("Definir Pedido como Preparando");
+        btnPedidoComoPreparando.addActionListener(this::btnPedidoComoPreparandoActionPerformed);
+
+        btnPedidoComoPronto.setText("Definir Pedido como Pronto");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,43 +91,55 @@ public class PedidosView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(lblPesquisar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnNovoPedido)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnEvoluirEstado)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btCancelarPedido)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1))
-                        .addComponent(scrPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrPedidos)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNomeCliente)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnNovoPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnVerPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancelarPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPedidoComoPendente))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnPedidoComoEntregue)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPedidoComoPreparando)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPedidoComoPronto)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPesquisar)
-                    .addComponent(txtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblNomeCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovoPedido)
-                    .addComponent(btnEvoluirEstado)
-                    .addComponent(btCancelarPedido)
-                    .addComponent(jButton1))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(btnPedidoComoPendente)
+                    .addComponent(btnCancelarPedido)
+                    .addComponent(btnVerPedido))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPedidoComoEntregue)
+                    .addComponent(btnPedidoComoPreparando)
+                    .addComponent(btnPedidoComoPronto))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPedidoComoPreparandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoComoPreparandoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPedidoComoPreparandoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,14 +167,16 @@ public class PedidosView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCancelarPedido;
-    private javax.swing.JButton btnEvoluirEstado;
+    private javax.swing.JButton btnCancelarPedido;
     private javax.swing.JButton btnNovoPedido;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel lblPesquisar;
+    private javax.swing.JButton btnPedidoComoEntregue;
+    private javax.swing.JButton btnPedidoComoPendente;
+    private javax.swing.JButton btnPedidoComoPreparando;
+    private javax.swing.JButton btnPedidoComoPronto;
+    private javax.swing.JButton btnVerPedido;
+    private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JScrollPane scrPedidos;
     private javax.swing.JTable tblPedidos;
-    private javax.swing.JTextField txtPesquisaNome;
     // End of variables declaration//GEN-END:variables
 
 }
