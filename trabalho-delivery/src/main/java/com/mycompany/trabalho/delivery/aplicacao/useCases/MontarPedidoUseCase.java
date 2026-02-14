@@ -58,7 +58,7 @@ public class MontarPedidoUseCase {
         mapaSabores.put("quatroqueijos", new QuatroQueijosBuilder());
         
         for(ItemPedidoPizzaInputDTO itemPizza : itensPizzas) {
-            PizzaBuilder builder = mapaSabores.get(itemPizza.sabor);
+            PizzaBuilder builder = mapaSabores.get(itemPizza.getSabor());
             builder.prepararMassa();
             builder.adicionarMolho();
             builder.adicionarCobertura();
@@ -68,7 +68,7 @@ public class MontarPedidoUseCase {
         }
         
         for(ItemPedidoBebidaInputDTO itemBebida : itensBebidas) {
-            Bebida bebida = new Bebida(itemBebida.nome, itemBebida.preco);
+            Bebida bebida = new Bebida(itemBebida.getNome(), itemBebida.getPreco());
             
             itensModelo.add(bebida);
         }

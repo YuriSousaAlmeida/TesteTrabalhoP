@@ -51,8 +51,8 @@ public class PedidosController {
         
         for(Pedido pedido : pedidos) {
             PedidoDTO pedidoDTO = new PedidoDTO();
-            pedidoDTO.idPedido = pedido.getId();
-            pedidoDTO.status = pedido.getEstado().getDescricao();
+            pedidoDTO.setIdPedido(pedido.getId()) ;
+            pedidoDTO.setStatus(pedido.getEstado().getDescricao());
             
             pedidosDTO.add(pedidoDTO);
         }

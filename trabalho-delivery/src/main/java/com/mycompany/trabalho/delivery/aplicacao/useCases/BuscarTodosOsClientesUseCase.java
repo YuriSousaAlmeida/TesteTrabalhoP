@@ -26,13 +26,13 @@ public class BuscarTodosOsClientesUseCase {
         return clientes.stream().map(cliente -> {
 
             CreateClienteOutputDTO dto = new CreateClienteOutputDTO();
-            dto.nome = cliente.getNome();
-            dto.email = cliente.getEmail();
-            dto.cidade = cliente.getCidade();
-            dto.bairro = cliente.getBairro();
-            dto.rua = cliente.getRua();
-            dto.numero = cliente.getNumero();
-            dto.cpf = cliente.getCpf();
+            dto.setNome(cliente.getNome());
+            dto.setEmail(cliente.getEmail());
+            dto.setCidade(cliente.getCidade());
+            dto.setBairro(cliente.getBairro());
+            dto.setRua(cliente.getRua());
+            dto.setNumero(cliente.getNumero());
+            dto.setCpf(cliente.getCpf());
 
             return dto;
 

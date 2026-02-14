@@ -209,24 +209,24 @@ public class ClienteView extends javax.swing.JFrame {
     private void salvarCliente(/*java.awt.event.ActionEvent evt*/) {
         CreateClienteInputDTO dto = new CreateClienteInputDTO();
 
-        dto.nome = txtNome.getText();
-        dto.email = txtEMail.getText();
-        dto.cpf = txtCPF.getText();
+        dto.setNome(txtNome.getText()) ;
+        dto.setEmail(txtEMail.getText()) ;
+        dto.setCpf(txtCPF.getText());
 
-        dto.cidade = txtCidade.getText();
-        dto.bairro = txtBairro.getText();
-        dto.rua = txtRua.getText();
-        dto.numero = txtNumero.getText();
+        dto.setCidade(txtCidade.getText());
+        dto.setBairro(txtBairro.getText());
+        dto.setRua(txtRua.getText());
+        dto.setNumero(txtNumero.getText());
 
         if (controller != null) {
             Optional<CreateClienteOutputDTO> retorno = controller.salvar(dto);
             if (retorno.isPresent()) {
                 CreateClienteOutputDTO output = retorno.get();
-                String enderecoCompleto = dto.rua + ", " + dto.numero + " - " + dto.bairro + " - " + dto.cidade;
+                String enderecoCompleto = dto.getRua() + ", " + dto.getNumero() + " - " + dto.getBairro() + " - " + dto.getCidade();
 
-                adicionarClienteNaTabela(output.cpf, output.nome, enderecoCompleto, output.email);
+                adicionarClienteNaTabela(output.getCpf(), output.getNome(), enderecoCompleto, output.getEmail());
 
-                System.out.println("DTO Enviado: " + dto.nome + " - CPF: " + dto.cpf);
+                System.out.println("DTO Enviado: " + dto.getNome() + " - CPF: " + dto.getCpf());
 
 //                limparCampos();
             } else {
@@ -248,7 +248,7 @@ public class ClienteView extends javax.swing.JFrame {
         model.setRowCount(0);//limpa tabela
         List<CreateClienteOutputDTO> clientes = controller.listarTodos();
         for (CreateClienteOutputDTO c : clientes) { //preenche com os dados da lista de clientes
-            model.addRow(new Object[]{ c.cpf, c.nome, c.getEnderecoFormatado(), c.email});
+            model.addRow(new Object[]{ c.getCpf(), c.getNome(), c.getEnderecoFormatado(), c.getEmail()});
     
         }
     }

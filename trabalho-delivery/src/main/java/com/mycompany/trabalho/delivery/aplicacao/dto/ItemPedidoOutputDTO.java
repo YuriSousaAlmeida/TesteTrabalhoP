@@ -9,10 +9,10 @@ package com.mycompany.trabalho.delivery.aplicacao.dto;
  * @author André
  */
 public class ItemPedidoOutputDTO {
-    public Integer idItem;
-    public String descricao;
-    public Integer quantidade;
-    public Double valorCalculado;
+    private Integer idItem;
+    private String descricao;
+    private Integer quantidade;
+    private Double valorCalculado;
 
     public ItemPedidoOutputDTO() {
     }

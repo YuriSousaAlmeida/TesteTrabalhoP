@@ -23,8 +23,8 @@ public class CadastrarClienteUseCase {
     }
 
     public Optional<CreateClienteOutputDTO> executar(CreateClienteInputDTO dto) {
-        Endereco endereco = new Endereco(dto.cidade, dto.bairro, dto.rua, dto.numero);
-        Cliente cliente = new Cliente(dto.nome, dto.cpf, dto.email, endereco);
+        Endereco endereco = new Endereco(dto.getCidade(), dto.getBairro(), dto.getRua(), dto.getNumero());
+        Cliente cliente = new Cliente(dto.getNome(), dto.getCpf(), dto.getEmail(), endereco);
       
        
         BuscarClientePorCpfUseCase verificar = new BuscarClientePorCpfUseCase(repositorio);
