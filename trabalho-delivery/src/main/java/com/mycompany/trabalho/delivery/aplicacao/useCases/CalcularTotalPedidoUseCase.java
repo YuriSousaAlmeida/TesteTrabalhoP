@@ -8,6 +8,6 @@ package com.mycompany.trabalho.delivery.aplicacao.useCases;
  *
  * @author André
  */
-public class CalcularTotalPedidoUseCase {
-    
+public class CalcularTotalPedidoUseCase implements ICalcularTotalPedidoUseCase{
+    //public double executar(int idPedido){}
 }

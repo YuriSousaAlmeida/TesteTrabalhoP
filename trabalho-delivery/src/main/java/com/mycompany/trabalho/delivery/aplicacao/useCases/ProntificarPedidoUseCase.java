@@ -12,7 +12,7 @@ import com.mycompany.trabalho.delivery.dominio.port.IPedidoRepository;
  *
  * @author André
  */
-public class ProntificarPedidoUseCase {
+public class ProntificarPedidoUseCase implements IProntificarPedidoUseCase{
     private final IPedidoRepository repositorio;
 
     public ProntificarPedidoUseCase(IPedidoRepository repositorio) {

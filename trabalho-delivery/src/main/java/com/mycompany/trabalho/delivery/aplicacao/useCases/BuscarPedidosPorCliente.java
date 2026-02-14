@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author lucas.lopes
  */
-public class BuscarPedidosPorCliente {
+public class BuscarPedidosPorCliente implements IBuscarPedidosPorCliente {
     private final IPedidoRepository repositorio;
     
     public BuscarPedidosPorCliente(IPedidoRepository repositorio) {

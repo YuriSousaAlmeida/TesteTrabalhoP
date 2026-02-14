@@ -12,7 +12,7 @@ import com.mycompany.trabalho.delivery.dominio.port.IPedidoRepository;
  *
  * @author André
  */
-public class EntregarPedidoUseCase {
+public class EntregarPedidoUseCase implements IEntregarPedidoUseCase {
     private final IPedidoRepository repositorio;
 
     public EntregarPedidoUseCase(IPedidoRepository repositorio) {

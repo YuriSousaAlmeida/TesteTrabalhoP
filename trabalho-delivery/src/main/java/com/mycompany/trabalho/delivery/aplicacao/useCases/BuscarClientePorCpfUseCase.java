@@ -11,13 +11,13 @@ import com.mycompany.trabalho.delivery.dominio.port.IClienteRepository;
  *
  * @author André
  */
-public class BuscarClientePorCpfUseCase {
+public class BuscarClientePorCpfUseCase implements IBuscarClientePorCpfUseCase {
     private final IClienteRepository repositorio;
 
     public BuscarClientePorCpfUseCase(IClienteRepository repositorio) {
         this.repositorio = repositorio;
     }
-
+    
     public Cliente executar(String cpf) {
         Cliente cliente = repositorio.buscarClientePorCPF(cpf);
         return cliente; 

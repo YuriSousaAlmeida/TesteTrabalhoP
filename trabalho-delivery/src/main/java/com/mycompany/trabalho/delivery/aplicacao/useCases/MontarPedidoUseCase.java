@@ -30,7 +30,7 @@ import java.util.Map;
  *
  * @author André
  */
-public class MontarPedidoUseCase {
+public class MontarPedidoUseCase implements IMontarPedidoUseCase {
     private final IPedidoRepository repositorioPedidos;
     private final IClienteRepository repositorioClientes;
     

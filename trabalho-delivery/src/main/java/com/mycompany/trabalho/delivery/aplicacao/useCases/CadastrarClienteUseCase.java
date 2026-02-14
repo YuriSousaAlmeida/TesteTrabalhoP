@@ -15,7 +15,7 @@ import java.util.Optional;
  *
  * @author André
  */
-public class CadastrarClienteUseCase {
+public class CadastrarClienteUseCase implements ICadastrarClienteUseCase{
     private final IClienteRepository repositorio;
 
     public CadastrarClienteUseCase(IClienteRepository repositorio) {

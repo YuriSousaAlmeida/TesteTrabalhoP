@@ -10,7 +10,7 @@ import com.mycompany.trabalho.delivery.dominio.port.IClienteRepository;
  *
  * @author erko
  */
-public class DeletarClienteUseCase {
+public class DeletarClienteUseCase implements IDeletarClienteUseCase {
     private final IClienteRepository repositorio;
 
     public DeletarClienteUseCase(IClienteRepository repositorio) {

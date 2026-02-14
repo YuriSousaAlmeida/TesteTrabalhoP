@@ -12,7 +12,7 @@ import com.mycompany.trabalho.delivery.dominio.port.IPedidoRepository;
  *
  * @author André
  */
-public class CancelarPedidoUseCase {
+public class CancelarPedidoUseCase implements ICancelarPedidoUseCase {
     private final IPedidoRepository repositorio;
 
     public CancelarPedidoUseCase(IPedidoRepository repositorio) {

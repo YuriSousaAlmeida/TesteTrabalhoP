@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author André
  */
-public class BuscarTodosOsClientesUseCase {
+public class BuscarTodosOsClientesUseCase implements IBuscarTodosOsClientesUseCase {
     private final IClienteRepository repositorio;
 
     public BuscarTodosOsClientesUseCase(IClienteRepository repositorio) {
