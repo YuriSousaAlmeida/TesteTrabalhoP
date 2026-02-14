@@ -7,10 +7,9 @@ package com.mycompany.trabalho.delivery.presentation.controllers;
 
 import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteInputDTO;
 import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteOutputDTO;
-import com.mycompany.trabalho.delivery.aplicacao.useCases.BuscarTodosOsClientesUseCase;
-import com.mycompany.trabalho.delivery.aplicacao.useCases.CadastrarClienteUseCase;
+import com.mycompany.trabalho.delivery.aplicacao.useCases.ICadastrarClienteUseCase;
 import com.mycompany.trabalho.delivery.presentation.ui.ClienteView;
-import com.mycompany.trabalho.delivery.aplicacao.useCases.DeletarClienteUseCase;
+import com.mycompany.trabalho.delivery.aplicacao.useCases.IDeletarClienteUseCase;
 import java.util.List;
 import java.util.Optional;
 import javax.swing.JOptionPane;
@@ -18,17 +17,14 @@ import javax.swing.JOptionPane;
 
 public class ClienteController {
 
-    private final CadastrarClienteUseCase cadastrarCliente;
-    private final BuscarTodosOsClientesUseCase listarClientes;
-    private final DeletarClienteUseCase deletarCliente;
+    private final ICadastrarClienteUseCase cadastrarCliente;
+    private final IDeletarClienteUseCase deletarCliente;
 
     public ClienteController(
-            CadastrarClienteUseCase cadastrarCliente,
-            BuscarTodosOsClientesUseCase listarClientes,
-            DeletarClienteUseCase deletarCliente
+            ICadastrarClienteUseCase cadastrarCliente,
+            IDeletarClienteUseCase deletarCliente
     ) {
         this.cadastrarCliente = cadastrarCliente;
-        this.listarClientes = listarClientes;
         this.deletarCliente = deletarCliente;
     }
 
@@ -38,10 +34,6 @@ public class ClienteController {
         } catch (Exception e) {
             return Optional.empty(); 
         }
-    }
-
-    public List<CreateClienteOutputDTO> listarTodos() {
-        return listarClientes.executar();
     }
     
     public void deletarCliente(String cpf){

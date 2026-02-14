@@ -11,7 +11,7 @@ package com.mycompany.trabalho.delivery.dominio.model.pedido;
  
 public class PedidoProntoState implements IPedidoState {
     @Override
-    public void proximo(Pedido pedido) {
+    public void avancarEstado(Pedido pedido) {
         pedido.setEstado(new PedidoEntregueState());
     }
 

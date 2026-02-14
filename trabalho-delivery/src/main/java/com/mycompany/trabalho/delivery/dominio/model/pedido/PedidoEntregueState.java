@@ -10,7 +10,7 @@ package com.mycompany.trabalho.delivery.dominio.model.pedido;
  */
 public class PedidoEntregueState implements IPedidoState {
     @Override
-    public void proximo(Pedido pedido) {
+    public void avancarEstado(Pedido pedido) {
         pedido.getLogger().erro("Operação bloqueada: Tentativa de avançar o status de um pedido que já está ENTREGUE.");
     }
 

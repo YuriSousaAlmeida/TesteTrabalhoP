@@ -6,6 +6,7 @@ package com.mycompany.trabalho.delivery.presentation.ui;
 
 import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteInputDTO;
 import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteOutputDTO;
+import com.mycompany.trabalho.delivery.presentation.Presenter.ClientePresenter;
 import com.mycompany.trabalho.delivery.presentation.controllers.ClienteController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,22 +22,22 @@ public class ClienteView extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ClienteView.class.getName());
 
-//    private ClientePresenter presenter;
+    
     private ClienteController controller;
+    private ClientePresenter presenter;
     
     
-
-//    public void setPresenter(ClientePresenter presenter) {
-//        this.presenter = presenter;
-//    }
-    /**
-     * Creates new form ClienteView
-     */
-    public ClienteView() {
-        
+    public ClienteView(ClienteController controller, ClientePresenter presenter){
+        this.controller = controller;
+        this.presenter = presenter;
         initComponents();
         setLocationRelativeTo(null);
-
+    }
+    
+    
+    public ClienteView() {
+        initComponents();
+        setLocationRelativeTo(null);
     }
 
 
@@ -49,33 +50,31 @@ public class ClienteView extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
-    //setters que enviaram para presenter
-//    @Override
+    
     public String getNome() {
         return txtNome.getText();
     }
 
-//    @Override
     public String getEmail() {
         return txtEMail.getText();
     }
 
-//    @Override
+    
     public String getCidade() {
         return txtCidade.getText();
     }
 
-//    @Override
+    
     public String getBairro() {
         return txtBairro.getText();
     }
 
-//    @Override
+    
     public String getRua() {
         return txtRua.getText();
     }
 
-//    @Override
+    
     public String getNumero() {
         return txtNumero.getText();
     }
@@ -84,12 +83,12 @@ public class ClienteView extends javax.swing.JFrame {
         return txtCPF.getText();
     }
 
-//    @Override
+    
     public int getLinhaSelecionada() {
         return tblClientes.getSelectedRow();
     }
 
-//    @Override
+    
     public void mostrarMensagem(String msg) {
         //mostra um optionpane com a mensagem
         javax.swing.JOptionPane.showMessageDialog(this, msg);
@@ -100,6 +99,7 @@ public class ClienteView extends javax.swing.JFrame {
     public void setController(ClienteController controller) {
         this.controller = controller;
     }
+    
 
     public void adicionarClienteNaTabela(String cpf, String nome, String endereco, String email) {
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
@@ -246,7 +246,7 @@ public class ClienteView extends javax.swing.JFrame {
     public void atualizarTabela(/*List<CreateClienteOutputDTO> clientes*/) { //limpa tabela e preenche com clientes 
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel(); 
         model.setRowCount(0);//limpa tabela
-        List<CreateClienteOutputDTO> clientes = controller.listarTodos();
+        List<CreateClienteOutputDTO> clientes = presenter.listarTodos();
         for (CreateClienteOutputDTO c : clientes) { //preenche com os dados da lista de clientes
             model.addRow(new Object[]{ c.getCpf(), c.getNome(), c.getEnderecoFormatado(), c.getEmail()});
     
@@ -307,6 +307,7 @@ public class ClienteView extends javax.swing.JFrame {
 
         lblEMail.setText("E-mail");
 
+        lblEndereco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblEndereco.setText("Endereco: ");
 
         btnSalvar.setText("Salvar");
@@ -358,6 +359,8 @@ public class ClienteView extends javax.swing.JFrame {
 
         lblCPF.setText("CPF");
 
+        txtCPF.addActionListener(this::txtCPFActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -367,41 +370,14 @@ public class ClienteView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNome)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblEndereco)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNome)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblNome)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEMail)
-                                    .addComponent(txtEMail, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                                .addComponent(lblNome)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCidade)
-                            .addComponent(lblRua)
-                            .addComponent(lblNumero))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCPF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCidade)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblBairro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtRua)))
+                            .addComponent(lblEMail)
+                            .addComponent(txtEMail, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -412,12 +388,35 @@ public class ClienteView extends javax.swing.JFrame {
                         .addComponent(btnExcluir))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(scrClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)))
+                        .addComponent(scrClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnPedidosDoCliente)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCidade)
+                            .addComponent(lblRua)
+                            .addComponent(lblNumero)
+                            .addComponent(lblEndereco)
+                            .addComponent(lblCPF))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtRua)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtCidade)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblBairro)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnPedidosDoCliente)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,6 +430,10 @@ public class ClienteView extends javax.swing.JFrame {
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCPF)
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addComponent(lblEndereco)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -445,9 +448,7 @@ public class ClienteView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumero)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCPF)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -455,10 +456,10 @@ public class ClienteView extends javax.swing.JFrame {
                     .addComponent(btnExcluir)
                     .addComponent(btnPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPedidosDoCliente)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -471,6 +472,10 @@ public class ClienteView extends javax.swing.JFrame {
     private void btnPedidosDoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosDoClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPedidosDoClienteActionPerformed
+
+    private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCPFActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,13 +4,12 @@
  */
 package com.mycompany.trabalho.delivery.aplicacao.useCases;
 
-import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteOutputDTO;
-import java.util.List;
+import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
 
 /**
  *
  * @author Selmo
  */
-public interface IBuscarTodosOsClientesUseCase {
-    public List<CreateClienteOutputDTO> executar();
+public interface IAvancarEstadoPedidoUseCase {
+    public void executar(int  idPedido);
 }

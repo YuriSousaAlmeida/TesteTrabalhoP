@@ -46,9 +46,9 @@ public class Pedido {
     
     
     
-    public void avancarStatus() {
+    public void avancarEstado() {
         logger.info("Iniciando transição de status do pedido. Valor total: R$ " + valorTotal);
-        estado.proximo(this);
+        estado.avancarEstado(this);
     }
     
     public void cancelar() {

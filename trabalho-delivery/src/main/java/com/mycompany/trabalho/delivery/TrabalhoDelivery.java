@@ -17,6 +17,7 @@ import com.mycompany.trabalho.delivery.infraestrutura.repositories.ClienteReposi
 import com.mycompany.trabalho.delivery.presentation.controllers.ClienteController;
 import com.mycompany.trabalho.delivery.presentation.ui.ClienteView;
 import com.mycompany.trabalho.delivery.infraestrutura.DbInitializer;
+import com.mycompany.trabalho.delivery.presentation.Presenter.ClientePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +27,12 @@ public class TrabalhoDelivery {
         DbInitializer.inicializar();
         IClienteRepository repo = new ClienteRepositorySQLite(); 
         CadastrarClienteUseCase useCase = new CadastrarClienteUseCase(repo);
-	ClienteView view = new ClienteView();
+	
         BuscarTodosOsClientesUseCase buscar = new BuscarTodosOsClientesUseCase(repo);
         DeletarClienteUseCase deletar = new DeletarClienteUseCase(repo);
-        ClienteController controller = new ClienteController(useCase, buscar, deletar);
-        view.setController(controller);
+        ClienteController controller = new ClienteController(useCase, deletar);
+        ClientePresenter presenter = new ClientePresenter(buscar);
+        ClienteView view = new ClienteView(controller, presenter);
         
         view.inicializar();
         

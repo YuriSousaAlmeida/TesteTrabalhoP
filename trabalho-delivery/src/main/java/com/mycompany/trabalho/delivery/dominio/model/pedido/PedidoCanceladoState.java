@@ -11,7 +11,7 @@ package com.mycompany.trabalho.delivery.dominio.model.pedido;
 public class PedidoCanceladoState implements IPedidoState {
 
     @Override
-    public void proximo(Pedido pedido) {
+    public void avancarEstado(Pedido pedido) {
         pedido.getLogger().erro("Operação inválida: Tentativa de avançar um pedido já CANCELADO.");
         throw new IllegalStateException("Um pedido cancelado não pode avançar de estado.");
     }

@@ -2,15 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.trabalho.delivery.dominio.model.pedido;
+package com.mycompany.trabalho.delivery.presentation.Presenter;
 
 /**
  *
- * @author erko
+ * @author Selmo
  */
-
-public interface IPedidoState {
-    void avancarEstado(Pedido pedido);
-    void cancelar(Pedido pedido);
-    String getDescricao();
+public class ItensPedidoPresenter {
+    
 }
