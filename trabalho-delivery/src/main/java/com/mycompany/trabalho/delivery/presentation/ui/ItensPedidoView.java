@@ -4,6 +4,8 @@
  */
 package com.mycompany.trabalho.delivery.presentation.ui;
 
+import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -62,6 +64,89 @@ public class ItensPedidoView extends javax.swing.JFrame {
         model.addRow(new Object[]{idItem,descricao,quantidade,valor});
     }
     
+//exibe uma mensagem num joptpane    
+    public void mostrarMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem);
+    }
+    
+    private void adicionarPizzaAoPedido() {
+        String pizza = (String) cmbListaPizzasBase.getSelectedItem();
+        // Lógica para adicionar pizza via controller/presenter futuramente
+        mostrarMensagem("Pizza " + pizza + " adicionada.");
+    }
+
+    private void adicionarBebidaAoPedido() {
+        String bebida = (String) cmbBebida.getSelectedItem();
+        String tamanho = (String) cmbTamanhoBebida.getSelectedItem();
+        mostrarMensagem(bebida + " (" + tamanho + ") adicionada.");
+    }
+
+    private void incluirAdicional() {
+        String ingrediente = (String) cmbIngrediente.getSelectedItem();
+        mostrarMensagem("Adicional: " + ingrediente + " incluído.");
+    }
+
+    private void limparCamposIngredientes() {
+        cmbIngrediente.setSelectedIndex(-1);
+    }
+    
+    
+    // Listeners dos botões
+    private void configurarListeners() {
+        
+        
+        btnAddPizzaAoPedido.addActionListener((ActionEvent e) -> {
+            adicionarPizzaAoPedido();
+        });
+
+        //botão Adicionar Bebida ao Pedido
+        btnAddBebidaPedido.addActionListener((ActionEvent e) -> {
+            adicionarBebidaAoPedido();
+        });
+
+        //botão Incluir Adicional
+        btnIncluirAdiciona.addActionListener((ActionEvent e) -> {
+            incluirAdicional();
+        });
+
+        //botão Limpar Ingredientes
+        btnLimparIngredientes.addActionListener(e -> {
+            limparCamposIngredientes();
+            this.mostrarMensagem("Limpando campos de entrada de ingredientes");
+        });
+
+        //botão Remover Item do Pedido
+        btnRemoverItem.addActionListener(e -> { //remove um item do pedido
+           });
+
+        //Finalizar Pedido
+        btnFinalizarPedido.addActionListener((ActionEvent e) -> { 
+            // 
+        });
+    }
+    
+    
+    
+    private void atualizarTotalPedido() { //importante ao adicionar cada item atualiza o total do pedido
+        double total = 0.0;
+        int indiceColunaPreco = 2; 
+
+        for (int i = 0; i < tblItens.getRowCount(); i++) {
+            try {
+                Object valor = tblItens.getValueAt(i, indiceColunaPreco);
+                if (valor != null) {
+                    //converte string para double
+                    double preco = Double.parseDouble(valor.toString().replace("R$", "").replace(".", "").replace(",", ".").trim());
+                    total += preco;
+                }
+            } catch (NumberFormatException ex) {
+                logger.warning("Erro ao converter valor da tabela para cálculo de total na linha " + i);
+            }
+        }
+
+        lblTotal.setText("Total: "+ total  );
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,13 +174,10 @@ public class ItensPedidoView extends javax.swing.JFrame {
         lblTamanhoBebida = new javax.swing.JLabel();
         cmbTamanhoBebida = new javax.swing.JComboBox<>();
         btnAddBebidaPedido = new javax.swing.JButton();
-        btnCalcularTotal = new javax.swing.JButton();
+        btnFinalizarPedido = new javax.swing.JButton();
         btnIncluirAdiciona = new javax.swing.JButton();
-        radPizzaPortuguesa = new javax.swing.JRadioButton();
-        radPizzaCalabresa = new javax.swing.JRadioButton();
-        radPizzaQuatroQueijos = new javax.swing.JRadioButton();
-        radPizzaModaCasa = new javax.swing.JRadioButton();
-        radPizzaFrangoCatupiry = new javax.swing.JRadioButton();
+        cmbListaPizzasBase = new javax.swing.JComboBox<>();
+        lblTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -183,24 +265,13 @@ public class ItensPedidoView extends javax.swing.JFrame {
 
         btnAddBebidaPedido.setText("Adicionar Bebida ao Pedido");
 
-        btnCalcularTotal.setText("Calcular Total Pedido");
+        btnFinalizarPedido.setText("Finalizar Pedido");
 
         btnIncluirAdiciona.setText("Incluir Adicional");
 
-        buttonGroup1.add(radPizzaPortuguesa);
-        radPizzaPortuguesa.setText("Portuguesa");
+        cmbListaPizzasBase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        buttonGroup1.add(radPizzaCalabresa);
-        radPizzaCalabresa.setText("Calabresa");
-
-        buttonGroup1.add(radPizzaQuatroQueijos);
-        radPizzaQuatroQueijos.setText("Quatro Queijos");
-
-        buttonGroup1.add(radPizzaModaCasa);
-        radPizzaModaCasa.setText("Moda da Casa");
-
-        buttonGroup1.add(radPizzaFrangoCatupiry);
-        radPizzaFrangoCatupiry.setText("Frango com Catupiry");
+        lblTotal.setText("Total:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,39 +287,32 @@ public class ItensPedidoView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblClienteFulano, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnRemoverItem)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnCalcularTotal))
-                                    .addComponent(scrItens, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(scrItens, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRemoverItem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnFinalizarPedido))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnIncluirAdiciona)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAddPizzaAoPedido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLimparIngredientes))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(radPizzaPortuguesa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radPizzaCalabresa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radPizzaQuatroQueijos))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblIngrediente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTamanhoPizza)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radPizzaModaCasa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radPizzaFrangoCatupiry)))
+                        .addComponent(lblTamanhoPizza)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbListaPizzasBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnIncluirAdiciona)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnAddPizzaAoPedido)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnLimparIngredientes))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblIngrediente)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cmbIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(38, 38, 38))
+                            .addComponent(scrIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTamanhoBebida)
@@ -263,6 +327,10 @@ public class ItensPedidoView extends javax.swing.JFrame {
                                 .addComponent(btnAddBebidaPedido))
                             .addComponent(cmbTamanhoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblTotal)
+                .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,23 +342,10 @@ public class ItensPedidoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTamanhoPizza)
-                    .addComponent(radPizzaModaCasa)
-                    .addComponent(radPizzaFrangoCatupiry))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radPizzaPortuguesa)
-                    .addComponent(radPizzaCalabresa)
-                    .addComponent(radPizzaQuatroQueijos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblIngrediente)
-                    .addComponent(cmbIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(btnIncluirAdiciona)
-                .addGap(3, 3, 3)
+                    .addComponent(cmbListaPizzasBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblBebida)
                             .addComponent(cmbBebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -299,17 +354,28 @@ public class ItensPedidoView extends javax.swing.JFrame {
                             .addComponent(lblTamanhoBebida)
                             .addComponent(cmbTamanhoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddBebidaPedido)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddPizzaAoPedido)
-                    .addComponent(btnLimparIngredientes))
+                        .addComponent(btnAddBebidaPedido))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblIngrediente)
+                            .addComponent(cmbIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addComponent(btnIncluirAdiciona)
+                        .addGap(3, 3, 3)
+                        .addComponent(scrIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAddPizzaAoPedido)
+                            .addComponent(btnLimparIngredientes))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrItens, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(1, 1, 1)
+                .addComponent(lblTotal)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRemoverItem)
-                    .addComponent(btnCalcularTotal))
+                    .addComponent(btnFinalizarPedido))
                 .addContainerGap())
         );
 
@@ -352,13 +418,14 @@ public class ItensPedidoView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBebidaPedido;
     private javax.swing.JButton btnAddPizzaAoPedido;
-    private javax.swing.JButton btnCalcularTotal;
+    private javax.swing.JButton btnFinalizarPedido;
     private javax.swing.JButton btnIncluirAdiciona;
     private javax.swing.JButton btnLimparIngredientes;
     private javax.swing.JButton btnRemoverItem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cmbBebida;
     private javax.swing.JComboBox<String> cmbIngrediente;
+    private javax.swing.JComboBox<String> cmbListaPizzasBase;
     private javax.swing.JComboBox<String> cmbTamanhoBebida;
     private javax.swing.JLabel lblBebida;
     private javax.swing.JLabel lblClienteFulano;
@@ -366,11 +433,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
     private javax.swing.JLabel lblPedidoID;
     private javax.swing.JLabel lblTamanhoBebida;
     private javax.swing.JLabel lblTamanhoPizza;
-    private javax.swing.JRadioButton radPizzaCalabresa;
-    private javax.swing.JRadioButton radPizzaFrangoCatupiry;
-    private javax.swing.JRadioButton radPizzaModaCasa;
-    private javax.swing.JRadioButton radPizzaPortuguesa;
-    private javax.swing.JRadioButton radPizzaQuatroQueijos;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JScrollPane scrIngredientesPizza;
     private javax.swing.JScrollPane scrItens;
     private javax.swing.JTable tblAdicionaisPizza;

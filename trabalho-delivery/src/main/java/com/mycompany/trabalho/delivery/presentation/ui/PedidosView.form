@@ -55,12 +55,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="scrPedidos" min="-2" pref="392" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCancelarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnAvancarEstado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="btnNovoPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnVerPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnCancelarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAvancarEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>

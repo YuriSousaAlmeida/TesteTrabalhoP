@@ -69,10 +69,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="txtCPF" min="-2" pref="171" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="txtCPF" min="-2" pref="171" max="-2" attributes="0"/>
                           <Component id="txtRua" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="txtCidade" max="32767" attributes="0"/>

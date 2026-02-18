@@ -135,7 +135,7 @@ public class ClienteView extends javax.swing.JFrame {
         btnSalvar.addActionListener((ActionEvent e) -> {
 //            executarFluxoSalvar();
               salvarCliente();
-              this.mostrarMensagem("Salvando");
+
         });
 
         // Ação do Botão Limpar
