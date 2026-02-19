@@ -19,6 +19,7 @@ import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoEntregueState;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoPendenteState;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoPreparadoState;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoProntoState;
+import com.mycompany.trabalho.delivery.dominio.model.pizza.AdicionadorDeIngrediente;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.CalabresaBuilder;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.Ingrediente;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.IngredienteDecorator;
@@ -296,63 +297,5 @@ public class PedidoRepositorySQLite implements IPedidoRepository {
         String nome;
         double valor;
         TempAdicional(String nome, double valor) { this.nome = nome; this.valor = valor; }
-    }
-    
-    public static void main(String[] args) {
-        System.out.println("Teste começando por aqui:");
-        
-        DbInitializer.inicializar();
-        
-        PedidoRepositorySQLite repoPedido = new PedidoRepositorySQLite();
-        ClienteRepositorySQLite repoCliente = new ClienteRepositorySQLite();
-        
-        String cpfTeste = "999.888.777-66";
-        Cliente clienteTeste = repoCliente.buscarClientePorCPF(cpfTeste);
-        
-        if (clienteTeste == null) {
-            System.out.println("Criando cliente de teste...");
-            clienteTeste = new Cliente("Cliente Teste Persistencia", cpfTeste, "teste@db.com", 
-                    new Endereco("Cidade T", "Bairro T", "Rua T", "10"));
-            repoCliente.salvarCliente(clienteTeste);
-        } else {
-            System.out.println("Cliente de teste já existe: " + clienteTeste.getNome());
-        }
-
-        System.out.println("\n--- Montando Pedido em Memória ---");
-        
-        Bebida coca = new Bebida("Coca-Cola 2L", 12.0);
-        
-        PizzaioloDiretor diretor = new PizzaioloDiretor();
-        PizzaComponente pizza = diretor.build(new CalabresaBuilder());
-
-        pizza = new Ingrediente(pizza, "Borda de Catupiry", 5.00); 
-
-        List<Item> itens = new ArrayList<>();
-        itens.add(coca);
-        itens.add(pizza);
-        
-        Pedido novoPedido = new Pedido(new ConsoleLogAdapter(), clienteTeste, itens, new PedidoPendenteState());
-        System.out.println("Valor calculado em memória: R$ " + novoPedido.getValorTotal());
-        
-        repoPedido.salvarPedido(novoPedido);
-        long idGerado = novoPedido.getId();
-        
-        System.out.println("\nBuscando pedido ID " + idGerado + " do Banco");
-        Pedido pedidoRecuperado = repoPedido.buscarPedidoPorId((int) idGerado);
-        
-        if (pedidoRecuperado != null) {
-            System.out.println("Pedido recuperado com sucesso!");
-            System.out.println("Cliente: " + pedidoRecuperado.getCliente().getNome());
-            System.out.println("Status: " + pedidoRecuperado.getEstado().getDescricao());
-            System.out.println("Valor total BD: R$ " + pedidoRecuperado.getValorTotal());
-            System.out.println("Itens recuperados:");
-            for (Item item : pedidoRecuperado.getItens()) {
-                System.out.println(" - " + item.toString());
-            }
-        } else {
-            System.err.println("Erro: Pedido retornou um nulo.");
-        }
-        
-        System.out.println("\nTeste  finalizado");
     }
 }

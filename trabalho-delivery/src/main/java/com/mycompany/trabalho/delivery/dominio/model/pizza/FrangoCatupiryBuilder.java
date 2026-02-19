@@ -4,24 +4,35 @@
  */
 package com.mycompany.trabalho.delivery.dominio.model.pizza;
 
+import com.mycompany.trabalho.delivery.dominio.port.IProvedorDePrecos;
+
 /**
  *
  * @author André
  */
 public class FrangoCatupiryBuilder extends PizzaBuilder {
+    private IProvedorDePrecos provedor;
+    private AdicionadorDeIngrediente adicionarIngrediente;
+    private AdicionadorDeMassa adicionarMassa;
+    
+    public FrangoCatupiryBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente) {
+        this.provedor = provedor;
+        this.adicionarIngrediente = adicionarIngrediente;
+    }
+    
     @Override
     public void prepararMassa() {
-        pizza = new MassaBase("Massa Tradicional", 25.00);
+        pizza = adicionarMassa.adicionarMassa("Massa Tradicional");
     }
     @Override
     public void adicionarMolho() {
-        pizza = new Ingrediente(pizza, "Molho de Tomate", 2.00);
+        adicionarIngrediente.adicionarIngrediente(pizza, "Molho de Tomate");
     }
     @Override
     public void adicionarCobertura() {
-        pizza = new Ingrediente(pizza, "Frango Desfiado", 10.00);
-        pizza = new Ingrediente(pizza, "Catupiry Original", 12.00);
-        pizza = new Ingrediente(pizza, "Milho", 2.00);
-        pizza = new Ingrediente(pizza, "Orégano", 0.50);
+        adicionarIngrediente.adicionarIngrediente(pizza, "Frango Desfiado");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Catupiry Original");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Milho");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Orégano");
     }
 }

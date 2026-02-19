@@ -4,24 +4,35 @@
  */
 package com.mycompany.trabalho.delivery.dominio.model.pizza;
 
+import com.mycompany.trabalho.delivery.dominio.port.IProvedorDePrecos;
+
 /**
  *
  * @author André
  */
 public class ModaDaCasaBuilder extends PizzaBuilder {
+    private IProvedorDePrecos provedor;
+    private AdicionadorDeIngrediente adicionarIngrediente;
+    private AdicionadorDeMassa adicionarMassa;
+
+    public ModaDaCasaBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente) {
+        this.provedor = provedor;
+        this.adicionarIngrediente = adicionarIngrediente;
+    }
+    
     @Override
     public void prepararMassa() {
-        pizza = new MassaBase("Massa Pan (Grossa)", 30.00);
+        pizza = adicionarMassa.adicionarMassa("Massa Pan (Grossa)");
     }
     @Override
     public void adicionarMolho() {
-        pizza = new Ingrediente(pizza, "Molho Especial Picante", 5.00);
+        adicionarIngrediente.adicionarIngrediente(pizza, "Molho Especial Picante");
     }
     @Override
     public void adicionarCobertura() {
-        pizza = new Ingrediente(pizza, "Presunto Parma", 15.00);
-        pizza = new Ingrediente(pizza, "Bacon em Cubos", 10.00);
-        pizza = new Ingrediente(pizza, "Champignon", 8.00);
-        pizza = new Ingrediente(pizza, "Pimentão", 3.00);
+        adicionarIngrediente.adicionarIngrediente(pizza, "Presunto Parma");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Bacon em Cubos");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Champignon");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Pimentão");
     }
 }

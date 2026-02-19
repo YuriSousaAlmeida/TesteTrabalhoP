@@ -4,25 +4,36 @@
  */
 package com.mycompany.trabalho.delivery.dominio.model.pizza;
 
+import com.mycompany.trabalho.delivery.dominio.port.IProvedorDePrecos;
+
 /**
  *
  * @author André
  */
 public class PortuguesaBuilder extends PizzaBuilder {
+    private IProvedorDePrecos provedor;
+    private AdicionadorDeIngrediente adicionarIngrediente;
+    private AdicionadorDeMassa adicionarMassa;
+
+    public PortuguesaBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente) {
+        this.provedor = provedor;
+        this.adicionarIngrediente = adicionarIngrediente;
+    }
+    
     @Override
     public void prepararMassa() {
-        pizza = new MassaBase("Massa Tradicional", 25.00);
+        pizza = adicionarMassa.adicionarMassa("Massa Tradicional");
     }
     @Override
     public void adicionarMolho() {
-        pizza = new Ingrediente(pizza, "Molho de Tomate", 2.00);
+        adicionarIngrediente.adicionarIngrediente(pizza, "Molho de Tomate");
     }
     @Override
     public void adicionarCobertura() {
-        pizza = new Ingrediente(pizza, "Presunto", 8.00);
-        pizza = new Ingrediente(pizza, "Ovo Cozido", 3.00);
-        pizza = new Ingrediente(pizza, "Ervilha", 2.00);
-        pizza = new Ingrediente(pizza, "Cebola", 2.00);
-        pizza = new Ingrediente(pizza, "Mussarela", 8.00);
+        adicionarIngrediente.adicionarIngrediente(pizza, "Presunto");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Ovo Cozido");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Ervilha");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Cebola");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Mussarela");
     }
 }

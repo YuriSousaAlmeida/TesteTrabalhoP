@@ -8,19 +8,32 @@ package com.mycompany.trabalho.delivery.dominio.model.pizza;
  *
  * @author André
  */
+
+import com.mycompany.trabalho.delivery.dominio.port.IProvedorDePrecos;
+
 public class CalabresaBuilder extends PizzaBuilder {
+    private IProvedorDePrecos provedor;
+    private AdicionadorDeIngrediente adicionarIngrediente;
+    private AdicionadorDeMassa adicionarMassa;
+
+    public CalabresaBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente) {
+        this.provedor = provedor;
+        this.adicionarIngrediente = adicionarIngrediente;
+    }
+
     @Override
     public void prepararMassa() {
-        pizza = new MassaBase("Massa Tradicional", 25.00);
+        pizza = adicionarMassa.adicionarMassa("Massa Tradicional");
     }
     @Override
     public void adicionarMolho() {
-        pizza = new Ingrediente(pizza, "Molho de Tomate", 2.00);
+        adicionarIngrediente.adicionarIngrediente(pizza, "Molho de Tomate");
     }
     @Override
     public void adicionarCobertura() {
-        pizza = new Ingrediente(pizza, "Calabresa Fatiada", 12.00);
-        pizza = new Ingrediente(pizza, "Cebola", 2.00);
-        pizza = new Ingrediente(pizza, "Azeitonas", 1.50);
+        adicionarIngrediente.adicionarIngrediente(pizza, "Calabresa Fatiada");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Cebola");
+        adicionarIngrediente.adicionarIngrediente(pizza, "Azeitonas");
     }
+    
 }
