@@ -16,9 +16,10 @@ public class CalabresaBuilder extends PizzaBuilder {
     private AdicionadorDeIngrediente adicionarIngrediente;
     private AdicionadorDeMassa adicionarMassa;
 
-    public CalabresaBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente) {
+    public CalabresaBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente, AdicionadorDeMassa adicionarMassa) {
         this.provedor = provedor;
         this.adicionarIngrediente = adicionarIngrediente;
+        this.adicionarMassa=adicionarMassa;
     }
 
     @Override

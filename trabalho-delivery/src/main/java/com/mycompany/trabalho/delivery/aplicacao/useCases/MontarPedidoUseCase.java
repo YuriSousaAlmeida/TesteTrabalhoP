@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.mycompany.trabalho.delivery.dominio.model.pizza.AdicionadorDeMassa;
 
 /**
  *
@@ -36,12 +37,17 @@ public class MontarPedidoUseCase implements IMontarPedidoUseCase {
     private final IPedidoRepository repositorioPedidos;
     private final IClienteRepository repositorioClientes;
     private IProvedorDePrecos provedor;
-    private AdicionadorDeIngrediente adicionador;
+    private AdicionadorDeIngrediente adicionadorIngrediente;
+    private AdicionadorDeMassa adicionadorMassa;
     
 
-    public MontarPedidoUseCase(IPedidoRepository repositorioPedidos, IClienteRepository repositorioClientes) {
+    public MontarPedidoUseCase(IPedidoRepository repositorioPedidos, IClienteRepository repositorioClientes, IProvedorDePrecos provedor, 
+            AdicionadorDeIngrediente adicionadorIngrediente, AdicionadorDeMassa adicionadorMassa) {
        this.repositorioPedidos = repositorioPedidos;
        this.repositorioClientes = repositorioClientes;
+       this.provedor=provedor;
+       this.adicionadorIngrediente=adicionadorIngrediente;
+       this.adicionadorMassa=adicionadorMassa;
     }
     
     public void executar(String cpf, List<ItemPedidoPizzaInputDTO> itensPizzas, List<ItemPedidoBebidaInputDTO> itensBebidas) {
@@ -55,11 +61,11 @@ public class MontarPedidoUseCase implements IMontarPedidoUseCase {
         List<Item> itensModelo = new ArrayList<>();
         
         Map<String, PizzaBuilder> mapaSabores = new HashMap<>();
-        mapaSabores.put("calabresa", new CalabresaBuilder(provedor, adicionador));
-        mapaSabores.put("frangocatupiry", new FrangoCatupiryBuilder(provedor, adicionador));
-        mapaSabores.put("modadacasa", new ModaDaCasaBuilder(provedor, adicionador));
-        mapaSabores.put("portuguesa", new PortuguesaBuilder(provedor, adicionador));
-        mapaSabores.put("quatroqueijos", new QuatroQueijosBuilder(provedor, adicionador));
+        mapaSabores.put("calabresa", new CalabresaBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
+        mapaSabores.put("frangocatupiry", new FrangoCatupiryBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
+        mapaSabores.put("modadacasa", new ModaDaCasaBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
+        mapaSabores.put("portuguesa", new PortuguesaBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
+        mapaSabores.put("quatroqueijos", new QuatroQueijosBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
         
         for(ItemPedidoPizzaInputDTO itemPizza : itensPizzas) {
             PizzaBuilder builder = mapaSabores.get(itemPizza.getSabor());

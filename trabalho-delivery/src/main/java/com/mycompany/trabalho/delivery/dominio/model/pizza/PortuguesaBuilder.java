@@ -15,9 +15,10 @@ public class PortuguesaBuilder extends PizzaBuilder {
     private AdicionadorDeIngrediente adicionarIngrediente;
     private AdicionadorDeMassa adicionarMassa;
 
-    public PortuguesaBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente) {
+    public PortuguesaBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente, AdicionadorDeMassa adicionarMassa) {
         this.provedor = provedor;
         this.adicionarIngrediente = adicionarIngrediente;
+        this.adicionarMassa=adicionarMassa;
     }
     
     @Override

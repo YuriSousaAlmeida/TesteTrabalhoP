@@ -15,9 +15,10 @@ public class FrangoCatupiryBuilder extends PizzaBuilder {
     private AdicionadorDeIngrediente adicionarIngrediente;
     private AdicionadorDeMassa adicionarMassa;
     
-    public FrangoCatupiryBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente) {
+    public FrangoCatupiryBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente, AdicionadorDeMassa adicionarMassa) {
         this.provedor = provedor;
         this.adicionarIngrediente = adicionarIngrediente;
+        this.adicionarMassa=adicionarMassa;
     }
     
     @Override
