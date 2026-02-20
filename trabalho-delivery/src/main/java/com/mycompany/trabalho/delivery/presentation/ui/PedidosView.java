@@ -99,7 +99,9 @@ public class PedidosView extends javax.swing.JFrame {
             int row = tblPedidos.getSelectedRow();
             int idPedidoDaLinha = getIdPedidoDalinha(row);
             if (row != -1) { //se row == -1 então não tem nenhum pedido na tabela
-                cancelarPedido(idPedidoDaLinha);
+                mostrarMensagem("Pedido cancelado com sucesso.");
+                int id = getPedidoSelecionado();
+                controller.cancelarPedido(id);
             } else {
                 mostrarMensagem("Selecione um pedido para cancelar.");
             }
@@ -119,12 +121,14 @@ public class PedidosView extends javax.swing.JFrame {
         btnAvancarEstado.addActionListener((ActionEvent e) -> {
             int row = tblPedidos.getSelectedRow();
             if (row != -1) {
-                avancarEstado(row);
+                mostrarMensagem("Estado avançado com Sucesso.");
+                int id = getPedidoSelecionado();
+                controller.avancarEstado(id);
             } else {
                 mostrarMensagem("Selecione um pedido para avançar o status.");
+                
             }
         });
-        
 //        listener para detectar quando esta janela fechar
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -226,7 +230,20 @@ public class PedidosView extends javax.swing.JFrame {
     public void setNavegadorDeViews(NavegadorDeViews gerenciadorDeViews) {
         this.navegadorDeViews =gerenciadorDeViews;
     }
+ 
     
+    private int getPedidoSelecionado() {
+    int index = tblPedidos.getSelectedRow();
+    
+    if (index != -1) {
+        Object valor = tblPedidos.getValueAt(index, 0);
+        if (valor != null) {
+            return (int) valor; 
+        }
+    }
+    // Retorna -1 para indicar que nenhum pedido foi encontrado/selecionado
+    return -1; 
+}
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
