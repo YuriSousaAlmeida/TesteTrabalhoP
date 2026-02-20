@@ -55,6 +55,16 @@ public class ArquivoJsonPreco implements IProvedorDePrecos{
     }
     
     @Override
+    public List<String> buscaPizzas(){
+        if(cardapio==null){
+            return new ArrayList<>();
+        }
+        return cardapio.keySet().stream()
+                .filter(item -> item.toLowerCase().contains("pizza"))
+                .collect(Collectors.toList());
+    }
+    
+    @Override
     public List<String> buscaMassas(){
         if(cardapio==null){
             return new ArrayList<>();
@@ -82,9 +92,10 @@ public class ArquivoJsonPreco implements IProvedorDePrecos{
         }
         List<String> massas= buscaMassas();
         List<String> bebidas= buscaBebidas();
+        List<String> pizzas= buscaPizzas();
         
         return cardapio.keySet().stream()
-                .filter(item -> !massas.contains(item) && !bebidas.contains(item))
+                .filter(item -> !massas.contains(item) && !bebidas.contains(item) && !bebidas.contains(item))
                 .collect(Collectors.toList());
     }
     
