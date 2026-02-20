@@ -15,4 +15,5 @@ public interface IProvedorDePrecos {
     public List<String> buscaMassas();
     public List<String> buscaIngredientes();
     public List<String> buscaBebidas();
+    public List<String> buscaPizzas();
 }
