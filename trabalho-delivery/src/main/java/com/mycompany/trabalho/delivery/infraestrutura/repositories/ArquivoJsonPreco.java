@@ -14,6 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.trabalho.delivery.dominio.port.IProvedorDePrecos;
 import java.util.Map;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArquivoJsonPreco implements IProvedorDePrecos{
     private Map <String, Double> cardapio;
@@ -49,6 +52,40 @@ public class ArquivoJsonPreco implements IProvedorDePrecos{
         }
         System.err.println("Produto " + nomeDoItem + " não encontrado");
         return 0.0;
+    }
+    
+    @Override
+    public List<String> buscaMassas(){
+        if(cardapio==null){
+            return new ArrayList<>();
+        }
+        return cardapio.keySet().stream()
+                .filter(item -> item.toLowerCase().contains("massa"))
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<String> buscaIngredientes(){
+        if(cardapio==null){
+            return new ArrayList<>();
+        }
+        return cardapio.keySet().stream()
+                .filter(item -> item.toLowerCase().contains("coca-cola") 
+                || item.toLowerCase().endsWith("ml") || item.toLowerCase().endsWith("l"))
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<String> buscaBebidas(){
+        if(cardapio==null){
+            return new ArrayList<>();
+        }
+        List<String> massas= buscaMassas();
+        List<String> bebidas= buscaBebidas();
+        
+        return cardapio.keySet().stream()
+                .filter(item -> !massas.contains(item) && !bebidas.contains(item))
+                .collect(Collectors.toList());
     }
     
 }

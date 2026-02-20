@@ -4,10 +4,15 @@
  */
 package com.mycompany.trabalho.delivery.dominio.port;
 
+import java.util.List;
+
 /**
  *
  * @author Yuri
  */
 public interface IProvedorDePrecos {
     public double buscaPreco(String nomeDoItem); 
+    public List<String> buscaMassas();
+    public List<String> buscaIngredientes();
+    public List<String> buscaBebidas();
 }
