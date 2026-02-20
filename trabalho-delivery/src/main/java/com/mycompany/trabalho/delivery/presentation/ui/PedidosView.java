@@ -1,16 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 package com.mycompany.trabalho.delivery.presentation.ui;
 
+
+
+import com.mycompany.trabalho.delivery.aplicacao.dto.PedidoOutputDTO;
 import com.mycompany.trabalho.delivery.presentation.controllers.PedidosController;
 import com.mycompany.trabalho.delivery.presentation.Presenter.PedidosPresenter;
-import java.awt.event.ActionListener;
+import com.mycompany.trabalho.delivery.presentation.services.NavegadorDeViews;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,27 +20,112 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PedidosView extends javax.swing.JFrame {
     private JFrame parent;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PedidosView.class.getName());
+//    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PedidosView.class.getName());
     private PedidosController controller;
     private PedidosPresenter presenter;
-    public PedidosView(PedidosController controller, PedidosPresenter presenter) {
-        this.parent=null;
-        this.controller = controller;
-        this.presenter = presenter;
-        initComponents();
-    }
+    private String cpf;
+    
+    private NavegadorDeViews navegadorDeViews;
+
+    
+    
     
     public PedidosView() {
         this.parent=null;
-        initComponents();
-    }
-    
-    public PedidosView(JFrame parent, int cpf) { //CPF usado para recuperar pedidos do cliente
-        this();
-        this.parent = parent;
+        
         initComponents();
         
-        //listener para detectar quando esta janela fechar
+        
+    }
+
+    public PedidosView(JFrame parent, String cpf, PedidosController controller, PedidosPresenter presenter) {
+        this.parent=parent;
+        this.cpf= cpf;
+        this.controller = controller;
+        this.presenter = presenter;
+        initComponents();
+        iniciarView();
+    }
+    
+ 
+ 
+    
+    public void iniciarView(){
+//        limparTabelas();//TODO com problema esse metodo
+        this.setLocationRelativeTo(parent);
+        configurarListeners();
+        setLblCpfCliente(this.cpf); //coloca nome do cliente na lbl da tela
+        atualizarTabela();
+        setVisible(true);  
+        
+    }
+    
+    public void limparTabelas(){
+        DefaultTableModel modelTblPedidos = (DefaultTableModel) tblPedidos.getModel(); //limpa tabela
+        modelTblPedidos.setRowCount(0);
+        
+//        DefaultTableModel model = (DefaultTableModel) tblPedidos.getModel();
+//        model.setRowCount(0); 
+    }
+    
+    public void atualizarTabela() { //limpa tabela e preenche com clientes 
+        
+        DefaultTableModel model = (DefaultTableModel) tblPedidos.getModel();
+        model.setRowCount(0);//limpa tabela
+        presenter.mostrarPedidos(cpf);
+        
+        List<PedidoOutputDTO> pedidos = presenter.mostrarPedidos(cpf);
+        for (PedidoOutputDTO c : pedidos) { //preenche com os dados da lista de pedidos
+            model.addRow(new Object[]{c.getId(), c.getValorTotal(), c.getEstado()});
+
+        }
+    }
+    
+    
+    private void configurarListeners() {
+        
+        //novo pedido (abre a ItensPedidoView)
+        btnNovoPedido.addActionListener(e -> {
+            if (this.navegadorDeViews != null) {
+                // Invoca o navegador repassando a própria view como parent e o CPF do contexto
+                this.navegadorDeViews.abrirItensPedidoView(this, this.cpf);
+            } else {
+                throw new IllegalStateException("Dependência NavegadorDeViews não foi injetada.");
+            }
+        });
+
+        //cancelar o pedido selecionado
+        btnCancelarPedido.addActionListener((ActionEvent e) -> {
+            int row = tblPedidos.getSelectedRow();
+            int idPedidoDaLinha = getIdPedidoDalinha(row);
+            if (row != -1) { //se row == -1 então não tem nenhum pedido na tabela
+                cancelarPedido(idPedidoDaLinha);
+            } else {
+                mostrarMensagem("Selecione um pedido para cancelar.");
+            }
+        });
+
+        //visualizar detalhes do pedido
+        btnVerPedido.addActionListener((ActionEvent e) -> {
+            int row = tblPedidos.getSelectedRow();
+            if (row != -1) { //se row =1 então não tem nenhum pedido na tabela
+                verPedido(row);
+            } else {
+                mostrarMensagem("Selecione um pedido para visualizar.");
+            }
+        });
+
+        // Ação para avançar o estado do pedido (ex: De 'Preparando' para 'Em Entrega')
+        btnAvancarEstado.addActionListener((ActionEvent e) -> {
+            int row = tblPedidos.getSelectedRow();
+            if (row != -1) {
+                avancarEstado(row);
+            } else {
+                mostrarMensagem("Selecione um pedido para avançar o status.");
+            }
+        });
+        
+//        listener para detectar quando esta janela fechar
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
@@ -48,38 +134,99 @@ public class PedidosView extends javax.swing.JFrame {
                     parent.toFront();        //traz pra frente
                 }
             }
-        });
+        }); 
         
     }
     
-    
-    private void addNovoPedidoListener(ActionListener listener) {
-        btnNovoPedido.addActionListener(listener);
+    private void novoPedido() {
+        System.out.println("criando novo pedido.");
+        
+//        controller.criarPedido(this.cpf); TODO 
+//        ItensPedidoView itensView = new ItensPedidoView();
+//        itensView.iniciarView();
     }
 
-    private void addVerPedidoListener(ActionListener listener) {
-        btnVerPedido.addActionListener(listener);
-    }
-
-    private void addCancelarPedidoListener(ActionListener listener) {
-        btnCancelarPedido.addActionListener(listener);
-    }
-//==========================================================================================
-    
-    public void configurarListenersBotoes(){
+    private void cancelarPedido(int row) {
+        int confirm = JOptionPane.showConfirmDialog(this, "Deseja cancelar esse pedido??", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
             
+//             controller.cancelarPedido(idPedido);
+            mostrarMensagem("Pedido cancelado com sucesso.");
+        }
+    }
+
+    private void verPedido(int row) {
+        mostrarMensagem("Visualizando detalhes do pedido selecionado.");
+    }
+
+    private void avancarEstado(int row) {
+        mostrarMensagem("Status do pedido avançado.");
+    }
+
+    
+    
+    public void mostrarMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem);
     }
     
-    public void iniciarView(){
-        limparTabelas();
-        setLocationRelativeTo(null);
-        this.setVisible(true);      
+    private int getIdPedidoDalinha(int linha) {
+         //verifica se o índice da linha é válido
+        if (linha == -1) {
+            return -1;
+        }
+
+        //obtem o objeto da primeira coluna (índice 0) que contém o ID
+        Object valorDaCelula = tblPedidos.getValueAt(linha, 0);
+        //verifica se a celula está vazia
+        if (valorDaCelula == null) {
+            return -1;
+        }
+
+
+        return Integer.parseInt(valorDaCelula.toString());
     }
     
-    public void limparTabelas(){
-        DefaultTableModel modelTblPedidos = (DefaultTableModel) tblPedidos.getModel(); //limpa tabela
-        modelTblPedidos.setRowCount(0);
+    
+    private void setLblCpfCliente(String cpf) {
+        lblNomeCliente.setText("Pedidos do cliente de CPF: " + cpf);
     }
+    
+    
+    private void preencherTabelaPedidos() {
+        if (presenter == null || cpf == null) {
+            return;
+        }
+
+        
+        limparTabelas();//limpa a tabela antes de preencher
+        
+        DefaultTableModel model = getTblModel();
+
+        //chamada ao método da presenter
+        List<PedidoOutputDTO> pedidos = presenter.mostrarPedidos(cpf);
+
+        if (pedidos != null) {
+            for (PedidoOutputDTO pedido : pedidos) {
+                model.addRow(new Object[]{
+                    pedido.getId(),       // Coluna 0: ID Pedido
+                    pedido.getValorTotal(),     // Coluna 1: Data
+                    pedido.getEstado(),   // Coluna 2: Status
+                         
+                });
+            }
+        }
+    }
+    
+    
+    private DefaultTableModel getTblModel(){
+         return (DefaultTableModel) tblPedidos.getModel();
+    }
+    
+    
+    public void setNavegadorDeViews(NavegadorDeViews gerenciadorDeViews) {
+        this.navegadorDeViews =gerenciadorDeViews;
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -95,14 +242,14 @@ public class PedidosView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblNomeCliente.setText("Pedido do cliente: Fulano");
+        lblNomeCliente.setText("Pedido do cliente de CPF: 123");
 
         tblPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Status"
+                "ID", "Valor Total", "Status"
             }
         ) {
             Class[] types = new Class [] {
@@ -200,7 +347,7 @@ public class PedidosView extends javax.swing.JFrame {
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+//            logger.log(java.util.logging.Level.SEVERE, null, ex);//TODO comentei pois tinha erro verificar se é por motivo de não ter log implementado nessa classe
         }
         //</editor-fold>
 
@@ -217,5 +364,7 @@ public class PedidosView extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrPedidos;
     private javax.swing.JTable tblPedidos;
     // End of variables declaration//GEN-END:variables
+
+  
 
 }

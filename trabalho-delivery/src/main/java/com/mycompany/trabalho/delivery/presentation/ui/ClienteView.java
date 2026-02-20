@@ -8,6 +8,7 @@ import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteInputDTO;
 import com.mycompany.trabalho.delivery.aplicacao.dto.CreateClienteOutputDTO;
 import com.mycompany.trabalho.delivery.presentation.Presenter.ClientePresenter;
 import com.mycompany.trabalho.delivery.presentation.controllers.ClienteController;
+import com.mycompany.trabalho.delivery.presentation.services.NavegadorDeViews;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -22,35 +23,40 @@ public class ClienteView extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ClienteView.class.getName());
 
-    
     private ClienteController controller;
     private ClientePresenter presenter;
-    
-    
-    public ClienteView(ClienteController controller, ClientePresenter presenter){
+    private NavegadorDeViews navegadorDeViews;
+
+    public ClienteView(ClienteController controller, ClientePresenter presenter, NavegadorDeViews navegadorDeViews) {
         this.controller = controller;
         this.presenter = presenter;
+        this.navegadorDeViews = navegadorDeViews;
         initComponents();
+        inicializar();
         setLocationRelativeTo(null);
     }
-    
-    
-    public ClienteView() {
+
+    public ClienteView() {//TODO verificar
         initComponents();
         setLocationRelativeTo(null);
     }
 
-
-     public void inicializar() {
+    public void inicializar() { //TODO verificar se esse metodo pode ser removido. aparentemente não 
         setTitle("Gestão de Clientes - Sistema Delivery");
-       
+
         limparCampos();
         this.configurarListeners();
         atualizarTabela();
+        
         this.setVisible(true);
     }
     
     
+    //
+    public void setGerenciadorDeViews(NavegadorDeViews gerenciadorDeViews){
+        this.navegadorDeViews = gerenciadorDeViews;
+    }
+
     public String getNome() {
         return txtNome.getText();
     }
@@ -59,22 +65,18 @@ public class ClienteView extends javax.swing.JFrame {
         return txtEMail.getText();
     }
 
-    
     public String getCidade() {
         return txtCidade.getText();
     }
 
-    
     public String getBairro() {
         return txtBairro.getText();
     }
 
-    
     public String getRua() {
         return txtRua.getText();
     }
 
-    
     public String getNumero() {
         return txtNumero.getText();
     }
@@ -83,107 +85,75 @@ public class ClienteView extends javax.swing.JFrame {
         return txtCPF.getText();
     }
 
-    
     public int getLinhaSelecionada() {
         return tblClientes.getSelectedRow();
     }
 
-    
     public void mostrarMensagem(String msg) {
         //mostra um optionpane com a mensagem
         javax.swing.JOptionPane.showMessageDialog(this, msg);
     }
 
-   
-
     public void setController(ClienteController controller) {
         this.controller = controller;
     }
-    
 
     public void adicionarClienteNaTabela(String cpf, String nome, String endereco, String email) {
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
 
         model.addRow(new Object[]{cpf, nome, endereco, email});
     }
-    // Dentro de ClienteView.java
-
-    //=========metodos para adicionar lsiteners aos botoes=======================================================
-    private void addSalvarListener(ActionListener listener) {
-        btnSalvar.addActionListener(listener);
-    }
-
-    private void addPesquisarListener(ActionListener listener) {
-        btnPesquisar.addActionListener(listener);
-    }
-
-    private void addLimparListener(ActionListener listener) {
-        btnLimpar.addActionListener(listener);
-    }
-
-    private void addExcluirListener(ActionListener listener) {
-        btnExcluir.addActionListener(listener);
-    }
-
-    private void addPedidosClienteListener(ActionListener listener) {
-        btnPedidosDoCliente.addActionListener(listener);
-    }
-    //=====================================//=====================================//===================================== 
-    
+   
+  //configuração de listeners, aqui que são chamados os metodos com clique nos botões, por ex
     private void configurarListeners() {
-        // Ação do Botão Salvar
+        // botão Salvar
         btnSalvar.addActionListener((ActionEvent e) -> {
-//            executarFluxoSalvar();
-              salvarCliente();
+
+            salvarCliente();
 
         });
 
-        // Ação do Botão Limpar
+        // botão Limpar
         btnLimpar.addActionListener(e -> {
             limparCampos();
             this.mostrarMensagem("Limpando campos de entrada");
         });
-        
+
         //Ação botao pesquisar
         btnPesquisar.addActionListener((ActionEvent e) -> {
-//            executarFluxoPesquisa();
-              this.mostrarMensagem("Pesquisar ainda não implementado"); //TODO
+//           pesquisa();
+            this.mostrarMensagem("Pesquisar ainda não implementado"); //TODO
         });
-        
-        
-        //ação Botão Pedidos cliente
-        btnPedidosDoCliente.addActionListener((ActionEvent e) -> {
-//            executarFluxoPedidoCliente();
 
-            //parent como parametro para poder desabilitar esta tela
-            PedidosView pedidosView = new PedidosView(this, 0);   //TODO passando qualquer CPF como parametro por enquanto, até ser implementado
-            
-            
-            //desativa essa janela 
-            this.setEnabled(false);
-            
-            //mstra a nova janela PEDIDOS
-            pedidosView.iniciarView();
-            
-            System.out.println("[Navegação] PedidosView aberta. ClienteView temporariamente inativa.");
+        //botão Pedidos cliente===================================================================================
+        btnPedidosDoCliente.addActionListener((ActionEvent e) -> {        
 
-           
+            
+            String cpfSelecionado = getCpfSelecionado();
+
+            if (cpfSelecionado != null) {
+                
+                navegadorDeViews.abrirPedidosView(this, cpfSelecionado);
+//                abrirPedidosView(cpfSelecionado); // alterado para classe de serviço gerenciadora de views acima fazezr isso (padrão command)
+            } else {
+                mostrarMensagem("Por favor, selecione um cliente na tabela para ver os pedidos.");
+            }
+
         });
-        
-        
+        //botão Pedidos cliente=====================================================================
         
         // Ação do Botão Excluir
         btnExcluir.addActionListener(e -> {
-             int row = tblClientes.getSelectedRow();
+            int row = tblClientes.getSelectedRow();
             String cpf = getCpfSelecionado();
-            
+
             if (row != -1 && cpf != null) {
-                
-                 controller.deletarCliente(cpf);
-                
+
+                controller.deletarCliente(cpf);
+
                 // Remove a linha selecionada do modelo visual da JTable
                 excluirLinhaDaTabela(row);
-                
+
                 mostrarMensagem("Cliente com CPF " + cpf + " excluído da visualização.");
             } else {
                 mostrarMensagem("Selecione um cliente na tabela primeiro.");
@@ -200,17 +170,17 @@ public class ClienteView extends javax.swing.JFrame {
         }
         return null;
     }
-    
+
     private void excluirLinhaDaTabela(int row) {
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.removeRow(row);
     }
-    
+
     private void salvarCliente(/*java.awt.event.ActionEvent evt*/) {
         CreateClienteInputDTO dto = new CreateClienteInputDTO();
 
-        dto.setNome(txtNome.getText()) ;
-        dto.setEmail(txtEMail.getText()) ;
+        dto.setNome(txtNome.getText());
+        dto.setEmail(txtEMail.getText());
         dto.setCpf(txtCPF.getText());
 
         dto.setCidade(txtCidade.getText());
@@ -227,6 +197,7 @@ public class ClienteView extends javax.swing.JFrame {
                 adicionarClienteNaTabela(output.getCpf(), output.getNome(), enderecoCompleto, output.getEmail());
 
                 System.out.println("DTO Enviado: " + dto.getNome() + " - CPF: " + dto.getCpf());
+                mostrarMensagem("Salvo com sucesso!");
 
 //                limparCampos();
             } else {
@@ -239,20 +210,17 @@ public class ClienteView extends javax.swing.JFrame {
 
     }
 
-    
-    
-    
 //       @Override
     public void atualizarTabela(/*List<CreateClienteOutputDTO> clientes*/) { //limpa tabela e preenche com clientes 
-        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel(); 
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setRowCount(0);//limpa tabela
         List<CreateClienteOutputDTO> clientes = presenter.listarTodos();
         for (CreateClienteOutputDTO c : clientes) { //preenche com os dados da lista de clientes
-            model.addRow(new Object[]{ c.getCpf(), c.getNome(), c.getEnderecoFormatado(), c.getEmail()});
-    
+            model.addRow(new Object[]{c.getCpf(), c.getNome(), c.getEnderecoFormatado(), c.getEmail()});
+
         }
     }
-    
+
     public void limparCampos() {
         txtNome.setText("");
         txtEMail.setText("");
@@ -263,11 +231,32 @@ public class ClienteView extends javax.swing.JFrame {
         txtCPF.setText("");
     }
 
-    
-    public void limparTabela(){
-          DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+    public void limparTabela() {
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setRowCount(0);
     }
+
+//    private void abrirPedidosView(String cpf) { //removendo para delegar para classe de serviços view, ela se encarrega de navegar entre as views pelo principio de inversão de dependencia
+//        try {
+//
+//          
+//
+////            PedidosView pedidosView = new PedidosView();
+////        (this, cpf);
+//
+//            //desativa a tela de cliente para evitar múltiplas instâncias e inconsistência
+//            this.setEnabled(false);
+//
+////            pedidosView.iniciarView();
+//
+//            System.out.println("[Navegação] ClienteView suspensa. PedidosView aberta para o CPF: " + cpf);
+//
+//        } catch (Exception ex) {
+//            logger.severe("Erro ao abrir PedidosView: " + ex.getMessage());
+//            mostrarMensagem("Não foi possível carregar a tela de pedidos.");
+//        }
+//    }
+
 //====================================================================
     /**
      * This method is called from within the constructor to initialize the form.

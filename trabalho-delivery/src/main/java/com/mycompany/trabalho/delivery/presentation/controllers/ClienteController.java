@@ -20,10 +20,7 @@ public class ClienteController {
     private final ICadastrarClienteUseCase cadastrarCliente;
     private final IDeletarClienteUseCase deletarCliente;
 
-    public ClienteController(
-            ICadastrarClienteUseCase cadastrarCliente,
-            IDeletarClienteUseCase deletarCliente
-    ) {
+    public ClienteController(ICadastrarClienteUseCase cadastrarCliente,IDeletarClienteUseCase deletarCliente) {
         this.cadastrarCliente = cadastrarCliente;
         this.deletarCliente = deletarCliente;
     }

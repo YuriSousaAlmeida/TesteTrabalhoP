@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class ArquivoJsonPreco implements IProvedorDePrecos{
     private Map <String, Double> cardapio;
     
-    ArquivoJsonPreco(){
+    public ArquivoJsonPreco(){
         carregarPrecos();
     }
     

@@ -14,14 +14,14 @@ import java.util.List;
  * @author Selmo
  */
 public class PedidoOutputDTO {
-    private Cliente cliente;
+    private String cpf;
     private List<Item> itens;
     private IPedidoState estado;
     private double valorTotal;
     private long id;
 
-    public Cliente getCliente() {
-        return cliente;
+    public String getCpf() {
+        return cpf;
     }
 
     public List<Item> getItens() {
@@ -38,5 +38,25 @@ public class PedidoOutputDTO {
 
     public long getId() {
         return id;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
+    }
+
+    public void setEstado(IPedidoState estado) {
+        this.estado = estado;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

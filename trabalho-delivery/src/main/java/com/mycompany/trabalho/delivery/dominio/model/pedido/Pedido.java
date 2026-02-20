@@ -2,6 +2,7 @@ package com.mycompany.trabalho.delivery.dominio.model.pedido;
 
 import com.mycompany.trabalho.delivery.dominio.model.cliente.Cliente;
 import com.mycompany.trabalho.delivery.dominio.port.ILogService;
+import com.mycompany.trabalho.delivery.dominio.adapter.ConsoleLogAdapter; // Importe o adaptador
 import java.util.List;
 
 /**
@@ -20,53 +21,63 @@ public class Pedido {
         this.cliente = cliente;
         this.itens = itens;
         this.estado = estado;
-        
         calcularTotal(); 
     }
 
-    public Cliente getCliente() {
+    //Construtor para testes 
+    public Pedido(Cliente cliente, List<Item> itens, IPedidoState estado) { 
+        this(new ConsoleLogAdapter(), cliente, itens, estado); 
+    }
+
+    public Pedido(Cliente cliente, List<Item> itens){
+        this(new ConsoleLogAdapter(), cliente, itens, new PedidoPendenteState());
+    }
+
+    public Cliente getCliente(){
         return cliente;
     }
 
-    public List<Item> getItens() {
+    public List<Item> getItens(){
         return itens;
     }
 
-    public IPedidoState getEstado() {
+    public IPedidoState getEstado(){
         return estado;
     }
 
-    public double getValorTotal() {
+    public double getValorTotal(){
         return valorTotal;
     }
 
-    public long getId() {
+    public long getId(){
         return id;
     }
     
-    
-    
-    public void avancarEstado() {
-        logger.info("Iniciando transição de status do pedido. Valor total: R$ " + valorTotal);
+    public void avancarEstado(){
+        if(logger != null){ 
+            logger.info("Iniciando transição de status do pedido. Valor total: R$ " + valorTotal);
+        }
         estado.avancarEstado(this);
     }
     
-    public void cancelar() {
-        logger.info("Tentativa de cancelamento de pedido detectada.");
+    public void cancelar(){
+        if(logger != null){
+            logger.info("Tentativa de cancelamento de pedido detectada.");
+        }
         estado.cancelar(this);
     }
     
-    public void setEstado(IPedidoState novoEstado) {
+    public void setEstado(IPedidoState novoEstado){
         this.estado = novoEstado;
     }
 
-    public ILogService getLogger() {
+    public ILogService getLogger(){
         return logger;
     }
     
-    private void calcularTotal() {
+    private void calcularTotal(){
         valorTotal = 0;
-        for(Item item : itens) {
+        for(Item item : itens){
             valorTotal += item.getPreco();
         }
     }

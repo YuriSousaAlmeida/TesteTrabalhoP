@@ -4,10 +4,14 @@
  */
 package com.mycompany.trabalho.delivery.aplicacao.useCases;
 
+import com.mycompany.trabalho.delivery.aplicacao.dto.PedidoOutputDTO;
+import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
+import java.util.List;
+
 /**
  *
  * @author Selmo
  */
-public interface ICriarPedidoUseCase {
-    public void executar(String cpf);
+public interface IBuscarPedidosPorCpfUseCase {
+    public List<PedidoOutputDTO> executar(String cpf);
 }

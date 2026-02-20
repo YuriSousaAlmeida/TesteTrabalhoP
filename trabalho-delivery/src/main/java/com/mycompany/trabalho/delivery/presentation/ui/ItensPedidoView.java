@@ -4,7 +4,13 @@
  */
 package com.mycompany.trabalho.delivery.presentation.ui;
 
+import com.mycompany.trabalho.delivery.dominio.model.pedido.Pedido;
+import com.mycompany.trabalho.delivery.presentation.Presenter.ItensPedidoPresenter;
+import com.mycompany.trabalho.delivery.presentation.controllers.ItensPedidoController;
+import com.mycompany.trabalho.delivery.presentation.services.NavegadorDeViews;
 import java.awt.event.ActionEvent;
+import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,19 +22,56 @@ public class ItensPedidoView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ItensPedidoView.class.getName());
 
+    private JFrame parent;
+    private String cpf;
+    private ItensPedidoController controller;
+    private ItensPedidoPresenter presenter;
+    private NavegadorDeViews navegadorDeViews;
+    
+    //para fins de teste
+   
+
+    // --- Novos Atributos de Estado Local ---
+    private String idPedidoAtual; 
+    private List<String> ingredientesExtrasAtuais;
+    
     /**
      * Creates new form ItensView
      */
     public ItensPedidoView() {
         initComponents();
+        iniciarView();
         
+    }
+    
+     public ItensPedidoView(JFrame parent, String cpf, ItensPedidoController controller, ItensPedidoPresenter presenter, NavegadorDeViews navegadorDeViews) {
+        this.parent = parent;
+        this.cpf = cpf;
+        this.controller = controller;
+        this.presenter = presenter;
+        this.navegadorDeViews = navegadorDeViews;
+        
+        // Inicializa o estado do novo pedido
+//        this.idPedidoAtual = UUID.randomUUID().toString();
+//        this.ingredientesExtrasAtuais = new ArrayList<>();
+
+      
+        initComponents();
+        
+        
+       
+        iniciarView();
+        
+        // Centraliza em relação à tela de Pedidos (parent)
+        this.setLocationRelativeTo(parent);
     }
 
     public void iniciarView(){
         limparTodosCombos();
         limparTabelas();
-        this.setVisible(true);
         
+        configurarListeners();
+        this.setVisible(true);
     }
     
     
@@ -64,65 +107,66 @@ public class ItensPedidoView extends javax.swing.JFrame {
         model.addRow(new Object[]{idItem,descricao,quantidade,valor});
     }
     
-//exibe uma mensagem num joptpane    
-    public void mostrarMensagem(String mensagem) {
-        JOptionPane.showMessageDialog(this, mensagem);
-    }
-    
-    private void adicionarPizzaAoPedido() {
-        String pizza = (String) cmbListaPizzasBase.getSelectedItem();
-        // Lógica para adicionar pizza via controller/presenter futuramente
-        mostrarMensagem("Pizza " + pizza + " adicionada.");
-    }
-
-    private void adicionarBebidaAoPedido() {
-        String bebida = (String) cmbBebida.getSelectedItem();
-        String tamanho = (String) cmbTamanhoBebida.getSelectedItem();
-        mostrarMensagem(bebida + " (" + tamanho + ") adicionada.");
-    }
-
-    private void incluirAdicional() {
-        String ingrediente = (String) cmbIngrediente.getSelectedItem();
-        mostrarMensagem("Adicional: " + ingrediente + " incluído.");
-    }
-
-    private void limparCamposIngredientes() {
-        cmbIngrediente.setSelectedIndex(-1);
-    }
-    
+    public void mostrarMensagem(String msg) {
+        //mostra um optionpane com a mensagem
+        javax.swing.JOptionPane.showMessageDialog(this, msg);
+    } 
     
     // Listeners dos botões
     private void configurarListeners() {
         
         
-        btnAddPizzaAoPedido.addActionListener((ActionEvent e) -> {
-            adicionarPizzaAoPedido();
-        });
+       if (btnAddPizzaAoPedido != null) {
+            btnAddPizzaAoPedido.addActionListener(e -> {
+                // Exemplo de como irá capturar os dados da View para o Controller:
+                // String saborBase = (String) cmbListaPizzasBase.getSelectedItem();
+                // controller.adicionarPizzaAoPedido(saborBase, listaDeIngredientesSelecionados);
+                JOptionPane.showMessageDialog(this, "Pizza adicionada (Lógica a ser implementada no Controller).");
+            });
+        }
 
-        //botão Adicionar Bebida ao Pedido
-        btnAddBebidaPedido.addActionListener((ActionEvent e) -> {
-            adicionarBebidaAoPedido();
-        });
+        if (btnAddBebidaPedido != null) {
+            btnAddBebidaPedido.addActionListener(e -> {
+                // String bebida = (String) cmbBebida.getSelectedItem();
+                // String tamanho = (String) cmbTamanhoBebida.getSelectedItem();
+                // controller.adicionarBebidaAoPedido(bebida, tamanho);
+                JOptionPane.showMessageDialog(this, "Bebida adicionada (Lógica a ser implementada no Controller).");
+            });
+        }
 
-        //botão Incluir Adicional
-        btnIncluirAdiciona.addActionListener((ActionEvent e) -> {
-            incluirAdicional();
-        });
+        if (btnIncluirAdiciona != null) {
+            btnIncluirAdiciona.addActionListener(e -> {
+                // String ingrediente = (String) cmbIngrediente.getSelectedItem();
+                // Adiciona visualmente na tabela temporária de ingredientes ou chama o controller
+                mostrarMensagem("btnIncluirAdiciona");
+            });
+        }
 
-        //botão Limpar Ingredientes
-        btnLimparIngredientes.addActionListener(e -> {
-            limparCamposIngredientes();
-            this.mostrarMensagem("Limpando campos de entrada de ingredientes");
-        });
+        if (btnLimparIngredientes != null) {
+            btnLimparIngredientes.addActionListener(e -> {
+                // Limpa a tabela temporária de ingredientes extras da pizza atual
+                mostrarMensagem("btnLimparIngredientes");
+            });
+        }
 
-        //botão Remover Item do Pedido
-        btnRemoverItem.addActionListener(e -> { //remove um item do pedido
-           });
+        if (btnRemoverItem != null) {
+            btnRemoverItem.addActionListener(e -> {
+                // int linhaSelecionada = tblItensPedido.getSelectedRow();
+                // if (linhaSelecionada >= 0) { ... controller.removerItem(id); }
+                mostrarMensagem("btnRemoverItem");
+                
+            });
+        }
 
-        //Finalizar Pedido
-        btnFinalizarPedido.addActionListener((ActionEvent e) -> { 
-            // 
-        });
+        if (btnFinalizarPedido != null) {
+            btnFinalizarPedido.addActionListener(e -> {
+                // controller.finalizarMontagemPedido(this.cpf);
+                JOptionPane.showMessageDialog(this, "Pedido finalizado com sucesso!");
+                
+                // Fecha a tela atual e retorna o foco para a PedidosView
+                this.dispose(); 
+            });
+        }
     }
     
     
@@ -220,7 +264,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
 
         lblIngrediente.setText("Adicional:");
 
-        cmbIngrediente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbIngrediente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "bacon", "mussarela", "azeitona", "Item 4" }));
         cmbIngrediente.addActionListener(this::cmbIngredienteActionPerformed);
 
         tblAdicionaisPizza.setModel(new javax.swing.table.DefaultTableModel(
@@ -269,7 +313,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
 
         btnIncluirAdiciona.setText("Incluir Adicional");
 
-        cmbListaPizzasBase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbListaPizzasBase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Calabresa", "quatro queijos", "da casa", "Item 4" }));
 
         lblTotal.setText("Total:");
 
@@ -300,18 +344,15 @@ public class ItensPedidoView extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnIncluirAdiciona)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnIncluirAdiciona)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnAddPizzaAoPedido)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnLimparIngredientes))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblIngrediente)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(38, 38, 38))
+                                .addComponent(btnAddPizzaAoPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLimparIngredientes))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblIngrediente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(scrIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

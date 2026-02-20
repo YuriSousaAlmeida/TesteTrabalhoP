@@ -59,21 +59,16 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnIncluirAdiciona" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnIncluirAdiciona" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btnAddPizzaAoPedido" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnLimparIngredientes" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lblIngrediente" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="cmbIngrediente" min="-2" pref="141" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="btnAddPizzaAoPedido" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnLimparIngredientes" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblIngrediente" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cmbIngrediente" min="-2" pref="141" max="-2" attributes="0"/>
                           </Group>
                           <Component id="scrIngredientesPizza" alignment="0" min="-2" pref="299" max="-2" attributes="0"/>
                       </Group>
@@ -245,9 +240,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
+            <StringItem index="0" value="bacon"/>
+            <StringItem index="1" value="mussarela"/>
+            <StringItem index="2" value="azeitona"/>
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
@@ -364,9 +359,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
+            <StringItem index="0" value="Calabresa"/>
+            <StringItem index="1" value="quatro queijos"/>
+            <StringItem index="2" value="da casa"/>
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
