@@ -12,28 +12,26 @@ import com.mycompany.trabalho.delivery.dominio.port.IProvedorDePrecos;
  */
 public class QuatroQueijosBuilder extends PizzaBuilder {
     private IProvedorDePrecos provedor;
-    private AdicionadorDeIngrediente adicionarIngrediente;
-    private AdicionadorDeMassa adicionarMassa;
 
-    public QuatroQueijosBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente, AdicionadorDeMassa adicionarMassa) {
+    public QuatroQueijosBuilder(IProvedorDePrecos provedor) {
         this.provedor = provedor;
-        this.adicionarIngrediente = adicionarIngrediente;
-        this.adicionarMassa=adicionarMassa;
     }
     
     @Override
     public void prepararMassa() {
-        pizza = adicionarMassa.adicionarMassa("Massa Crocante");
+        String nome= "Massa Crocante";
+        pizza= new MassaBase(nome, provedor.buscaPreco(nome));
     }
     @Override
     public void adicionarMolho() {
-        adicionarIngrediente.adicionarIngrediente(pizza, "Molho Branco");
+        String molho= "Molho Branco";
+        pizza= new Ingrediente(pizza, molho, provedor.buscaPreco(molho));
     }
     @Override
     public void adicionarCobertura() {
-        adicionarIngrediente.adicionarIngrediente(pizza, "Mussarela");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Provolone");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Parmesão");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Gorgonzola");
+        pizza= new Ingrediente(pizza, "Mussarela", provedor.buscaPreco("Mussarela"));
+        pizza= new Ingrediente(pizza, "Provolone", provedor.buscaPreco("Provolone"));
+        pizza= new Ingrediente(pizza, "Parmesão", provedor.buscaPreco("Parmesão"));
+        pizza= new Ingrediente(pizza, "Gorgonzola", provedor.buscaPreco("Gorgonzola"));
     }
 }

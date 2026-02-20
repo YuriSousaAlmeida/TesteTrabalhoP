@@ -13,28 +13,26 @@ import com.mycompany.trabalho.delivery.dominio.port.IProvedorDePrecos;
 
 public class CalabresaBuilder extends PizzaBuilder {
     private IProvedorDePrecos provedor;
-    private AdicionadorDeIngrediente adicionarIngrediente;
-    private AdicionadorDeMassa adicionarMassa;
 
-    public CalabresaBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente, AdicionadorDeMassa adicionarMassa) {
+    public CalabresaBuilder(IProvedorDePrecos provedor) {
         this.provedor = provedor;
-        this.adicionarIngrediente = adicionarIngrediente;
-        this.adicionarMassa=adicionarMassa;
     }
 
     @Override
     public void prepararMassa() {
-        pizza = adicionarMassa.adicionarMassa("Massa Tradicional");
+        String nome= "Massa Tradicional";
+        pizza= new MassaBase(nome, provedor.buscaPreco(nome));
     }
     @Override
     public void adicionarMolho() {
-        adicionarIngrediente.adicionarIngrediente(pizza, "Molho de Tomate");
+        String molho= "Molho de Tomate";
+        pizza= new Ingrediente(pizza, molho, provedor.buscaPreco(molho));
     }
     @Override
     public void adicionarCobertura() {
-        adicionarIngrediente.adicionarIngrediente(pizza, "Calabresa Fatiada");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Cebola");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Azeitonas");
+        pizza= new Ingrediente(pizza, "Calabresa Fatiada", provedor.buscaPreco("Calabresa Fatiada"));
+        pizza= new Ingrediente(pizza, "Cebola", provedor.buscaPreco("Cebola"));
+        pizza= new Ingrediente(pizza, "Azeitonas", provedor.buscaPreco("Azeitonas"));
     }
     
 }

@@ -12,29 +12,27 @@ import com.mycompany.trabalho.delivery.dominio.port.IProvedorDePrecos;
  */
 public class PortuguesaBuilder extends PizzaBuilder {
     private IProvedorDePrecos provedor;
-    private AdicionadorDeIngrediente adicionarIngrediente;
-    private AdicionadorDeMassa adicionarMassa;
 
-    public PortuguesaBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente, AdicionadorDeMassa adicionarMassa) {
+    public PortuguesaBuilder(IProvedorDePrecos provedor) {
         this.provedor = provedor;
-        this.adicionarIngrediente = adicionarIngrediente;
-        this.adicionarMassa=adicionarMassa;
     }
     
     @Override
     public void prepararMassa() {
-        pizza = adicionarMassa.adicionarMassa("Massa Tradicional");
+        String nome= "Massa Tradicional";
+        pizza= new MassaBase(nome, provedor.buscaPreco(nome));
     }
     @Override
     public void adicionarMolho() {
-        adicionarIngrediente.adicionarIngrediente(pizza, "Molho de Tomate");
+        String molho= "Molho de Tomate";
+        pizza= new Ingrediente(pizza, molho, provedor.buscaPreco(molho));
     }
     @Override
     public void adicionarCobertura() {
-        adicionarIngrediente.adicionarIngrediente(pizza, "Presunto");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Ovo Cozido");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Ervilha");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Cebola");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Mussarela");
+        pizza= new Ingrediente(pizza, "Presunto", provedor.buscaPreco("Presunto"));
+        pizza= new Ingrediente(pizza, "Ovo Cozido", provedor.buscaPreco("Ovo Cozido"));
+        pizza= new Ingrediente(pizza, "Ervilha", provedor.buscaPreco("Ervilha"));
+        pizza= new Ingrediente(pizza, "Cebola", provedor.buscaPreco("Cebola"));
+        pizza= new Ingrediente(pizza, "Mussarela", provedor.buscaPreco("Mussarela"));
     }
 }

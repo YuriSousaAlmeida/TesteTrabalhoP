@@ -19,7 +19,6 @@ import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoEntregueState;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoPendenteState;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoPreparadoState;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.PedidoProntoState;
-import com.mycompany.trabalho.delivery.dominio.model.pizza.AdicionadorDeIngrediente;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.CalabresaBuilder;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.Ingrediente;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.IngredienteDecorator;

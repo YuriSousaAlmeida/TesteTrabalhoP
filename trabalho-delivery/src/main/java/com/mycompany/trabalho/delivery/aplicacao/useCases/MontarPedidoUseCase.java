@@ -14,7 +14,6 @@ import com.mycompany.trabalho.delivery.aplicacao.dto.ItemPedidoPizzaInputDTO;
 import com.mycompany.trabalho.delivery.dominio.model.bebida.Bebida;
 import com.mycompany.trabalho.delivery.dominio.model.cliente.Cliente;
 import com.mycompany.trabalho.delivery.dominio.model.pedido.Item;
-import com.mycompany.trabalho.delivery.dominio.model.pizza.AdicionadorDeIngrediente;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.CalabresaBuilder;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.FrangoCatupiryBuilder;
 import com.mycompany.trabalho.delivery.dominio.model.pizza.ModaDaCasaBuilder;
@@ -27,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.mycompany.trabalho.delivery.dominio.model.pizza.AdicionadorDeMassa;
 
 /**
  *
@@ -37,17 +35,12 @@ public class MontarPedidoUseCase implements IMontarPedidoUseCase {
     private final IPedidoRepository repositorioPedidos;
     private final IClienteRepository repositorioClientes;
     private IProvedorDePrecos provedor;
-    private AdicionadorDeIngrediente adicionadorIngrediente;
-    private AdicionadorDeMassa adicionadorMassa;
     
 
-    public MontarPedidoUseCase(IPedidoRepository repositorioPedidos, IClienteRepository repositorioClientes, IProvedorDePrecos provedor, 
-            AdicionadorDeIngrediente adicionadorIngrediente, AdicionadorDeMassa adicionadorMassa) {
+    public MontarPedidoUseCase(IPedidoRepository repositorioPedidos, IClienteRepository repositorioClientes, IProvedorDePrecos provedor) {
        this.repositorioPedidos = repositorioPedidos;
        this.repositorioClientes = repositorioClientes;
        this.provedor=provedor;
-       this.adicionadorIngrediente=adicionadorIngrediente;
-       this.adicionadorMassa=adicionadorMassa;
     }
     
     public void executar(String cpf, List<ItemPedidoPizzaInputDTO> itensPizzas, List<ItemPedidoBebidaInputDTO> itensBebidas) {
@@ -61,11 +54,11 @@ public class MontarPedidoUseCase implements IMontarPedidoUseCase {
         List<Item> itensModelo = new ArrayList<>();
         
         Map<String, PizzaBuilder> mapaSabores = new HashMap<>();
-        mapaSabores.put("calabresa", new CalabresaBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
-        mapaSabores.put("frangocatupiry", new FrangoCatupiryBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
-        mapaSabores.put("modadacasa", new ModaDaCasaBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
-        mapaSabores.put("portuguesa", new PortuguesaBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
-        mapaSabores.put("quatroqueijos", new QuatroQueijosBuilder(provedor, adicionadorIngrediente, adicionadorMassa));
+        mapaSabores.put("calabresa", new CalabresaBuilder(provedor));
+        mapaSabores.put("frangocatupiry", new FrangoCatupiryBuilder(provedor));
+        mapaSabores.put("modadacasa", new ModaDaCasaBuilder(provedor));
+        mapaSabores.put("portuguesa", new PortuguesaBuilder(provedor));
+        mapaSabores.put("quatroqueijos", new QuatroQueijosBuilder(provedor));
         
         for(ItemPedidoPizzaInputDTO itemPizza : itensPizzas) {
             PizzaBuilder builder = mapaSabores.get(itemPizza.getSabor());

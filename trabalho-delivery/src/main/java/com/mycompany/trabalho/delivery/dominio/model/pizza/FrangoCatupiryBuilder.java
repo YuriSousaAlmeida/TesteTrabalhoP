@@ -12,28 +12,26 @@ import com.mycompany.trabalho.delivery.dominio.port.IProvedorDePrecos;
  */
 public class FrangoCatupiryBuilder extends PizzaBuilder {
     private IProvedorDePrecos provedor;
-    private AdicionadorDeIngrediente adicionarIngrediente;
-    private AdicionadorDeMassa adicionarMassa;
     
-    public FrangoCatupiryBuilder(IProvedorDePrecos provedor, AdicionadorDeIngrediente adicionarIngrediente, AdicionadorDeMassa adicionarMassa) {
+    public FrangoCatupiryBuilder(IProvedorDePrecos provedor) {
         this.provedor = provedor;
-        this.adicionarIngrediente = adicionarIngrediente;
-        this.adicionarMassa=adicionarMassa;
     }
     
     @Override
     public void prepararMassa() {
-        pizza = adicionarMassa.adicionarMassa("Massa Tradicional");
+        String nome= "Massa Tradicional";
+        pizza= new MassaBase(nome, provedor.buscaPreco(nome));
     }
     @Override
     public void adicionarMolho() {
-        adicionarIngrediente.adicionarIngrediente(pizza, "Molho de Tomate");
+        String molho= "Molho de Tomate";
+        pizza= new Ingrediente(pizza, molho, provedor.buscaPreco(molho));
     }
     @Override
     public void adicionarCobertura() {
-        adicionarIngrediente.adicionarIngrediente(pizza, "Frango Desfiado");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Catupiry Original");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Milho");
-        adicionarIngrediente.adicionarIngrediente(pizza, "Orégano");
+        pizza= new Ingrediente(pizza, "Frango Desfiado", provedor.buscaPreco("Frango Desfiado"));
+        pizza= new Ingrediente(pizza, "Catupiry Original", provedor.buscaPreco("Catupiry Original"));
+        pizza= new Ingrediente(pizza, "Milho", provedor.buscaPreco("Milho"));
+        pizza= new Ingrediente(pizza, "Orégano", provedor.buscaPreco("Orégano"));
     }
 }
