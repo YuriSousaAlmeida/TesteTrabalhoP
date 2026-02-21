@@ -46,7 +46,7 @@ public class TrabalhoDelivery {
         NavegadorDeViews navegador = new NavegadorDeViews(clienteRepo, pedidoRepo, logService, provedor, pizzaFactory);
 
         
-            navegador.abrirClienteView();
+        navegador.abrirClienteView();
 //                
 //        //declaração da view, controler e presenter de Clientes
 //        IClienteRepository repositorioClientes = new ClienteRepositorySQLite(); 

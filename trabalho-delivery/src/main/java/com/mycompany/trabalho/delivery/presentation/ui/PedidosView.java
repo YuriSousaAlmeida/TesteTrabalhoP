@@ -72,12 +72,14 @@ public class PedidosView extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) tblPedidos.getModel();
         model.setRowCount(0);
-        presenter.mostrarPedidos(cpf);
+        
+        // A linha abaixo pode ser removida pois você já chama na de baixo:
+        // presenter.mostrarPedidos(cpf); 
         
         List<PedidoOutputDTO> pedidos = presenter.mostrarPedidos(cpf);
         for (PedidoOutputDTO c : pedidos) {
-            model.addRow(new Object[]{c.getId(), c.getValorTotal(), c.getEstado()});
-
+            // AQUI ESTÁ A CORREÇÃO:
+            model.addRow(new Object[]{c.getId(), c.getValorTotal(), c.getEstado().getDescricao()});
         }
     }
     
@@ -97,11 +99,13 @@ public class PedidosView extends javax.swing.JFrame {
         //cancelar o pedido selecionado
         btnCancelarPedido.addActionListener((ActionEvent e) -> {
             int row = tblPedidos.getSelectedRow();
-            int idPedidoDaLinha = getIdPedidoDalinha(row);
-            if (row != -1) { //se row == -1 então não tem nenhum pedido na tabela
-                mostrarMensagem("Pedido cancelado com sucesso.");
+            if (row != -1) {
                 int id = getPedidoSelecionado();
-                controller.cancelarPedido(id);
+                controller.cancelarPedido(id); // 1. Cancela o pedido
+                
+                atualizarTabela(); // 2. AQUI TAMBÉM: Recarrega a tabela!
+                
+                mostrarMensagem("Pedido cancelado com sucesso.");
             } else {
                 mostrarMensagem("Selecione um pedido para cancelar.");
             }
@@ -121,15 +125,17 @@ public class PedidosView extends javax.swing.JFrame {
         btnAvancarEstado.addActionListener((ActionEvent e) -> {
             int row = tblPedidos.getSelectedRow();
             if (row != -1) {
-                mostrarMensagem("Estado avançado com Sucesso.");
                 int id = getPedidoSelecionado();
-                controller.avancarEstado(id);
+                controller.avancarEstado(id); // 1. Avança o estado
+                
+                atualizarTabela(); // 2. AQUI ESTÁ A MÁGICA: Recarrega a tabela com os dados novos!
+                
+                mostrarMensagem("Estado avançado com Sucesso.");
             } else {
                 mostrarMensagem("Selecione um pedido para avançar o status.");
-                
             }
         });
-//        listener para detectar quando esta janela fechar
+        
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

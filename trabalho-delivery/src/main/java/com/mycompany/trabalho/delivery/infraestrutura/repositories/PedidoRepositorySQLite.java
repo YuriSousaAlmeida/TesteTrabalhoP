@@ -42,6 +42,11 @@ public class PedidoRepositorySQLite implements IPedidoRepository {
 
     @Override
     public void salvarPedido(Pedido pedido) {
+        if (pedido.getId() > 0) {
+            atualizarPedido(pedido);
+            return; // Sai do método para não executar o INSERT abaixo
+        }
+        
         String sqlPedido = "INSERT INTO pedidos(cliente_id, valor_total, status) VALUES (?, ?, ?)";
         String sqlItem = "INSERT INTO itens_pedido(pedido_id, tipo, tamanho, valor_base, descricao_visual) VALUES (?, ?, ?, ?, ?)";
         String sqlAdicional = "INSERT INTO itens_adicionais(item_pedido_id, nome, valor_adicional) VALUES (?, ?, ?)";
@@ -296,5 +301,23 @@ public class PedidoRepositorySQLite implements IPedidoRepository {
         String nome;
         double valor;
         TempAdicional(String nome, double valor) { this.nome = nome; this.valor = valor; }
+    }
+    
+    private void atualizarPedido(Pedido pedido) {
+        String sql = "UPDATE pedidos SET status = ? WHERE id = ?";
+        try (Connection conexao = ConexaoSingleton.getConexao();
+             PreparedStatement statement = conexao.prepareStatement(sql)) {
+            
+            // Pega a nova descrição do estado (ex: "PREPARANDO...", "CANCELADO...")
+            statement.setString(1, pedido.getEstado().getDescricao());
+            statement.setLong(2, pedido.getId());
+            
+            statement.executeUpdate();
+            System.out.println("Status do pedido " + pedido.getId() + " atualizado para: " + pedido.getEstado().getDescricao());
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao atualizar status do pedido: " + e.getMessage());
+        }
     }
 }
