@@ -68,14 +68,14 @@ public class PedidosView extends javax.swing.JFrame {
 //        model.setRowCount(0); 
     }
     
-    public void atualizarTabela() { //limpa tabela e preenche com clientes 
+    public void atualizarTabela() { 
         
         DefaultTableModel model = (DefaultTableModel) tblPedidos.getModel();
-        model.setRowCount(0);//limpa tabela
+        model.setRowCount(0);
         presenter.mostrarPedidos(cpf);
         
         List<PedidoOutputDTO> pedidos = presenter.mostrarPedidos(cpf);
-        for (PedidoOutputDTO c : pedidos) { //preenche com os dados da lista de pedidos
+        for (PedidoOutputDTO c : pedidos) {
             model.addRow(new Object[]{c.getId(), c.getValorTotal(), c.getEstado()});
 
         }
@@ -203,7 +203,6 @@ public class PedidosView extends javax.swing.JFrame {
             return;
         }
 
-        
         limparTabelas();//limpa a tabela antes de preencher
         
         DefaultTableModel model = getTblModel();
@@ -214,10 +213,9 @@ public class PedidosView extends javax.swing.JFrame {
         if (pedidos != null) {
             for (PedidoOutputDTO pedido : pedidos) {
                 model.addRow(new Object[]{
-                    pedido.getId(),       // Coluna 0: ID Pedido
-                    pedido.getValorTotal(),     // Coluna 1: Data
-                    pedido.getEstado(),   // Coluna 2: Status
-                         
+                    pedido.getId(),             // Coluna 0: ID Pedido
+                    pedido.getValorTotal(),     // Coluna 1: Data (Valor)
+                    pedido.getEstado().getDescricao(), // Coluna 2: Status -> AQUI TAMBÉM!
                 });
             }
         }

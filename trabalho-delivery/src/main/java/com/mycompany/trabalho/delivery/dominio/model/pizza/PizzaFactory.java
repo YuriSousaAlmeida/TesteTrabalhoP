@@ -22,20 +22,21 @@ public class PizzaFactory implements IPizzaFactory {
     public PizzaComponente criarPizza(String sabor) {
         PizzaBuilder builder;
         
+        // Agora todos os cases estão em minúsculas para corresponder ao toLowerCase()
         switch (sabor.toLowerCase()) {
-            case "Pizza Calabresa":
+            case "pizza calabresa":
                 builder = new CalabresaBuilder(provedorPrecos);
                 break;
-            case "Pizza Moda da Casa":
+            case "pizza moda da casa":
                 builder = new ModaDaCasaBuilder(provedorPrecos);
                 break;
-            case "Pizza Portuguesa":
+            case "pizza portuguesa":
                 builder = new PortuguesaBuilder(provedorPrecos);
                 break;
-            case "Pizza Quatro Queijos":
+            case "pizza quatro queijos":
                 builder = new QuatroQueijosBuilder(provedorPrecos);
                 break;
-            case "Pizza Frango com Catupiry":
+            case "pizza frango com catupiry":
                 builder = new FrangoCatupiryBuilder(provedorPrecos);
                 break;
             default:

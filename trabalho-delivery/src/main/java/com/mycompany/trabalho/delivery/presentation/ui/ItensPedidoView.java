@@ -33,13 +33,13 @@ public class ItensPedidoView extends javax.swing.JFrame {
     
     private List<ItemPedidoPizzaInputDTO> pizzasTemp = new ArrayList<>();
     private List<ItemPedidoBebidaInputDTO> bebidasTemp = new ArrayList<>();
+    private List<String> ingredientesExtrasAtuais = new ArrayList<>();
     
     //para fins de teste
    
 
     // --- Novos Atributos de Estado Local ---
     private String idPedidoAtual; 
-    private List<String> ingredientesExtrasAtuais;
     
     /**
      * Creates new form ItensView
@@ -76,6 +76,22 @@ public class ItensPedidoView extends javax.swing.JFrame {
         limparTodosCombos();
         limparTabelas();
         
+        cmbListaPizzasBase.addItem("Pizza Calabresa");
+        cmbListaPizzasBase.addItem("Pizza Moda da Casa");
+        cmbListaPizzasBase.addItem("Pizza Portuguesa");
+        cmbListaPizzasBase.addItem("Pizza Quatro Queijos");
+        cmbListaPizzasBase.addItem("Pizza Frango com Catupiry");
+
+        // 2. Populando as Bebidas de acordo com o seu arquivo JSON de preços
+        cmbBebida.addItem("Coca-Cola 600ml");
+        cmbBebida.addItem("Coca-Cola 1L");
+        cmbBebida.addItem("Coca-Cola 2L");
+        
+        // 3. Populando Adicionais (opcional, coloque os que você cadastrou no JSON)
+        cmbIngrediente.addItem("Bacon em Cubos");
+        cmbIngrediente.addItem("Mussarela");
+        cmbIngrediente.addItem("Azeitonas");
+        
         configurarListeners();
         this.setVisible(true);
     }
@@ -87,6 +103,7 @@ public class ItensPedidoView extends javax.swing.JFrame {
         cmbBebida.removeAllItems();
         cmbIngrediente.removeAllItems();
         cmbTamanhoBebida.removeAllItems();
+        cmbListaPizzasBase.removeAllItems();
     }
     
     public void adicionarOpcaoBebida(String nomeBebida) {
@@ -121,18 +138,31 @@ public class ItensPedidoView extends javax.swing.JFrame {
     // Listeners dos botões
     private void configurarListeners() {
 
+        btnIncluirAdiciona.addActionListener(e -> {
+            String ingrediente = cmbIngrediente.getSelectedItem().toString();
+            ingredientesExtrasAtuais.add(ingrediente);
+            
+            // Adiciona na tabela visual de adicionais
+            DefaultTableModel model = (DefaultTableModel) tblAdicionaisPizza.getModel();
+            model.addRow(new Object[]{ingrediente, 1}); // 1 é a quantidade
+        });
+        
         btnAddPizzaAoPedido.addActionListener(e -> {
             String saborSelecionado = cmbListaPizzasBase.getSelectedItem().toString();
 
-            // Cria o DTO
             ItemPedidoPizzaInputDTO pizzaDTO = new ItemPedidoPizzaInputDTO();
             pizzaDTO.setSabor(saborSelecionado);
-            // (Se já tiver a lógica de adicionais, preencha a lista de adicionais do DTO aqui)
+            
+            // AQUI ESTÁ A MÁGICA: Passamos a lista de ingredientes extras para o DTO
+            pizzaDTO.setAdicionais(new ArrayList<>(ingredientesExtrasAtuais));
 
-            // Salva na lista temporária e atualiza a tabela visual
             pizzasTemp.add(pizzaDTO);
-            adicionarItemNaTabela(pizzasTemp.size(), "Pizza " + saborSelecionado, 1, 0.0); // O valor (0.0) pode ser ajustado depois com o provedor de preços
+            adicionarItemNaTabela(pizzasTemp.size(), "Pizza " + saborSelecionado, 1, 0.0);
             atualizarTotalPedido();
+            
+            // Limpa a lista e a tabela de adicionais para a próxima pizza
+            ingredientesExtrasAtuais.clear();
+            ((DefaultTableModel) tblAdicionaisPizza.getModel()).setRowCount(0);
         });
         
         btnAddBebidaPedido.addActionListener(e -> {
